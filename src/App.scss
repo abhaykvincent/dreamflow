@@ -1,39 +1,85 @@
-.App {
-  text-align: center;
+@mixin grey-border {
+  border: 1px solid #535353;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  box-sizing: border-box;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
+.App{
+  width: 100vw;
+  height: 100vh;
+  color: #eee;
+  background-color: #444;
+}
+.menu-bar{
+  position: fixed;
+  top: 0;
+  width:100vw;
+  height: 8px*8;
+  background-color: #000000;
+  border-bottom: 1px solid #333;
+  .menu{
+    float: left;
+    margin-left: 8px*1;
+    margin-right: 8px*1;
+    margin-top: 8px*0.5;
+    color: #ddd;
+    font-size: 8px*1.5;
   }
 }
+header{
+  position: fixed;
+  top: 8px*3;
+  width:100vw;
+  height: 8px*6;
+  background-color: #222;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+.sidebar{
+  position: fixed;
+  top: 8px*9;
+  height: 100vh;
+  width: 8px*6;
+  background-color: #222;
+  .quick-tool{
+    width: 8px*4;
+    height: 8px*4;
+    padding: 8px;
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+    margin: 8px;
+    background-color: #333;
+    border-radius: 8px;
+    @include grey-border
+  }
+}
+.inspector{
+  position: fixed;
+  top: 8px*10;
+  right: 8px;
+  height: calc(100vh - 8px*15);
+  border-radius: 8px;
+  width: 8px*12*3;
+  padding: 8px;
+  background-color: #222;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.footer{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  height: 8px*4;
+  width: 100vw;
+  background-color: #111;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+.canvas{
+  position: fixed;
+  top: 8px * 8;
+  left: 8px * 8;
+  height: calc(100vh - 8px*8);
+  width: calc(100vw - 8px*12*3.9);
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  border: 2px solid rgb(204, 204, 204);
+  z-index: 1;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
