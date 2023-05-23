@@ -3,6 +3,10 @@
 }
 *{
   box-sizing: border-box;
+  font-family: "SF Pro";
+  background-size: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 .App{
   width: 100vw;
@@ -24,15 +28,31 @@
     margin-top: 8px*0.5;
     color: #ddd;
     font-size: 8px*1.5;
+    &.home{
+      width: 8px*4;
+      text-align: center;
+    }
   }
 }
 header{
+  display: grid;
+  grid-template-columns: 8px*12*3 auto 8px*12*3;
   position: fixed;
   top: 8px*3;
   width:100vw;
   height: 8px*6;
   background-color: #222;
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  .left{
+    .logo{
+      width: 8px*6;
+      height: 8px*6;
+      background-image: url('./assets/logo/logo-infinite.png');
+      background-size: 60%;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  }
 }
 .sidebar{
   position: fixed;
@@ -48,19 +68,73 @@ header{
     margin: 8px;
     background-color: #333;
     border-radius: 8px;
-    @include grey-border
+    background-size: 70%;
+    @include grey-border;
+    &.element{
+      background-image: url('./assets/icons/Icon\ simple-atom.svg');
+    }
+    &.layers{
+      background-image: url('./assets/icons/Icon\ feather-layers.svg');
+      background-size: 65%;
+    }
+    &.pages{
+      background-image: url('./assets/icons/Icon\ metro-files-empty.svg');
+      background-size:55%;
+    }
+    &.assets{
+      background-size: 60%;
+      background-image: url('./assets/icons/Icon\ metro-images.svg');
+    }
+  }
+  .side-menu{
+
+    position: fixed;
+    top: 8px*12;
+    left: 8px*7;
+    width: 8px*24;
+
+  }
+  .label{
+    height: 8px*4;
+    background-color: #222;
+    border: 1px solid #555;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .elements{
+    height: 50vh;
+    background-color: #222;
+    border: 1px solid #555;
+    border-radius: 8px;
+    .tabs{
+    width: 80%;
+    height: 8px*3;
+    background-color: #F77900;
+    margin-left: 10%;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
   }
 }
 .inspector{
   position: fixed;
-  top: 8px*10;
+  top: 8px*12;
   right: 8px;
-  height: calc(100vh - 8px*15);
+  height: calc(100vh - 8px*18);
   border-radius: 8px;
   width: 8px*12*3;
-  padding: 8px;
   background-color: #222;
   border: 1px solid rgba(255, 255, 255, 0.4);
+  .tabs{
+    width: 80%;
+    height: 8px*3;
+    background-color: #F77900;
+    margin-left: 10%;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
 }
 .footer{
   position: fixed;
@@ -74,9 +148,9 @@ header{
 .canvas{
   position: fixed;
   top: 8px * 8;
-  left: 8px * 8;
-  height: calc(100vh - 8px*8);
-  width: calc(100vw - 8px*12*3.9);
+  left: 8px * 34;
+  height: calc(100vh - 8px*10);
+  width: calc(100vw - 8px*19*3.9);
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
   border: 2px solid rgb(204, 204, 204);
