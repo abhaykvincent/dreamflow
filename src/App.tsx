@@ -6,23 +6,39 @@ function App() {
     <div className="App">
     {/* Menu bar */}
     <div className="menu-bar">
+      <div className="menu home">Home</div>
       <div className="menu">File</div>
       <div className="menu">Edit</div>
       <div className="menu">View</div>
     </div>
       {/* Header */}
-      <header></header>
+      <header>
+        <div className="left">
+          <div className="logo"></div>
+        </div>
+        <div className="center">c</div>
+        <div className="right">r</div>
+      </header>
       {/* Sidebar */}
       <div className="sidebar">
-        <div className="quick-tool"></div>
-        <div className="quick-tool"></div>
-        <div className="quick-tool"></div>
-        <div className="quick-tool"></div>
+        <div className="tools">
+          <div className="quick-tool element"></div>
+          <div className="quick-tool layers"></div>
+          <div className="quick-tool pages"></div>
+          <div className="quick-tool assets"></div>
+        </div>
+        <div className="side-menu">
+          <div className="elements">
+            <div className="tabs"></div>
+          </div>
+        </div>
       </div>
       {/* Canvas */}
       <div className="canvas"></div>
       {/* Inspector Panel */}
-      <div className="inspector"></div>
+      <div className="inspector">
+        <div className="tabs"></div>
+      </div>
       {/* Copilot */}
       <div className="copilot"></div>
       {/* Footer */}
