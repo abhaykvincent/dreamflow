@@ -29,7 +29,7 @@ function App() {
         </div>
         <div className="side-menu">
           <div className="elements">
-            <div className="tabs"></div>
+            <div className="tabs">Elements</div>
           </div>
         </div>
       </div>
