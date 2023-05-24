@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42" height="40.4" viewBox="0 0 42 40.4">
+  <defs>
+    <filter id="Icon_awesome-heading" x="0" y="0" width="42" height="40.4" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Icon_awesome-heading)">
+    <path id="Icon_awesome-heading-2" data-name="Icon awesome-heading" d="M22.725,5.45v16h1.6a.8.8,0,0,1,.8.8v1.6a.8.8,0,0,1-.8.8h-8a.8.8,0,0,1-.8-.8v-1.6a.8.8,0,0,1,.8-.8h1.6v-6.4h-9.6v6.4h1.6a.8.8,0,0,1,.8.8v1.6a.8.8,0,0,1-.8.8h-8a.8.8,0,0,1-.8-.8v-1.6a.8.8,0,0,1,.8-.8h1.6v-16h-1.6a.8.8,0,0,1-.8-.8V3.05a.8.8,0,0,1,.8-.8h8a.8.8,0,0,1,.8.8v1.6a.8.8,0,0,1-.8.8h-1.6v6.4h9.6V5.45h-1.6a.8.8,0,0,1-.8-.8V3.05a.8.8,0,0,1,.8-.8h8a.8.8,0,0,1,.8.8v1.6a.8.8,0,0,1-.8.8Z" transform="translate(7.88 3.75)" fill="#fff"/>
+  </g>
+</svg>
