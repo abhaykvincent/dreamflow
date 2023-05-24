@@ -33,8 +33,8 @@ function App() {
           <div className={`quick-tool layers ${activeSidebar == 'layers' ? 'active':''}`}
             onClick={()=>sidebarToolSelector('layers')}
             ></div>
-          <div className="quick-tool pages"></div>
-          <div className="quick-tool assets"></div>
+          <div className="quick-tool pages disabled"></div>
+          <div className="quick-tool assets disabled"></div>
         </div>
         <div className="side-menu">
 
