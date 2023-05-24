@@ -1,3 +1,9 @@
+$gray1: #aeaeae;
+$gray2: #8e8e90;
+$gray3: #545456;
+$gray4: #444446;
+$gray5: #363638;
+$gray6: #242628;
 @mixin grey-border {
   border: 1px solid #535353;
 }
@@ -7,19 +13,24 @@
   background-size: 100%;
   background-position: center center;
   background-repeat: no-repeat;
+  transition-duration: 0.1s;
+  &:hover{
+    transition-duration: 0.05s;
+  }
 }
 .App{
   width: 100vw;
   height: 100vh;
   color: #eee;
-  background-color: #444;
+  background-color: $gray5;
+  font-size: 0.8em;
 }
 .menu-bar{
   position: fixed;
   top: 0;
   width:100vw;
   height: 8px*8;
-  background-color: #000000;
+  background-color: $gray6;
   border-bottom: 1px solid #333;
   .menu{
     float: left;
@@ -41,8 +52,8 @@ header{
   top: 8px*3;
   width:100vw;
   height: 8px*6;
-  background-color: #222;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: $gray6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   .left{
     .logo{
       width: 8px*6;
@@ -55,44 +66,123 @@ header{
   }
 }
 .sidebar{
-  position: fixed;
-  top: 8px*9;
-  height: 100vh;
-  width: 8px*6;
-  background-color: #222;
+  .tools{
+    position: fixed;
+    top: 8px*9;
+    height: 100vh;
+    width: 8px*6;
+    background-color: $gray6;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 2;
+  }
   .quick-tool{
     width: 8px*4;
     height: 8px*4;
     padding: 8px;
-
     margin: 8px;
-    background-color: #333;
+    background-color: $gray4;
     border-radius: 8px;
-    background-size: 70%;
+    background-position: center center;
+    background-size: auto 8px*2.5 ;
+    border: 1px solid rgba(255, 255, 255, 0);
     @include grey-border;
     &.element{
       background-image: url('./assets/icons/Icon\ simple-atom.svg');
     }
     &.layers{
       background-image: url('./assets/icons/Icon\ feather-layers.svg');
-      background-size: 65%;
+      background-size: 8px*2.5;
     }
     &.pages{
       background-image: url('./assets/icons/Icon\ metro-files-empty.svg');
-      background-size:55%;
+      background-size:8px*2.2;
     }
     &.assets{
-      background-size: 60%;
       background-image: url('./assets/icons/Icon\ metro-images.svg');
+      background-size: 8px*2.2;
+    }
+
+    &.active{
+      background-color: $gray5;
+      padding-right: 8px*4.5;
+      border: none;
+      background-position: 6px center;
+      border-left: 1px solid rgba(255, 255, 255, 0.2);
+      &:hover{
+        border: 1px solid rgba(255, 255, 255, 0) !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.2) !important;
+        background-position: 8px center;
+      }
+    }
+    &:hover{
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-position: center center;
     }
   }
   .side-menu{
-
     position: fixed;
     top: 8px*12;
     left: 8px*7;
     width: 8px*24;
-
+    z-index: 1;
+    .side-panel{
+      &.hide{
+        transform: translateX(-150%);
+      }
+      &.elements{
+        height: 50vh;
+        background-color: $gray6;
+        border: 1px solid #555;
+        border-radius: 8px;
+        .elements-dragabble{
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap:8px;
+          padding: 8px*2;
+          margin-top: -8px*2;
+          .element{
+            width: 8px*9;
+            height: 8px*9;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 8px;
+            background-color: #333;
+            &_icon{
+              height: 8px*5.5;
+              background-size: 8px*2;
+            }
+            &_label{
+              text-align: center;
+              height:8px*3.5;;
+              color: rgba(255, 255, 255, 0.6);
+            }
+  
+            &.h{
+              .element_icon{
+                background-size: 8px*3.5;
+                background-image: url('./assets/icons/elements/Icon\ awesome-heading.svg');
+              }
+            }
+            &.p{
+              .element_icon{
+                background-image: url('./assets/icons/elements/Icon\ metro-paragraph-left.svg');
+              }
+            }
+            &.a{
+              .element_icon{
+                background-size: 8px*2.3;
+                background-image: url('./assets/icons/elements/Icon\ awesome-link.svg');
+              }
+            }
+          }
+        }
+      }
+      &.layers{
+        position: fixed;
+        top: 8px*12;
+        left: 8px*7;
+        width: 8px*24;
+      }
+    }
   }
   .label{
     height: 8px*4;
@@ -101,12 +191,7 @@ header{
     border-radius: 8px;
     margin-bottom: 8px;
   }
-  .elements{
-    height: 50vh;
-    background-color: #222;
-    border: 1px solid #555;
-    border-radius: 8px;
-    .tabs{
+  .tabs{
     width: 80%;
     height: 8px*3;
     background-color: #F77900;
@@ -114,7 +199,7 @@ header{
     transform: translateY(-50%);
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.5);
-  }
+    text-align: center;
   }
 }
 .inspector{
