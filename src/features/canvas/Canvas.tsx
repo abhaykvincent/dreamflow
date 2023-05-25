@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './Canvas.scss';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import  { selectCanvas, update } from './canvasSlice';
 
 export function Canvas() {
-  let canvasData=''
+  const canvasData = useAppSelector(selectCanvas);
+  const dispatch = useAppDispatch();
 
-
-  useEffect(()=>{
-    let canvasElements = document.querySelectorAll('.canvas > *')
-    canvasElements.forEach(element => {
-      element.addEventListener('click', (e:any)=>{
-        console.log(e.target.nodeName);
-        console.log(typeof(e));
-        debugger
-      })
-    });
-  },[canvasData])
 
   return (
-    <div className="canvas" data-flow-id="canvas">{canvasData}</div>
+    <div className="canvas" data-flow-id="canvas"
+
+      onClick={() => {
+        dispatch(update('test'))}}
+    >{canvasData}</div>
   );
 }
