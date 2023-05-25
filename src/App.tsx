@@ -1,74 +1,25 @@
 import React, { useState } from 'react';
 import './App.scss';
 
-function App() {
-  const [activeSidebar, setActiveSidebar] = useState('layers');
+import { Sidebar } from './features/sidebar/Sidebar';
+import { Header } from './features/header/Header';
+import { MenuBar } from './features/menu-bar/MenuBar';
+import { Canvas } from './features/canvas/Canvas';
 
-  function sidebarToolSelector(tool:string){
-    setActiveSidebar(tool)
-  }
+function App() {
+  
   return (
     <div className="App">
-    {/* Menu bar */}
-    <div className="menu-bar">
-      <div className="menu home">Home</div>
-      <div className="menu">File</div>
-      <div className="menu">Edit</div>
-      <div className="menu">View</div>
-    </div>
+      {/* Menu bar */}
+      <MenuBar/>
       {/* Header */}
-      <header>
-        <div className="left">
-          <div className="logo"></div>
-        </div>
-        <div className="center">c</div>
-        <div className="right">r</div>
-      </header>
+      <Header/>
       {/* Sidebar */}
-      <div className="sidebar">
-        <div className="tools">
-          <div className={`quick-tool element ${activeSidebar == 'elements' ? 'active':''}`}
-            onClick={()=>sidebarToolSelector('elements')}
-          ></div>
-          <div className={`quick-tool layers ${activeSidebar == 'layers' ? 'active':''}`}
-            onClick={()=>sidebarToolSelector('layers')}
-            ></div>
-          <div className="quick-tool pages disabled"></div>
-          <div className="quick-tool assets disabled"></div>
-        </div>
-        <div className="side-menu">
-
-          <div className={`side-panel elements ${activeSidebar == 'elements' ? '':'hide'}`}>
-            <div className="tabs">Elements</div>
-            <div className="elements-dragabble">
-
-              <div className="element h">
-                <div className="element_icon"></div>
-                <div className="element_label">Heading</div>
-              </div>
-              <div className="element p">
-                <div className="element_icon"></div>
-                <div className="element_label">Paragraph</div>
-              </div>
-              <div className="element a">
-                <div className="element_icon"></div>
-                <div className="element_label">Link</div>
-              </div>
-
-            </div>
-          </div>
-          <div className={`side-panel layers ${activeSidebar == 'layers' ? '':'hide'}`}>
-            <div className="tabs">Layers</div>
-          </div>
-
-        </div>
-      </div>
+      <Sidebar/>
       {/* Canvas */}
-      <div className="canvas"></div>
+      <Canvas/>
       {/* Inspector Panel */}
-      <div className="inspector">
-        <div className="tabs"></div>
-      </div>
+      
       {/* Copilot */}
       <div className="copilot"></div>
       {/* Footer */}

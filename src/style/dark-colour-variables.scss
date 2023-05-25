@@ -1,0 +1,10 @@
+$gray1: #aeaeae;
+$gray2: #8e8e90;
+$gray3: #545456;
+$gray4: #444446;
+$gray5: #363638;
+$gray6: #242628;
+
+@mixin grey-border {
+    border: 1px solid #545456;
+  }
