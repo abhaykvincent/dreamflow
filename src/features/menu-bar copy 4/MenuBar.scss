@@ -1,0 +1,24 @@
+
+
+@import '../../style/dark-colour-variables.scss';
+
+.menu-bar{
+  position: fixed;
+  top: 0;
+  width:100vw;
+  height: 8px*8;
+  background-color: $gray6;
+  border-bottom: 1px solid #333;
+  .menu{
+    float: left;
+    margin-left: 8px*1;
+    margin-right: 8px*1;
+    margin-top: 8px*0.5;
+    color: #ddd;
+    font-size: 8px*1.5;
+    &.home{
+      width: 8px*4;
+      text-align: center;
+    }
+  }
+}
