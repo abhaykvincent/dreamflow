@@ -7,10 +7,18 @@ export function Sidebar() {
   function sidebarToolSelector(tool:string){
     setActiveSidebar(tool)
   }
+  function targetNode(e:any){
+    console.log(e.target);
+    debugger
+    document.querySelector(`[data-flow-id="${'o'}"]`)
+  }
   function elementCreation1881(target:string,tag:string){
     const newElement = document.createElement(tag); 
     newElement.innerHTML= tag;
     document.querySelector(`[data-flow-id="canvas"]`)?.appendChild(newElement);
+    newElement.addEventListener('click', (e:any)=>{
+      targetNode(e)
+    })
   }
   return (
       <div className="sidebar">
