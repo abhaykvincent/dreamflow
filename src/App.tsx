@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import './App.scss';
 
 import { Sidebar } from './features/sidebar/Sidebar';
 import { Header } from './features/header/Header';
 import { MenuBar } from './features/menu-bar/MenuBar';
 import { Canvas } from './features/canvas/Canvas';
+import { Inspector } from './features/inspector/Inspector';
+
+/* Styles */
+import './App.scss';
 
 function App() {
   
@@ -19,7 +22,7 @@ function App() {
       {/* Canvas */}
       <Canvas/>
       {/* Inspector Panel */}
-      
+      <Inspector/>
       {/* Copilot */}
       <div className="copilot"></div>
       {/* Footer */}
