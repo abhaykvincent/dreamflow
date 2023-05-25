@@ -7,6 +7,11 @@ export function Sidebar() {
   function sidebarToolSelector(tool:string){
     setActiveSidebar(tool)
   }
+  function elementCreation1881(target:string,tag:string){
+    const newElement = document.createElement(tag); 
+    newElement.innerHTML= tag;
+    document.querySelector(`[data-flow-id="canvas"]`)?.appendChild(newElement);
+  }
   return (
       <div className="sidebar">
         <div className="tools">
@@ -31,15 +36,21 @@ export function Sidebar() {
             <div className="tabs">Elements</div>
             <div className="elements-dragabble">
 
-              <div className="element h">
+              <div className="element h"
+                onClick={()=>elementCreation1881('canvas','h1')}
+              >
                 <div className="element_icon"></div>
                 <div className="element_label">Heading</div>
               </div>
-              <div className="element p">
+              <div className="element p"
+                onClick={()=>elementCreation1881('canvas','p')}
+                >
                 <div className="element_icon"></div>
                 <div className="element_label">Paragraph</div>
               </div>
-              <div className="element a">
+              <div className="element a"
+                onClick={()=>elementCreation1881('canvas','a')}
+                >
                 <div className="element_icon"></div>
                 <div className="element_label">Link</div>
               </div>
