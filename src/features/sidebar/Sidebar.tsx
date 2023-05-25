@@ -10,14 +10,20 @@ export function Sidebar() {
   return (
       <div className="sidebar">
         <div className="tools">
-          <div className={`quick-tool element ${activeSidebar == 'elements' ? 'active':''}`}
+
+          {/* Button for Element Panel*/}
+          <div 
+            className={`quick-tool elements ${activeSidebar == 'elements' ? 'active':''}`}
             onClick={()=>sidebarToolSelector('elements')}
           ></div>
-          <div className={`quick-tool layers ${activeSidebar == 'layers' ? 'active':''}`}
+          {/* Button for Layers Panel*/}
+          <div 
+            className={`quick-tool layers ${activeSidebar == 'layers' ? 'active':''}`}
             onClick={()=>sidebarToolSelector('layers')}
-            ></div>
-          <div className="quick-tool pages disabled"></div>
-          <div className="quick-tool assets disabled"></div>
+          ></div>
+
+          <div className="quick-tool pages disabled"></div> {/* Disabled */}
+          <div className="quick-tool assets disabled"></div> {/* Disabled */}
         </div>
         <div className="side-menu">
 
