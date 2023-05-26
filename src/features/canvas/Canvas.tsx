@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Canvas.scss';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import  { selectCanvas, selectTarget, update } from './canvasSlice';
 
 export function Canvas() {
-  
+  const dispatch = useAppDispatch();
+
+  const canvasData = useAppSelector(selectCanvas);
+  const target = useAppSelector(selectTarget);
+
+
+
   return (
-    
-    <div className="canvas"></div>
+    <div className="canvas" data-flow-id="canvas">{canvasData}</div>
   );
 }
