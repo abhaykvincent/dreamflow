@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './Canvas.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import  { selectCanvas, update } from './canvasSlice';
+import  { selectCanvas, selectTarget, update } from './canvasSlice';
 
 export function Canvas() {
-  const canvasData = useAppSelector(selectCanvas);
   const dispatch = useAppDispatch();
+
+  const canvasData = useAppSelector(selectCanvas);
+  const target = useAppSelector(selectTarget);
+
 
 
   return (
-    <div className="canvas" data-flow-id="canvas"
-
-      onClick={() => {
-        dispatch(update('test'))}}
-    >{canvasData}</div>
+    <div className="canvas" data-flow-id="canvas">{canvasData}</div>
   );
 }
