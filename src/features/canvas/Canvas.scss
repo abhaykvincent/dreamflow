@@ -1,24 +1,18 @@
-
-
 @import '../../style/dark-colour-variables.scss';
 
-.menu-bar{
+.canvas{
   position: fixed;
-  top: 0;
-  width:100vw;
-  height: 8px*8;
-  background-color: $gray6;
-  border-bottom: 1px solid #333;
-  .menu{
-    float: left;
-    margin-left: 8px*1;
-    margin-right: 8px*1;
-    margin-top: 8px*0.5;
-    color: #ddd;
-    font-size: 8px*1.5;
-    &.home{
-      width: 8px*4;
-      text-align: center;
-    }
+  top: 8px * 8;
+  left: 8px * 34;
+  height: calc(100vh - 8px*10);
+  width: calc(100vw - 8px*19*3.9);
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  border: 2px solid rgb(204, 204, 204);
+  z-index: 1;
+  color: $gray6;
+  *.selected{
+    box-shadow: inset 0 0 0 1px orange;
   }
 }
+

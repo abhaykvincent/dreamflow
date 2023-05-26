@@ -31,16 +31,3 @@ body{
   background-color: #111;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
-.canvas{
-  position: fixed;
-  top: 8px * 8;
-  left: 8px * 34;
-  height: calc(100vh - 8px*10);
-  width: calc(100vw - 8px*19*3.9);
-  background-color: rgb(255, 255, 255);
-  border-radius: 8px;
-  border: 2px solid rgb(204, 204, 204);
-  z-index: 1;
-  color: $gray6;
-}
-
