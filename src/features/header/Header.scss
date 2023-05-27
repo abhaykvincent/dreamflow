@@ -2,11 +2,11 @@
 
 header{
     display: grid;
-    grid-template-columns: 8px*12*3 auto 8px*12*3;
+    grid-template-columns: 8px*12*3 auto 8px*12*3.3;
     position: fixed;
     top: 8px*3;
     width:100vw;
-    height: 8px*6;
+    height: 8px*8;
     background-color: $gray6;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     .left{
@@ -19,4 +19,64 @@ header{
         background-repeat: no-repeat;
       }
     }
+  }
+  .center{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    .responsive{
+      .devices_wrap{
+        position: relative;
+        width: 8px*20;
+        height: 8px*3.5;
+        margin: 8px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 8px;
+        z-index: -1;
+        .devices{
+          position: relative;
+          z-index: 2;
+          .device{
+            display: inline-block;
+            width: 8px*4;
+            height: 8px*3.5;
+          }
+        }
+        .highlighter{
+          position: absolute;
+          top:0px;
+          left:0px;
+          margin: -2px;
+          height: 8px*4;
+          width: 8px*4;
+          background-color: $gray5;
+          border:1px solid $gray2;
+          border-radius: 8px;
+          z-index: 1;
+
+        }
+      }
+    }
+    .actions{
+      display: grid;
+      justify-items: end;
+
+    }
+  }
+  .right{
+  }
+  .button{
+    display: inline-block;
+    height: 8px*3.5;
+    padding: 8px*0.5 8px*3;
+    margin: 8px*1;
+
+    background-color: $gray6;
+    border: 1px solid $gray3;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+
+    font-size: 1.2em;
+    line-height: 1.2em;
+
+
   }
