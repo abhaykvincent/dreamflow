@@ -37,21 +37,53 @@ header{
           z-index: 2;
           .device{
             display: inline-block;
-            width: 8px*4;
+            width: 8px*5;
             height: 8px*3.5;
+            background-size: 70% 70% ;
+            background-position: center center;
+            opacity: 0.5;
+            &.highlight{
+              opacity: 1;
+            }
+            &.a{
+              background-image: url('../../assets/icons/devices/Icon\ material-laptop-mac.svg');
+            }
+            &.b{
+              background-size: 70% 70% ;
+              background-image: url('../../assets/icons/devices/Icon\ material-tablet-mac.svg');
+            }
+            &.c{
+              background-size:  70% 70% ;
+              background-image: url('../../assets/icons/devices/Icon\ material-tablet-mac-1.svg');
+            }
+            &.d{
+              background-size: 70% 70% ;
+              background-image: url('../../assets/icons/devices/Icon\ material-phone-iphone.svg');
+            }
           }
         }
         .highlighter{
           position: absolute;
           top:0px;
-          left:0px;
-          margin: -2px;
+          margin:  -2px 0px;
           height: 8px*4;
-          width: 8px*4;
-          background-color: $gray5;
+          width: 8px*5;
+          background-color: $gray6;
           border:1px solid $gray2;
           border-radius: 8px;
           z-index: 1;
+          &.a{
+            left:0px;
+          }
+          &.b{
+            left:8px*5;
+          }
+          &.c{
+            left:8px*5*2;
+          }
+          &.d{
+            left:8px*5*3;
+          }
 
         }
       }

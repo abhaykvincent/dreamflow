@@ -10,12 +10,12 @@ export function Header() {
         <div className="center">
           <div className="responsive">
             <div className="devices_wrap">
-              <div className="highlighter"></div>
+              <div className="highlighter a"></div>
               <div className="devices">
-                <div className="device">a</div>
-                <div className="device">a</div>
-                <div className="device">a</div>
-                <div className="device">a</div>
+                <div className="device a highlight "></div>
+                <div className="device b"></div>
+                <div className="device c"></div>
+                <div className="device d"></div>
               </div>
             </div>
           </div>
