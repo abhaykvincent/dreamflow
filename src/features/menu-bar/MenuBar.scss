@@ -6,9 +6,9 @@
   position: fixed;
   top: 0;
   width:100vw;
-  height: 8px*8;
-  background-color: $gray6;
-  border-bottom: 1px solid #333;
+  height: 8px*3;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid $gray4;
   .menu{
     float: left;
     margin-left: 8px*1;
