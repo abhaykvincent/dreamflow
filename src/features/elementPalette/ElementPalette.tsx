@@ -5,31 +5,31 @@ import { selectTarget, setTarget } from '../canvas/canvasSlice';
 
 export function ElementPalette() {
   const [elements, setElements] = useState([
-    "<div>",
-    "<p>",
-    "<a>",
-    "<img>",
-    "<span>",
-    "<ul>",
-    "<li>",
-    "<h1>",
-    "<h2>",
-    "<h3>",
-    "<h4>",
-    "<h5>",
-    "<h6>",
-    "<form>",
-    "<input>",
-    "<button>",
-    "<table>",
-    "<tr>",
-    "<td>",
-    "<th>",
-    "<nav>",
-    "<header>",
-    "<footer>",
-    "<section>",
-    "<article>",
+    "div",
+    "p",
+    "a",
+    "img",
+    "span",
+    "ul",
+    "li",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "form",
+    "input",
+    "button",
+    "table",
+    "tr",
+    "td",
+    "th",
+    "nav",
+    "header",
+    "footer",
+    "section",
+    "article",
   ]);
   const dispatch = useAppDispatch();
 
@@ -67,12 +67,19 @@ export function ElementPalette() {
     <div className="tabs">Elements</div>
     <div className="elements-dragabble">
 
+    {
+      elements.map(element=>(
       <div className="element h"
-        onClick={()=>elementCreation1881(target,'h1')}
+        onClick={()=>elementCreation1881(target,element)}
       >
         <div className="element_icon"></div>
-        <div className="element_label">Heading</div>
+        <div className="element_label">{element}</div>
       </div>
+
+      ))
+    }
+
+      
       <div className="element p"
         onClick={()=>elementCreation1881(target,'p')}
         >

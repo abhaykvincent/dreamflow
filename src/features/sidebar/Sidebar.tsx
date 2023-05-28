@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Sidebar.scss';
 import { useAppDispatch } from '../../app/hooks';
-import { Elementpalette } from '../elementPalette/ElementPalette';
+import { ElementPalette } from '../elementPalette/ElementPalette';
 
 export function Sidebar() {
   const [activeSidebar, setActiveSidebar] = useState('layers');
@@ -33,7 +33,7 @@ export function Sidebar() {
         <div className="side-menu">
 
           <div className={`side-panel elements ${activeSidebar == 'elements' ? '':'hide'}`}>
-            <Elementpalette/>
+            <ElementPalette/>
           </div>
           <div className={`side-panel layers ${activeSidebar == 'layers' ? '':'hide'}`}>
             <div className="tabs">Layers</div>
