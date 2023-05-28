@@ -3,7 +3,34 @@ import './ElementPalette.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectTarget, setTarget } from '../canvas/canvasSlice';
 
-export function Elementpalette() {
+export function ElementPalette() {
+  const [elements, setElements] = useState([
+    "<div>",
+    "<p>",
+    "<a>",
+    "<img>",
+    "<span>",
+    "<ul>",
+    "<li>",
+    "<h1>",
+    "<h2>",
+    "<h3>",
+    "<h4>",
+    "<h5>",
+    "<h6>",
+    "<form>",
+    "<input>",
+    "<button>",
+    "<table>",
+    "<tr>",
+    "<td>",
+    "<th>",
+    "<nav>",
+    "<header>",
+    "<footer>",
+    "<section>",
+    "<article>",
+  ]);
   const dispatch = useAppDispatch();
 
   const target = useAppSelector(selectTarget);
