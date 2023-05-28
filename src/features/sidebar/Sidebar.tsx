@@ -82,6 +82,12 @@ export function Sidebar() {
                 <div className="element_icon"></div>
                 <div className="element_label">Link</div>
               </div>
+              <div className="element div"
+                onClick={()=>elementCreation1881(target,'div')}
+                >
+                <div className="element_icon"></div>
+                <div className="element_label">Div</div>
+              </div>
 
             </div>
           </div>
