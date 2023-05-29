@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../app/hooks';
 import { ElementPalette } from '../elementPalette/ElementPalette';
 
 export function Sidebar() {
-  const [activeSidebar, setActiveSidebar] = useState('layers');
+  const [activeSidebar, setActiveSidebar] = useState('elements');
   const dispatch = useAppDispatch();
 
   function sidebarToolSelector(tool:string){

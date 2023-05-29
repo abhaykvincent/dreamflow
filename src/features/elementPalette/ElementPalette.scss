@@ -1,6 +1,5 @@
 @import '../../style/dark-colour-variables.scss';
 .elements{
-  height: 50vh;
   background-color: $gray6;
   border: 1px solid #555;
   border-radius: 8px;
@@ -10,18 +9,25 @@
     gap:8px;
     padding: 8px*2;
     margin-top: -8px*2;
+    overflow: scroll;
     .element{
       width: 8px*9;
       height: 8px*9;
-      border: 1px solid $gray4;
+      border: 1px solid $gray3;
       border-radius: 8px;
       background-color: #333;
-      cursor: pointer;
+      cursor: grab;
       &:hover{
-        box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0) , 1px 1px 6px rgba(0, 0, 0, 0.3);;
+        box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0) , 1px 1px 6px rgba(0, 0, 0, 0.3);
+        transform: scale(1.02);
+        border: 1px solid $gray2;
         .element_label{
           text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
         }
+      }
+      &:active{
+        cursor: grabbing;
+        transform: scale(1.04);
       }
       &_icon{
         height: 8px*5.5;
@@ -29,25 +35,40 @@
       }
       &_label{
         text-align: center;
-        height:8px*3.5;;
+        height:8px*3.5;
         color: rgba(255, 255, 255, 0.6);
       }
+      &.html-{
+        
+        &img{
+          .element_icon{
+            background-size: 8px*2.5;
+          }
 
-      &.h{
-        .element_icon{
-          background-size: 8px*3.5;
-          background-image: url('../../assets/icons/elements/Icon\ awesome-heading.svg');
         }
-      }
-      &.p{
-        .element_icon{
-          background-image: url('../../assets/icons/elements/Icon\ metro-paragraph-left.svg');
+        &h1{
+          .element_icon{
+            background-size: 8px*3.5;
+          }
         }
-      }
-      &.a{
-        .element_icon{
-          background-size: 8px*2.3;
-          background-image: url('../../assets/icons/elements/Icon\ awesome-link.svg');
+        &p{
+          .element_icon{
+          }
+        }
+        &a{
+          .element_icon{
+            background-size: 8px*2.3;
+          }
+        }
+        &button{
+          .element_icon{
+            background-size: 8px*4;
+          }
+        }
+        &input{
+          .element_icon{
+            background-size: 8px*4;
+          }
         }
       }
     }
