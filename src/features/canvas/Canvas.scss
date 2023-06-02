@@ -7,13 +7,22 @@
   left: 8px * 34;
   height: calc(100vh - 8px*10);
   width: calc(100vw - 8px*19*3.9);
+  padding: 4px;
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
-  border: 2px solid rgb(204, 204, 204);
+  border: 4px solid rgba(204, 204, 204, 0.492);
   z-index: 1;
   color: $gray6;
+  *:hover{
+    box-shadow: inset 0 0 0 1px $orange;
+  }
   *.selected{
-    box-shadow: inset 0 0 0 1px orange;
+    box-shadow: inset 0 0 0 1px $orange;
+    cursor: pointer;
+    &.selected{
+      box-shadow: inset 0 0 0 1.5px $orange;
+    }
+    
   }
 }
 
@@ -22,22 +31,38 @@
 [class^="target-tooltip"] {
   position: fixed;
   display: flex;
-  padding: 8px*0.2 8px*1 8px*0.2 8px*0.2;
+  gap: 8px*0.5;
+  padding: 8px*0.2 8px*1 8px*0.2 8px*0.5;
   font-weight: 500;
   color: white;
   background-color: $orange;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 4px;
   box-shadow: 1px -1px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   z-index: 10;
   transform: translateY(-100%);
+  opacity: 1;
+  transition-duration: 0s;
+  
   .icon {
     height: 8px*2;
     width: 8px*2;
-    padding: 8px*0.1;
     background-size: 80%;
   }
   &.hide {
-    display: none;
+    opacity: 0;
+    transition-duration: 0.2s;
   }
 }
+// when hoveer .target-tooltip-active will start animation slide  trans trsX 100 below, animation will comtinue eeven mouse  out
+
+.target-tooltip-active{
+  transform: translateY(-100%);
+  transition-delay: 0.5s;
+  &.slide-down{
+    transform: translateY(0%);
+  }
+
+}
+  
