@@ -86,7 +86,33 @@ export function ElementPalette() {
       dispatch(setTarget(e.target.dataset.flowId))
       highlightTarget(e.target)
     })
+    // hover on elemment to show tooltip
+    newElement.addEventListener('mouseover', (e:any)=>{
+      const tooltip = document.querySelector('.target-tooltip') as HTMLElement
+      if(tooltip){
+        tooltip.innerHTML = e.target.dataset.flowId
+        //get position of target
+        const rect = e.target.getBoundingClientRect();
+        tooltip.style.top = `${rect.top}px`;
+        tooltip.style.left = `${rect.left}px`;
+        //add class
+        tooltip.classList.remove('hide')
+      }
+    })
+    // hover out elemment to hide tooltip
+
+    newElement.addEventListener('mouseout', (e:any)=>{
+      const tooltip = document.querySelector('.target-tooltip') as HTMLElement
+      if(tooltip){
+        tooltip.innerHTML = ''
+        //remove class  
+        tooltip.classList.add('hide')
+      }
+    }
+    )
   }
+
+    
   
   return (
     <>

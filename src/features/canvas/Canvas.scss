@@ -1,4 +1,5 @@
 @import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
 
 .canvas{
   position: fixed;
@@ -13,6 +14,22 @@
   color: $gray6;
   *.selected{
     box-shadow: inset 0 0 0 1px orange;
+  }
+}
+.target-tooltip{
+  position: fixed;
+  padding: 8px*0.2 8px*1;
+
+  font-weight: 500;
+  color: white;
+  background-color: $orange;
+  border: 1px solid white;
+  border-radius: 4px;
+  box-shadow: 1px -1px 4px rgba(0,0,0,0.2);
+  z-index: 10;
+  transform: translateY(-100%);
+  &.hide{
+    display: none;
   }
 }
 
