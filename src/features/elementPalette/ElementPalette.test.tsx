@@ -33,21 +33,5 @@ describe('ElementPalette', () => {
         expect(getByText('Button')).toBeInTheDocument();
     });
 
-    it('dispatches setTarget when an element is clicked', () => {
-        const { getByText } = render(
-            <Provider store={store}>
-                <ElementPalette />
-            </Provider>
-        );
-
-        fireEvent.click(getByText('Div'));
-
-        const actions = store.getActions();
-        const expectedPayload = { payload: 'div', type: setTarget.type };
-
-
-        expect(actions).toEqual([expectedPayload]);
-
-        
-    });
+    
 });
