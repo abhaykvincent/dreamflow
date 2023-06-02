@@ -72,7 +72,7 @@ export function ElementPalette() {
 
   function highlightTarget(target:any){
     //clear current target class: selected
-    document.querySelector('.canvas >.selected')?.classList.remove('selected')
+    document.querySelector('.canvas *.selected')?.classList.remove('selected')
     target.classList.add('selected')
   }
   
@@ -98,6 +98,7 @@ export function ElementPalette() {
     // TARGET
     // Taget Element Highlight
     newElement.addEventListener('click', (e:any)=>{
+      e.stopPropagation()
       dispatch(setTarget(e.currentTarget.dataset.flowId))
       highlightTarget(e.currentTarget)
 
