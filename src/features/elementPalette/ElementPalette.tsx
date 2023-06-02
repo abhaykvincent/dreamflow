@@ -71,7 +71,7 @@ export function ElementPalette() {
 
   function highlightTarget(target:any){
     //clear current target class: selected
-    document.querySelector('.canvas >.selected')?.classList.remove('selected')
+    document.querySelector('.canvas .selected')?.classList.remove('selected')
     target.classList.add('selected')
   }
   
