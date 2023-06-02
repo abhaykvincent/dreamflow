@@ -15,7 +15,9 @@ export function Canvas() {
   return (
     <>
       <div className="canvas" data-flow-id="canvas">{canvasData}</div>
-      <div className="target-tooltip">Heading</div>
+      <div className="target-tooltip"></div>
+      <div className="target-tooltip-active"></div>
+
     </>
   );
 }

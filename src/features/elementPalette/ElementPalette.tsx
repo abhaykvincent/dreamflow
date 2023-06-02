@@ -12,6 +12,7 @@ import icon_div  from '../../assets/icons/elements/material-check-box-outline-bl
 import icon_inputText  from '../../assets/icons/elements/element-input.svg'
 import icon_inputButton  from '../../assets/icons/elements/elemenet-button.svg'
 import icon_section  from '../../assets/icons/elements/element-section.svg'
+import { Console } from 'console';
 
 export function ElementPalette() {
   const [elements, setElements] = useState([
@@ -80,27 +81,61 @@ export function ElementPalette() {
     newElement.innerHTML= tag;
     newElement.dataset.flowId=createIdString()
     document.querySelector(`[data-flow-id="${target}"]`)?.appendChild(newElement);
-    // Newly created elemenet listning click event for target selecting
+
+
+    // Eve with a element create should be done here
+
+    // Target Element Highlight
+    /*  Target Tooltip  
+      - Hover on element to show tooltip
+      - Hover out element to hide tooltip */
+
+    // TARGET
     newElement.addEventListener('click', (e:any)=>{
-      // setting new target
-      dispatch(setTarget(e.target.dataset.flowId))
-      highlightTarget(e.target)
+      dispatch(setTarget(e.currentTarget.dataset.flowId))
+      highlightTarget(e.currentTarget)
+
+      const tooltip = document.querySelector('.target-tooltip-active') as HTMLElement
+      const elementName = e.currentTarget.name
+      const elemenetId = e.currentTarget.dataset.flowId
+
+      const label = elementName ? elementName : elemenetId
+      const icon = elements.find(element => element.tag === e.currentTarget.tagName.toLowerCase())?.icon
+      console.log(icon)
+      //HTML for Element type icon, Element name and flow id( if element name is not available)
+      tooltip.innerHTML = `
+        <div class="icon" style="${icon ? `background-image: url(${icon})` : ''}"></div>
+        <div class="label">${label}</div>
+      `;
+      const rect = e.currentTarget.getBoundingClientRect();
+      tooltip.style.top = `${rect.top}px`;
+      tooltip.style.left = `${rect.left}px`;
+      tooltip.classList.remove('hide')
     })
-    // hover on elemment to show tooltip
+
+    // TOOLTIP
+    // Hover on element to show tooltip
     newElement.addEventListener('mouseover', (e:any)=>{
       const tooltip = document.querySelector('.target-tooltip') as HTMLElement
-      if(tooltip){
-        tooltip.innerHTML = e.target.dataset.flowId
-        //get position of target
-        const rect = e.target.getBoundingClientRect();
-        tooltip.style.top = `${rect.top}px`;
-        tooltip.style.left = `${rect.left}px`;
-        //add class
-        tooltip.classList.remove('hide')
-      }
-    })
-    // hover out elemment to hide tooltip
+      const elementName = e.target.name
+      const elemenetId = e.target.dataset.flowId
 
+      const label = elementName?elementName:elemenetId
+      const icon = elements.find(element=>element.tag===e.target.tagName.toLowerCase())?.icon
+      
+      //HTML for Element type icon, Element name and flow id( if element name is not available)
+      tooltip.innerHTML = `
+        <div class="icon" style="${icon ? `background-image: url(${icon})` : ''}"></div>
+        <div class="label">${label}</div>
+      `;
+      //get position of target
+      const rect = e.target.getBoundingClientRect();
+      tooltip.style.top = `${rect.top}px`;
+      tooltip.style.left = `${rect.left}px`;
+      //add class
+      tooltip.classList.remove('hide')
+    })
+    // Hover out elemment to hide tooltip
     newElement.addEventListener('mouseout', (e:any)=>{
       const tooltip = document.querySelector('.target-tooltip') as HTMLElement
       if(tooltip){

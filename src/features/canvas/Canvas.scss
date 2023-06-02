@@ -16,20 +16,28 @@
     box-shadow: inset 0 0 0 1px orange;
   }
 }
-.target-tooltip{
-  position: fixed;
-  padding: 8px*0.2 8px*1;
 
+
+
+[class^="target-tooltip"] {
+  position: fixed;
+  display: flex;
+  padding: 8px*0.2 8px*1 8px*0.2 8px*0.2;
   font-weight: 500;
   color: white;
   background-color: $orange;
   border: 1px solid white;
   border-radius: 4px;
-  box-shadow: 1px -1px 4px rgba(0,0,0,0.2);
+  box-shadow: 1px -1px 4px rgba(0, 0, 0, 0.2);
   z-index: 10;
   transform: translateY(-100%);
-  &.hide{
+  .icon {
+    height: 8px*2;
+    width: 8px*2;
+    padding: 8px*0.1;
+    background-size: 80%;
+  }
+  &.hide {
     display: none;
   }
 }
-
