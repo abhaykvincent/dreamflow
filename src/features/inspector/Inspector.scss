@@ -1,20 +1,186 @@
 @import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+
+/* /* As a web developer, I want to have a tabbed interface for the Visual Style, Properties, and Interactions editors. This will allow me to conveniently switch between panels with a single click while editing components, improving my productivity and workflow.
+
+Acceptance Criteria:
+
+There should be three tabs in the interface representing Visual Style, Properties, and Interactions editors.
+
+Clicking on a tab should switch the active panel to the corresponding editor.
+
+The tabbed interface should have a visually appealing design that is consistent with the overall application.
+
+The active tab should be visually distinguishable from inactive tabs to provide clear feedback to the user.
+
+Each editor panel should load the relevant content when its corresponding tab is clicked.
+
+Changes made in one panel should be synchronized and reflected in the other panels to maintain consistency.
+
+Real-time validation should be implemented to provide feedback on invalid inputs in each editor panel.
+
+Error messages should be displayed and invalid fields should be highlighted when necessary.
+
+The tabbed interface should be tested on different browsers and devices to ensure consistent behavior.
+
+Bugs, glitches, and compatibility issues should be identified and resolved through thorough testing and debugging.
+
+The tabbed interface should be intuitive and user-friendly, enhancing the overall editing experience for web developers.Task: Design tabbed interface for editors
+
+
+
+Consider usability and accessibility best practices for tabbed interfaces.
+
+Task: Design the tabbed interface Description: Create a visually appealing and user-friendly design for the tabbed interface.
+
+Sub-tasks:
+
+Determine the layout and placement of the tabs within the interface.
+
+Design the appearance of the tabs, considering factors such as color, typography, and icons.
+
+Ensure consistency with the overall application's design and branding guidelines.
+
+Create mockups or prototypes to visualize the tabbed interface design.
+
+Task: Implement tabbed navigation
+
+Description: Develop the functionality to switch between panels (Visual Style, Properties, and Interactions) using tabs.
+
+Sub-tasks:
+
+Identify the appropriate JavaScript framework or library for implementing tabbed navigation.
+
+Create tabs for each editor panel and display them in the interface.
+
+Implement the logic to switch the active panel when a tab is clicked.
+
+Ensure smooth transitions between panels when switching tabs.
+
+Task: Load content for each panel
+
+Description: Load the relevant content for each panel when a tab is clicked.
+
+Sub-tasks:
+
+Define the content structure for each editor panel (Visual Style, Properties, and Interactions).
+
+Implement the functionality to load the appropriate content when switching tabs.
+
+Ensure that data and changes made in one panel are retained when switching to another.
+
+Task: Synchronize changes between panels
+
+Description: Ensure that changes made in one panel are reflected in the others, maintaining synchronization.
+
+Sub-tasks:
+
+Establish mechanisms to track changes made in each panel (e.g., listeners, data bindings).
+
+Implement the synchronization logic to update related content in other panels when changes occur.
+
+Test and verify that changes made in one panel are correctly propagated to others.
+
+Task: Handle validation and error handling
+
+Description: Implement validation and error handling mechanisms for user inputs in each editor panel.
+
+Sub-tasks:
+
+Define validation rules for each input field or control in the Visual Style, Properties, and Interactions editors.
+
+Implement real-time validation to provide feedback on invalid inputs.
+
+Display error messages and highlight invalid fields when necessary.
+
+Ensure error handling and graceful recovery from errors or exceptions.
+
+Task: Test and debug
+
+Description: Conduct thorough testing of the tabbed interface and resolve any issues or bugs.
+
+Sub-tasks:
+
+Create test cases to cover different scenarios, including switching between panels and handling edge cases.
+
+Perform functional testing to ensure the tabbed interface functions as expected.
+
+Identify and address any bugs, glitches, or compatibility issues.
+
+Gather feedback through usability testing and make necessary improvements. */ 
+
 .inspector{
   position: fixed;
   top: 8px*13.5;
-  right: 8px;
-  height: calc(100vh - 8px*18);
+  right: 8px * 1.5;
+  height: calc(100vh - 8px*20);
   border-radius: 8px;
-  width: 8px*12*3;
-  background-color: #222;
+  width: 8px*12*3.1;
+  background-color: $gray6;
   border: 1px solid rgba(255, 255, 255, 0.4);
+  .tabs__wrap{
+      float: left;
+      position: relative;
+      width: 8px*34;
+      height: 8px*3.5;
+      margin: 8px;
+      background-color: #161718;
+      border: 1px  solid $gray5;
+      border-radius: 8px;
+    margin-top: -8px*2;
+  }
   .tabs{
-    width: 80%;
-    height: 8px*3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    width: 8px*34;
+    height: 8px*3.5;
+    line-height:8px*5;;
+    .tab{
+      text-align: center;
+      font-size: 1em;
+      font-weight: 500;
+      text-align: center;
+      line-height: 8px*3.2;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+      &:hover{
+        opacity: 0.75;
+        transform: scale(1.01);
+      }
+      
+      &.highlighted{
+        opacity: 1;
+        transform: scale(1.1);
+        z-index: 1;
+      }
+    }
+  }
+  .highlighter{
+    padding: 8px*1.5;
+    height: 8px*3.8;
+    width: 8px*12;
+    position: absolute;
     background-color: #F77900;
-    margin-left: 10%;
-    transform: translateY(-50%);
-    border-radius: 4px;
+    margin-left: auto;
+    border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 1.1em;
+    font-weight: 500;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+
+    &.visualStyle{
+      left:0px;
+    }
+    &.properties{
+      left:8px*11;
+    }
+    &.interactions{
+      left:8px*11*2;
+    }
+
   }
 }
+
