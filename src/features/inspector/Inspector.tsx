@@ -1,4 +1,6 @@
-/* As a web developer, I want to have a tabbed interface for the Visual Style, Properties, and Interactions editors. This will allow me to conveniently switch between panels with a single click while editing components, improving my productivity and workflow.
+/* 
+User Story 1: DONE
+As a web developer, I want to have a tabbed interface for the Visual Style, Properties, and Interactions editors. This will allow me to conveniently switch between panels with a single click while editing components, improving my productivity and workflow.
 
 Acceptance Criteria:
 
@@ -26,87 +28,57 @@ The tabbed interface should be intuitive and user-friendly, enhancing the overal
 
 
 
-Consider usability and accessibility best practices for tabbed interfaces.
+Title: IN-PROCESS
 
-Task: Design the tabbed interface Description: Create a visually appealing and user-friendly design for the tabbed interface.
+Enhancement of Element Identification and Styling in Inspector
 
-Sub-tasks:
+User Story 2: 
 
-Determine the layout and placement of the tabs within the interface.
+As a web designer, I want to see the element tag, name, breadcrumb trail, and associated classes within the Inspector when I select an element. This way, I can better understand the context and styling of the element, which allows me to make more accurate and efficient changes to its design attributes.
 
-Design the appearance of the tabs, considering factors such as color, typography, and icons.
-
-Ensure consistency with the overall application's design and branding guidelines.
-
-Create mockups or prototypes to visualize the tabbed interface design.
-
-Task: Implement tabbed navigation
-
-Description: Develop the functionality to switch between panels (Visual Style, Properties, and Interactions) using tabs.
-
-Sub-tasks:
-
-Identify the appropriate JavaScript framework or library for implementing tabbed navigation.
-
-Create tabs for each editor panel and display them in the interface.
-
-Implement the logic to switch the active panel when a tab is clicked.
-
-Ensure smooth transitions between panels when switching tabs.
-
-Task: Load content for each panel
-
-Description: Load the relevant content for each panel when a tab is clicked.
-
-Sub-tasks:
-
-Define the content structure for each editor panel (Visual Style, Properties, and Interactions).
-
-Implement the functionality to load the appropriate content when switching tabs.
-
-Ensure that data and changes made in one panel are retained when switching to another.
-
-Task: Synchronize changes between panels
-
-Description: Ensure that changes made in one panel are reflected in the others, maintaining synchronization.
-
-Sub-tasks:
-
-Establish mechanisms to track changes made in each panel (e.g., listeners, data bindings).
-
-Implement the synchronization logic to update related content in other panels when changes occur.
-
-Test and verify that changes made in one panel are correctly propagated to others.
-
-Task: Handle validation and error handling
-
-Description: Implement validation and error handling mechanisms for user inputs in each editor panel.
-
-Sub-tasks:
-
-Define validation rules for each input field or control in the Visual Style, Properties, and Interactions editors.
-
-Implement real-time validation to provide feedback on invalid inputs.
-
-Display error messages and highlight invalid fields when necessary.
-
-Ensure error handling and graceful recovery from errors or exceptions.
-
-Task: Test and debug
-
-Description: Conduct thorough testing of the tabbed interface and resolve any issues or bugs.
-
-Sub-tasks:
-
-Create test cases to cover different scenarios, including switching between panels and handling edge cases.
-
-Perform functional testing to ensure the tabbed interface functions as expected.
-
-Identify and address any bugs, glitches, or compatibility issues.
-
-Gather feedback through usability testing and make necessary improvements. */
+Acceptance Criteria for the User Story:
 
 
+
+1. When a designer selects an element in the design view, the Inspector panel should automatically update to display the following:
+
+   - The name of the selected element
+
+   - The HTML tag of the selected element
+
+   - The breadcrumb trail representing the hierarchical path of the selected element
+
+   - All classes associated with the selected element
+
+2. The designer should be able to modify the classes associated with the selected element directly from the Inspector panel.
+
+3. Breadcrumb navigation should be clickable, allowing the designer to select parent elements from the breadcrumb trail itself.
+
+4. All changes made in the Inspector panel should reflect in real-time on the selected element in the design view.
+
+5. When the designer deselects the element or selects a different element, the Inspector panel should update accordingly with the new element's information.
+
+6. The Inspector panel should function correctly and display accurate information for all kinds of elements present in the design view, including nested elements.
+
+7. The features should work effectively for a variety of screen sizes and resolutions, ensuring the tool is responsive and adaptive.
+
+8. The new features should not affect the existing functionalities of the IDE or slow down the performance of the application.
+
+
+Features that can be added to enhance the functionality of the inspector panel in your Visual Web Builder IDE. Here are some additional possibilities:
+
+**Inline Style Editing**: Allow users to modify the CSS directly from the inspector panel. When a user selects an element, display all the CSS properties related to that element, and allow for editing right within the panel. 
+2. **State Management**: Show the different states of an element (e.g., hover, active, focus) and allow the designer to modify the styles of these states directly from the inspector panel.
+3. **Box Model Visualization**: Provide a visual representation of the CSS box model (content, padding, border, margin) for the selected element. This would help designers better understand the sizing and spacing of an element.
+4. **Responsiveness Preview**: Allow users to see how the selected element will look on different screen sizes and resolutions.
+5. **Event Handlers**: Show the JavaScript event handlers attached to the element (e.g., onClick, onMouseOver, etc.). 
+6. **Accessibility Features**: Indicate whether elements meet accessibility guidelines (e.g., has a defined 'alt' attribute for images).
+7. **Component/Template Usage**: If your IDE supports component-based or template-based design, the inspector could also indicate where a selected component/template is used throughout the project.
+8. **Animation Controls**: If the element has any animations or transitions applied, controls could be provided to adjust these directly within the inspector panel.
+9. **History/Changes Tracking**: A feature that keeps track of changes made to the element, allowing users to go back to previous versions.
+
+Remember, while adding features, it's crucial to maintain balance and avoid overwhelming users with too many options. The features should be organized in a user-friendly and intuitive way.
+*/
 import React, { useState } from 'react';
 import './Inspector.scss';
 
@@ -115,20 +87,22 @@ export function Inspector() {
     panels: [
     {name: 'Style',class:'visualStyle'},
     {name: 'Settings',class:'properties'},
-    {name: 'Intractions',class:'interactions'}
+    {name: 'States',class:'interactions'}
     ],
     highlightedTab: 'visualStyle'
   })
   const toggleHighlight = (panel:string) => {
     setInspectorPanels({...inspectorPanels,highlightedTab:panel})
   };
+
+
   return (
     <div className="inspector">
        <div className="tabs__wrap">
-         <div className="tabs">
+            <div className={`highlighter ${inspectorPanels.highlightedTab.toLowerCase()}`}></div>
             <div className="tab-button">
-              <div className={`highlighter ${inspectorPanels.highlightedTab.toLowerCase()}`}></div>
-              <div className="tabs">
+              <div className="tabs"
+              style={{userSelect:'none'}}>
               {
                 inspectorPanels.panels.map(panel=>(
                   <div key={panel.class} className={`tab ${inspectorPanels.highlightedTab.toLowerCase()} ${ (panel.class=== inspectorPanels.highlightedTab?'highlighted':'')} `}
@@ -137,8 +111,26 @@ export function Inspector() {
                 ))
               }
               </div>
+              <div className="tabs__shadow"></div>
             </div>
           </div>
+       <div className="panels">
+        <div className={`panel ${inspectorPanels.highlightedTab === 'visualStyle' ? 'active' : ''}`}>
+          {/* As a web designer, I want to see the element tag, name, breadcrumb trail, and associated classes within the Inspector when I select an element. This way, I can better understand the context and styling of the element, which allows me to make more accurate and efficient changes to its design attributes.*/}
+          <div className="panel__section target">
+              <div className="panel__label">Div</div>
+              <div className="panel__input">
+                <div className="target__tag">header</div>
+                <div className="target__states">:hover</div>
+            </div>
+          </div>
+        </div>
+        <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
+          Settings
+        </div>
+        <div className={`panel ${inspectorPanels.highlightedTab === 'interactions' ? 'active' : ''}`}>
+          Intractions
+        </div>
        </div>
       </div>
   );
