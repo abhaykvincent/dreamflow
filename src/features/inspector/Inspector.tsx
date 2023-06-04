@@ -123,7 +123,14 @@ export function Inspector() {
                 <div className="target__tag">header</div>
                 <div className="target__states">:hover</div>
             </div>
-          </div>
+            <div className="doctype">html</div>
+            <div className="breadcrumbs">
+              <div className="node">body</div> <span>&gt;</span>
+              <div className="node">header</div> <span>&gt;</span>
+              <div className="node">div.logo</div> <span>&gt;</span>
+              <div className="node">img</div>
+            </div>
+            </div>
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
           Settings
