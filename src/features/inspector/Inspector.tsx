@@ -15,6 +15,7 @@ interface TargetData {
 // Define an interface for the props object
 interface MyComponentProps {
   display: string;
+  targetId: string;
 }
 
 export function Inspector() {
@@ -31,7 +32,7 @@ export function Inspector() {
   const targetCSS = useAppSelector(selectTargetStyles) as any;
   // Styles
   // Layout
-  const [layoutStyle, setLayoutStyle] = useState(targetCSS?.display);
+  const [layoutStyle, setLayoutStyle] = useState(targetCSS?.display) as any;;
 
   useEffect(() => {
     function getElementSignature(element: HTMLElement) {
@@ -76,6 +77,12 @@ console.log(parents);
       });
     }
   }, [targetID]);
+
+  useEffect(() => {
+    if (targetCSS) {
+      console.log('targetCSS', targetCSS);
+    }
+  }, [targetCSS]);
   
 
   const [inspectorPanels, setInspectorPanels] = useState({
@@ -165,7 +172,7 @@ console.log(parents);
             </div>
             
           </div>
-          <LayoutInspector {...targetCSS}/>
+          <LayoutInspector layoutStyle={layoutStyle} targetID={targetID} />
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
           
