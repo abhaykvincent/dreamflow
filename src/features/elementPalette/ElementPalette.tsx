@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ElementPalette.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectTarget, setTarget } from '../canvas/canvasSlice';
+import { selectTarget, setStyles, setTarget } from '../canvas/canvasSlice';
 
 /* icons */
 import icon_h  from '../../assets/icons/elements/awesome-heading.svg'
@@ -83,7 +83,23 @@ export function ElementPalette() {
     document.querySelector(`[data-flow-id="${target}"]`)?.appendChild(newElement);
 
 
-
+    function getCssProperties(element: HTMLElement) {
+      // Get the computed style of the element
+      var computedStyle = window.getComputedStyle(element, null);
+    
+      // Initialize an object to store the styles
+      var styleProperties: { [key: string]: string } = {};
+    
+      // Loop through all the properties and add them to the object
+      for (var i = 0; i < computedStyle.length; i++) {
+          var prop = computedStyle[i];
+          var val = computedStyle.getPropertyValue(prop);
+          styleProperties[prop] = val;
+      }
+    
+      // Return the object
+      return styleProperties;
+    }
 
     // Eve with a element create should be done here
 
@@ -99,6 +115,8 @@ export function ElementPalette() {
     // Taget Element Highlight
     newElement.addEventListener('click', (e:any)=>{
       e.stopPropagation()
+      const styleProperties = getCssProperties(e.currentTarget)
+      dispatch(setStyles(styleProperties as any))
       dispatch(setTarget(e.currentTarget.dataset.flowId))
       highlightTarget(e.currentTarget)
 

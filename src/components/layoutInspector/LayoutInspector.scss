@@ -1,0 +1,101 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+
+.panel-section__title{
+  margin-bottom: 8px*1;
+}
+.layout{
+  position: relative;
+  .panel-section__title{
+    margin-bottom: 8px*2;
+  }
+  .layout-property__label{
+    line-height: 8px*4;
+  }
+  .tab__wrap{
+    float: left;
+    position: relative;
+    width: 8px*24.3;
+    height: 8px*3.5;
+    margin: 0px;
+    background-color: $gray6;
+    border: 1px  solid $gray5;
+    border-radius: 8px;
+  }
+  .layout-tabs{
+    position: relative;
+    z-index: 2;
+    .layout-tab{
+      display: inline-block;
+      width: 8px*4;
+      height: 8px*3.5;
+      background-size: 50% 50% ;
+      background-position: center center;
+      opacity: 0.5;
+      &:hover{
+        opacity: 0.75;
+        transform: scale(1.02);
+      }
+      
+      &.highlighted{
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      &.block{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-block.svg');
+        fill: white;
+      }
+      &.flex{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-flex.svg');
+      }
+      &.grid{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-grid.svg');
+      }
+      &.inline-block{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-inline-block.svg');
+      }
+      &.inline{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-inline.svg');
+      }
+      &.none{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-none.svg');
+      }
+    }
+  }
+  .highlighter{
+    position: absolute;
+    top: 0px;
+    margin:  -2px 0px;
+    height: 8px*4;
+    width: 8px*4;
+    background-color: $gray6;
+    border:1px solid $gray2;
+    border-radius: 8px;
+    z-index: 1;
+    &.block{
+      left:8px*0;
+    }
+    &.flex{
+      left:8px*4;
+    }
+    &.grid{
+      left:8px*8;
+    }
+    &.inline-block{
+      left:8px*12;
+    }
+    &.inline{
+      left:8px*16;
+    }
+    &.none{
+      left:8px*20;
+    }
+
+  }
+}
