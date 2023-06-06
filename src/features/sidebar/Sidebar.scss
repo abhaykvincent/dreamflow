@@ -1,4 +1,5 @@
 @import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
 .sidebar{
   .tools{
     position: fixed;
@@ -82,7 +83,7 @@
         display: inline-block;
         padding: 0px 8px*2;
         height: 8px*3;
-        background-color: #F77900;
+        background-color: $orange;
         margin-left: auto;
         transform: translate(50%,-50%);
         border-radius: 4px;

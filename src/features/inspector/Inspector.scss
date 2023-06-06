@@ -1,20 +1,396 @@
 @import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+
+/* /* As a web developer, I want to have a tabbed interface for the Visual Style, Properties, and Interactions editors. This will allow me to conveniently switch between panels with a single click while editing components, improving my productivity and workflow.
+
+Acceptance Criteria:
+
+There should be three tabs in the interface representing Visual Style, Properties, and Interactions editors.
+
+Clicking on a tab should switch the active panel to the corresponding editor.
+
+The tabbed interface should have a visually appealing design that is consistent with the overall application.
+
+The active tab should be visually distinguishable from inactive tabs to provide clear feedback to the user.
+
+Each editor panel should load the relevant content when its corresponding tab is clicked.
+
+Changes made in one panel should be synchronized and reflected in the other panels to maintain consistency.
+
+Real-time validation should be implemented to provide feedback on invalid inputs in each editor panel.
+
+Error messages should be displayed and invalid fields should be highlighted when necessary.
+
+The tabbed interface should be tested on different browsers and devices to ensure consistent behavior.
+
+Bugs, glitches, and compatibility issues should be identified and resolved through thorough testing and debugging.
+
+The tabbed interface should be intuitive and user-friendly, enhancing the overall editing experience for web developers.Task: Design tabbed interface for editors
+
+
+
+Consider usability and accessibility best practices for tabbed interfaces.
+
+Task: Design the tabbed interface Description: Create a visually appealing and user-friendly design for the tabbed interface.
+
+Sub-tasks:
+
+Determine the layout and placement of the tabs within the interface.
+
+Design the appearance of the tabs, considering factors such as color, typography, and icons.
+
+Ensure consistency with the overall application's design and branding guidelines.
+
+Create mockups or prototypes to visualize the tabbed interface design.
+
+Task: Implement tabbed navigation
+
+Description: Develop the functionality to switch between panels (Visual Style, Properties, and Interactions) using tabs.
+
+Sub-tasks:
+
+Identify the appropriate JavaScript framework or library for implementing tabbed navigation.
+
+Create tabs for each editor panel and display them in the interface.
+
+Implement the logic to switch the active panel when a tab is clicked.
+
+Ensure smooth transitions between panels when switching tabs.
+
+Task: Load content for each panel
+
+Description: Load the relevant content for each panel when a tab is clicked.
+
+Sub-tasks:
+
+Define the content structure for each editor panel (Visual Style, Properties, and Interactions).
+
+Implement the functionality to load the appropriate content when switching tabs.
+
+Ensure that data and changes made in one panel are retained when switching to another.
+
+Task: Synchronize changes between panels
+
+Description: Ensure that changes made in one panel are reflected in the others, maintaining synchronization.
+
+Sub-tasks:
+
+Establish mechanisms to track changes made in each panel (e.g., listeners, data bindings).
+
+Implement the synchronization logic to update related content in other panels when changes occur.
+
+Test and verify that changes made in one panel are correctly propagated to others.
+
+Task: Handle validation and error handling
+
+Description: Implement validation and error handling mechanisms for user inputs in each editor panel.
+
+Sub-tasks:
+
+Define validation rules for each input field or control in the Visual Style, Properties, and Interactions editors.
+
+Implement real-time validation to provide feedback on invalid inputs.
+
+Display error messages and highlight invalid fields when necessary.
+
+Ensure error handling and graceful recovery from errors or exceptions.
+
+Task: Test and debug
+
+Description: Conduct thorough testing of the tabbed interface and resolve any issues or bugs.
+
+Sub-tasks:
+
+Create test cases to cover different scenarios, including switching between panels and handling edge cases.
+
+Perform functional testing to ensure the tabbed interface functions as expected.
+
+Identify and address any bugs, glitches, or compatibility issues.
+
+Gather feedback through usability testing and make necessary improvements. */ 
+
 .inspector{
   position: fixed;
-  top: 8px*13.5;
-  right: 8px;
-  height: calc(100vh - 8px*18);
+  top: 8px*14;
+  right: 8px * 1.5;
+  height: calc(100vh - 8px*20);
   border-radius: 8px;
   width: 8px*12*3;
-  background-color: #222;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: $gray6;
+  .tabs__wrap{
+      float: left;
+      position: relative;
+      width: calc(100% - 8px*5);
+      height: 8px*3.5;
+      margin: 8px 8px*2.5;
+      border: 1px  solid $gray2;
+      border-radius: 8px;
+      margin-top: -8px*2;
+    .tab-button{
+
+      overflow: hidden;
+    }
+    .highlighter{
+      padding: 8px*1.5;
+      height: 8px*3.8;
+      width: calc(100% / 3);
+      background-color: $orange;
+      margin-left: auto;
+      border-radius: px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      font-size: 1.1em;
+      font-weight: 500;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+      box-shadow: 0px 0px  8px rgba(255, 149, 1, 0.5);
+  
+      &.visualStyle{
+        left:0px;
+      }
+      &.properties{
+        left:calc(100% / 3 * 1)
+      }
+      &.interactions{
+        left:calc(100% / 3 * 2)
+      }
+  
+    }
+  }
   .tabs{
-    width: 80%;
-    height: 8px*3;
-    background-color: #F77900;
-    margin-left: 10%;
-    transform: translateY(-50%);
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    width: 100%;
+    height: 8px*3.5;
+    line-height:8px*5;;
+
+    .tab{
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      font-size: 1em;
+      font-weight: 400;
+      text-align: center;
+      line-height: 8px*3.2;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      &:hover{
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      &.highlighted{
+        opacity: 1;
+        transform: scale(1);
+        z-index: 1;
+        color: white;
+        font-size: 1.1em;
+        font-weight: 500;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        cursor: ew-resize
+      }
+    }
+  }
+  .tabs__shadow{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 8px*3.5;
+    background-color: #0c0c0ca2;
+    filter: blur(0.5em);
+    border-radius: 8px;
+
+  }
+  
+  // Panels
+  .panels{
+    position: fixed;
+    width: 8px*12*3;
+    height: calc(100vh - 8px*20);
+    right: 8px*1.5;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-top: 1px solid $gray3;
+    border-radius: 8px;
+    z-index: -1;
+    .panel{
+      display: grid;
+      position: absolute;
+      padding: 8px*2;
+      padding-top:8px*3;
+      width: 100%;
+      gap: 8px;
+      transform: translateY(1%);
+      transition-duration: 0.1s;
+      opacity: 0;
+      .panel__section{
+        margin-top: 8px*2;
+      }
+      &.active{
+        transition-delay: 0.2s;
+      transform: translateX(0%);
+      z-index: 2;
+      transition-duration: 0.2s;
+      opacity: 1;
+      .panel__section{
+        margin-top: 0px;
+      }
+      }
+    }
+    .panel__section{
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid $gray4;
+      border-radius: 8px*0.5;
+      background-color: $gray7;
+      .panel__label{
+        display: inline-block;
+        font-size: 1em;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        padding: 8px*0.5 0;
+        text-align: center;
+      }
+      .panel__input{
+        display: grid;
+        grid-template-columns: 4fr 3fr;
+        gap: 8px;
+        color: $gray1;
+      }
+      .target__id{
+        font-size: 0.8em;
+        color: $gray2;
+        line-height: 1.6em;
+      }
+      .target__tag{
+        padding: 8px*0.5 8px;
+        color: $gray1;
+        align-items: right;
+        background-color: $gray6;
+        border-radius: 8px * 0.5;
+        border: 1px solid $gray3;
+      }
+      .target__states{
+        padding: 8px*0.5 8px;
+        color: $gray2;
+        align-items: right;
+        background-color: $gray6;
+        border-radius: 8px * 0.5;
+      }
+      .breadcrumbs{
+        display: flex;
+        color: $gray2;
+        font-size: 0.9em;
+        overflow: scroll;
+        grid-column: 1/3;
+        grid-row: 2/3;
+        
+
+
+        cursor: pointer;
+        .node{
+          float:right;
+          max-width: 8px*10;
+          padding:8px*0.5;
+          border-radius: 8px*0.5;
+          overflow: scroll;//hide scrollbar
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+          &::-webkit-scrollbar {
+            display: none;
+          }
+          &:hover{
+            color: white;
+            background-color: $gray5;
+
+          }
+        }
+        span{
+          color: $gray3;
+          margin: 0;
+          line-height: 8px  * 2.8;
+        }
+      }
+      .doctype{
+        color: $gray1;
+        line-height: 8px*2.8;
+        text-align: center;
+      }
+    }
+    .panel_button{
+      border: 1px solid $gray4;
+    }
+
+    .create_component{
+      display: block;
+      .panel_button{
+
+        border: 1px solid $gray3;
+        width: 100%;
+        padding: 8px*0.5 8px;
+        color: white;
+        align-items: right;
+        background-color: $gray5;
+        border-radius: 8px * 0.5;
+        text-align: center;
+      }
+    }
+    .target{
+      .target__name{
+      }
+      .target__breadcrumb{
+        width: 100%;
+      }
+    }
+
+    .spacing{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      .spacing__input{
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 8px*0.5;
+        color: $gray1;
+        
+        .spacing__input__field{
+          width: 8px*3;
+          padding: 3px 4px;
+          background-color: $gray6;
+          border-radius: 8px*0.5;
+          border: 1px solid $gray5;
+          color: white;
+          font-size: 0.8em;
+          //input number increment& decrement inbuilt buttons
+          &::-webkit-inner-spin-button,
+          &::-webkit-outer-spin-button { 
+            // fill red
+            -webkit-appearance: none;
+
+          }
+        }
+        .spacing__input__unit{
+          margin-left: -8px;
+          margin-top: 8px*0.5;
+          color: $gray3;
+        }
+      }
+      
+      .spacing__label{
+        display: grid;
+        grid-template-columns: 1fr auto;
+        margin: 8px*0.5;
+        margin-top: 0;
+        color: $gray1;
+        &::after{
+          content: "px";
+          color: $gray3;
+        }
+      }
+    }
   }
 }
