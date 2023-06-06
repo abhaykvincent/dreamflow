@@ -1,12 +1,21 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/colours.scss';
 
+.panel-section__title{
+  margin-bottom: 8px*1;
+}
 .layout{
   position: relative;
+  .panel-section__title{
+    margin-bottom: 8px*2;
+  }
+  .layout-property__label{
+    line-height: 8px*4;
+  }
   .tab__wrap{
     float: left;
     position: relative;
-    width: 8px*16.3;
+    width: 8px*24.3;
     height: 8px*3.5;
     margin: 0px;
     background-color: $gray6;
@@ -41,18 +50,21 @@
         background-size: 60% 60% ;
         background-image: url('../../assets/icons/layout/css-flex.svg');
       }
-      &.c{
-        opacity: 0.2;;
-        cursor: not-allowed;
-        background-size:  50% 50% ;
-        background-image: url('../../assets/icons/devices/Icon\ material-tablet-mac-1.svg');
+      &.grid{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-grid.svg');
       }
-      &.d{
-        opacity: 0.2;
-
-      cursor: not-allowed;            
-      background-size: 50% 50% ;
-        background-image: url('../../assets/icons/devices/Icon\ material-phone-iphone.svg');
+      &.inline-block{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-inline-block.svg');
+      }
+      &.inline{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-inline.svg');
+      }
+      &.none{
+        background-size: 60% 60% ;
+        background-image: url('../../assets/icons/layout/css-none.svg');
       }
     }
   }
@@ -72,11 +84,17 @@
     &.flex{
       left:8px*4;
     }
-    &.c{
-      left:8px*4*2;
+    &.grid{
+      left:8px*8;
     }
-    &.d{
-      left:8px*4*3;
+    &.inline-block{
+      left:8px*12;
+    }
+    &.inline{
+      left:8px*16;
+    }
+    &.none{
+      left:8px*20;
     }
 
   }

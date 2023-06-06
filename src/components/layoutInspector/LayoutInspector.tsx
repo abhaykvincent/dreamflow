@@ -11,14 +11,13 @@ export function LayoutInspector() {
 
   // State
 
-  // Layout Tabs [display: block, flex, grid, none]
-  const layoutTabs = ['block', 'flex', 'c', 'd']; // An array of labels
-  // Highlighted Layout Tab - block by default
+  // 1. Layout Tabs [display: block, flex, grid, none]
+  const layoutTabs = ['block', 'flex', 'grid' , 'inline-block', 'inline', 'none']
   const [highlightedLayoutTab, setHighlightedLayoutTab] = useState('block');
 
   // Functions
 
-  // Toggle Layout Tab
+  // 1. Toggle Layout Tab
   // Description: toggles the highlighted layout tab based on the tab clicked, passed as a parameter
   const toggleLayoutTab = (layoutTab:string) => {
     // set the highlighted layout tab to the tab clicked
@@ -29,7 +28,9 @@ export function LayoutInspector() {
     <div className="layout-inspector">
       <div className="panel-section__title">Layout</div>
       <div className="panel__section layout">
-
+        <div className="layout-property">
+          <div className="layout-property__label">Display</div>
+        </div>
         <div className="tab__wrap">
           <div className={`highlighter ${highlightedLayoutTab}`}></div>
           <div className="layout-tabs">
