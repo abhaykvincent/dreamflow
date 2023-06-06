@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './Inspector.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectTarget } from '../canvas/canvasSlice';
+import { selectTarget, selectTargetStyles } from '../canvas/canvasSlice';
 import { LayoutInspector } from '../../components/layoutInspector/LayoutInspector';
 
 //Interface for target data
@@ -11,6 +11,10 @@ interface TargetData {
   tag: string;
   classes: string[];
   breadcrumb: string[];
+}
+// Define an interface for the props object
+interface MyComponentProps {
+  display: string;
 }
 
 export function Inspector() {
@@ -23,7 +27,12 @@ export function Inspector() {
     classes: [],
     breadcrumb: []
   } as TargetData);
-  // On Target change, update target data
+  // Target Styles
+  const targetCSS = useAppSelector(selectTargetStyles) as any;
+  // Styles
+  // Layout
+  const [layoutStyle, setLayoutStyle] = useState(targetCSS?.display);
+
   useEffect(() => {
     function getElementSignature(element: HTMLElement) {
       let name = element.tagName.toLowerCase();
@@ -156,7 +165,7 @@ console.log(parents);
             </div>
             
           </div>
-          <LayoutInspector/>
+          <LayoutInspector {...targetCSS}/>
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
           

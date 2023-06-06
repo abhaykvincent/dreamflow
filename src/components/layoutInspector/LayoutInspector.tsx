@@ -3,14 +3,13 @@ import './LayoutInspector.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 
-export function LayoutInspector() {
+export function LayoutInspector({display}: {display: string}) {
 
   // LAYOUT INSPECTOR
   // Description: This component is responsible for displaying, highlighting and toggling the layout of the selected element
-
+  console.log('display', display);
 
   // State
-
   // 1. Layout Tabs [display: block, flex, grid, none]
   const layoutTabs = ['block', 'flex', 'grid' , 'inline-block', 'inline', 'none']
   const [highlightedLayoutTab, setHighlightedLayoutTab] = useState('block');
