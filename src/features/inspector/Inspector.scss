@@ -130,6 +130,31 @@ Gather feedback through usability testing and make necessary improvements. */
 
       overflow: hidden;
     }
+    .highlighter{
+      padding: 8px*1.5;
+      height: 8px*3.8;
+      width: calc(100% / 3);
+      background-color: $orange;
+      margin-left: auto;
+      border-radius: px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      font-size: 1.1em;
+      font-weight: 500;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+      box-shadow: 0px 0px  8px rgba(255, 149, 1, 0.5);
+  
+      &.visualStyle{
+        left:0px;
+      }
+      &.properties{
+        left:calc(100% / 3 * 1)
+      }
+      &.interactions{
+        left:calc(100% / 3 * 2)
+      }
+  
+    }
   }
   .tabs{
     display: grid;
@@ -177,32 +202,7 @@ Gather feedback through usability testing and make necessary improvements. */
     border-radius: 8px;
 
   }
-  .highlighter{
-    padding: 8px*1.5;
-    height: 8px*3.8;
-    width: calc(100% / 3);
-    position: absolute;
-    background-color: $orange;
-    margin-left: auto;
-    border-radius: px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    font-size: 1.1em;
-    font-weight: 500;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-    box-shadow: 0px 0px  8px rgba(255, 149, 1, 0.5);
-
-    &.visualStyle{
-      left:0px;
-    }
-    &.properties{
-      left:calc(100% / 3 * 1)
-    }
-    &.interactions{
-      left:calc(100% / 3 * 2)
-    }
-
-  }
+  
 
   .panels{
     position: fixed;
@@ -273,6 +273,7 @@ Gather feedback through usability testing and make necessary improvements. */
         align-items: right;
         background-color: $gray6;
         border-radius: 8px * 0.5;
+        border: 1px solid $gray3;
       }
       .target__states{
         padding: 8px*0.5 8px;
@@ -346,6 +347,130 @@ Gather feedback through usability testing and make necessary improvements. */
         width: 100%;
       }
     }
+
+    .spacing{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      .spacing__input{
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 8px*0.5;
+        color: $gray1;
+        
+        .spacing__input__field{
+          width: 8px*3;
+          padding: 3px 4px;
+          background-color: $gray6;
+          border-radius: 8px*0.5;
+          border: 1px solid $gray5;
+          color: white;
+          font-size: 0.8em;
+          //input number increment& decrement inbuilt buttons
+          &::-webkit-inner-spin-button,
+          &::-webkit-outer-spin-button { 
+            // fill red
+            -webkit-appearance: none;
+
+          }
+        }
+        .spacing__input__unit{
+          margin-left: -8px;
+          margin-top: 8px*0.5;
+          color: $gray3;
+        }
+      }
+      
+      .spacing__label{
+        display: grid;
+        grid-template-columns: 1fr auto;
+        margin: 8px*0.5;
+        margin-top: 0;
+        color: $gray1;
+        &::after{
+          content: "px";
+          color: $gray3;
+        }
+      }
+    }
+    .layout{
+      position: relative;
+      .tab__wrap{
+        float: left;
+        position: relative;
+        width: 8px*16.3;
+        height: 8px*3.5;
+        margin: 0px;
+        background-color: $gray6;
+        border: 1px  solid $gray5;
+        border-radius: 8px;
+      }
+      .layout-tabs{
+        position: relative;
+        z-index: 2;
+        .layout-tab{
+          display: inline-block;
+          width: 8px*4;
+          height: 8px*3.5;
+          background-size: 50% 50% ;
+          background-position: center center;
+          opacity: 0.5;
+          &:hover{
+            opacity: 0.75;
+            transform: scale(1.02);
+          }
+          
+          &.highlighted{
+            opacity: 1;
+            transform: scale(1.05);
+          }
+          &.block{
+            background-size: 60% 60% ;
+            background-image: url('../../assets/icons/layout/css-block.svg');
+            fill: white;
+          }
+          &.flex{
+            background-size: 60% 60% ;
+            background-image: url('../../assets/icons/layout/css-flex.svg');
+          }
+          &.c{
+            opacity: 0.2;;
+            cursor: not-allowed;
+            background-size:  50% 50% ;
+            background-image: url('../../assets/icons/devices/Icon\ material-tablet-mac-1.svg');
+          }
+          &.d{
+            opacity: 0.2;
+
+          cursor: not-allowed;            
+          background-size: 50% 50% ;
+            background-image: url('../../assets/icons/devices/Icon\ material-phone-iphone.svg');
+          }
+        }
+      }
+      .highlighter{
+        position: absolute;
+        top: 0px;
+        margin:  -2px 0px;
+        height: 8px*4;
+        width: 8px*4;
+        background-color: $gray6;
+        border:1px solid $gray2;
+        border-radius: 8px;
+        z-index: 1;
+        &.block{
+          left:8px*0;
+        }
+        &.flex{
+          left:8px*4;
+        }
+        &.c{
+          left:8px*4*2;
+        }
+        &.d{
+          left:8px*4*3;
+        }
+
+      }
+    }
   }
 }
-
