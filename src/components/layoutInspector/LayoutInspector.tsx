@@ -36,7 +36,34 @@ export function LayoutInspector({layoutStyle,targetID} : LayoutInspectorProps) {
     // Get target element data-flow-id
     const target = document.querySelector(`[data-flow-id="${targetID}"]`);
     // set the layout style of the selected element to the highlighted layout tab
-    target?.setAttribute('style', `display: ${highlightedLayoutTab}`);
+
+    //target?.setAttribute('style', `display: ${highlightedLayoutTab}`);
+
+    // use newRule to create a new CSS rule for the selected element  by flow-id
+
+    const newRule = `[data-flow-id="${targetID}"] { display: ${highlightedLayoutTab} }`;
+    // create a new style element
+
+    // Get the document's stylesheet
+    let styleSheet = document.styleSheets[0];
+    
+    // Check if the rule already exists
+    let ruleExists = false;
+    for (let i = 0; i < styleSheet.cssRules.length; i++) {
+        if (styleSheet.cssRules[i].cssText.startsWith(newRule.split(" ")[0])) {
+            ruleExists = true;
+            const rule=styleSheet.cssRules[i] as CSSStyleRule;
+            rule.style.display=highlightedLayoutTab;
+            console.log('rule exists', newRule);
+            console.log(styleSheet.cssRules[i])
+            break;
+        }
+    }
+    
+    // Insert the new CSS rule into the stylesheet if it doesn't already exist
+    if (!ruleExists) {
+        styleSheet.insertRule(newRule, styleSheet.cssRules.length);
+    }
     
   }, [highlightedLayoutTab]);
 
