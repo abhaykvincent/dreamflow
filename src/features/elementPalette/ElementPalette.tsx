@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ElementPalette.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectTarget, setTarget } from '../canvas/canvasSlice';
+import { selectTarget, setStyles, setTarget } from '../canvas/canvasSlice';
 
 /* icons */
 import icon_h  from '../../assets/icons/elements/awesome-heading.svg'
@@ -12,10 +12,9 @@ import icon_div  from '../../assets/icons/elements/material-check-box-outline-bl
 import icon_inputText  from '../../assets/icons/elements/element-input.svg'
 import icon_inputButton  from '../../assets/icons/elements/elemenet-button.svg'
 import icon_section  from '../../assets/icons/elements/element-section.svg'
+import { Console } from 'console';
 
 export function ElementPalette() {
-  const dispatch = useAppDispatch();
-  const target = useAppSelector(selectTarget);
   const [elements, setElements] = useState([
     {
       tagName: "Div",
@@ -59,6 +58,9 @@ export function ElementPalette() {
     }
 
   ]);
+  const dispatch = useAppDispatch();
+
+  const target = useAppSelector(selectTarget);
 
   function createIdString() {
     const date = new Date();
@@ -67,9 +69,10 @@ export function ElementPalette() {
     return `${timestamp}-${randomSuffix}`;
   }
 
+
   function highlightTarget(target:any){
     //clear current target class: selected
-    document.querySelector('.canvas >.selected')?.classList.remove('selected')
+    document.querySelector('.canvas *.selected')?.classList.remove('selected')
     target.classList.add('selected')
   }
   
@@ -79,39 +82,109 @@ export function ElementPalette() {
     newElement.dataset.flowId=createIdString()
     document.querySelector(`[data-flow-id="${target}"]`)?.appendChild(newElement);
 
-    // Newly created elemenet listning click event for target selecting
+
+    function getCssProperties(element: HTMLElement) {
+      // Get the computed style of the element
+      var computedStyle = window.getComputedStyle(element, null);
+    
+      // Initialize an object to store the styles
+      var styleProperties: { [key: string]: string } = {};
+    
+      // Loop through all the properties and add them to the object
+      for (var i = 0; i < computedStyle.length; i++) {
+          var prop = computedStyle[i];
+          var val = computedStyle.getPropertyValue(prop);
+          styleProperties[prop] = val;
+      }
+    
+      // Return the object
+      return styleProperties;
+    }
+
+    // Eve with a element create should be done here
+
+    // Target Element Highlight
+    /*  Target Tooltip  
+      - Hover on element to show tooltip
+      - Hover out element to hide tooltip */
+
+
+  
+
+    // TARGET
+    // Taget Element Highlight
     newElement.addEventListener('click', (e:any)=>{
       e.stopPropagation()
-      // setting new target
-      dispatch(setTarget(e.target.dataset.flowId))
-      highlightTarget(e.target)
+      const styleProperties = getCssProperties(e.currentTarget)
+      dispatch(setStyles(styleProperties as any))
+      dispatch(setTarget(e.currentTarget.dataset.flowId))
+      highlightTarget(e.currentTarget)
+
+      const tooltip = document.querySelector('.target-tooltip-active') as HTMLElement
+      const { label, icon } = getLabelAndIcon(e.currentTarget)
+      //HTML for Element type icon, Element name and flow id( if element name is not available)
+      tooltip.innerHTML = `
+        <div class="icon" style="${icon ? `background-image: url(${icon})` : ''}"></div>
+        <div class="label">${label}</div>
+      `;
+      const rect = e.currentTarget.getBoundingClientRect();
+      tooltip.style.top = `${rect.top}px`;
+      tooltip.style.left = `${rect.left}px`;
+      tooltip.classList.remove('hide')
     })
 
-    // hover on elemment to show tooltip
+    // TOOLTIP  
+    /* Functions */
+    function getLabelAndIcon(target: HTMLElement) {
+      const elementName = target.tagName
+      const elementId = target.dataset.flowId
+      const label = elementName ? elementName : elementId
+      const icon = elements.find(element => element.tag === target.tagName.toLowerCase())?.icon
+      return { label, icon }
+    }
+    // Hover on element to show tooltip
     newElement.addEventListener('mouseover', (e:any)=>{
       const tooltip = document.querySelector('.target-tooltip') as HTMLElement
-      if(tooltip){
-        tooltip.innerHTML = e.target.dataset.flowId
-        //get position of target
-        const rect = e.target.getBoundingClientRect();
-        tooltip.style.top = `${rect.top}px`;
-        tooltip.style.left = `${rect.left}px`;
-        //add class
-        tooltip.classList.remove('hide');
-      }
-    })
+      const { label, icon } = getLabelAndIcon(e.currentTarget)
 
-    // hover out elemment to hide tooltip
+      //HTML for Element type icon, Element name and flow id( if element name is not available)
+      tooltip.innerHTML = `
+        <div class="icon" style="${icon ? `background-image: url(${icon})` : ''}"></div>
+        <div class="label">${label}</div>
+      `;
+      //Target Positioning
+      const rect = e.target.getBoundingClientRect();
+      tooltip.style.top = `${rect.top}px`;
+      tooltip.style.left = `${rect.left}px`;
+      //  Display Tooltip
+      tooltip.classList.remove('hide')
+    })
+    // Hover out elemment to hide tooltip
     newElement.addEventListener('mouseout', (e:any)=>{
       const tooltip = document.querySelector('.target-tooltip') as HTMLElement
       if(tooltip){
         tooltip.innerHTML = ''
-        //remove class  
+        // Hide Tooltip
         tooltip.classList.add('hide')
       }
     }
     )
-  }
+
+
+    // Hover on tooltip to slide tooltip to the down
+    const tooltip = document.querySelector('.target-tooltip-active') as HTMLElement
+    tooltip.addEventListener('mouseover', (e:any)=>{
+      tooltip.classList.add('slide-down')
+    })
+    // Hover out tooltip to slide tooltip to the up
+    tooltip.addEventListener('mouseout', (e:any)=>{
+      tooltip.classList.remove('slide-down')
+    }
+    )
+
+  } 
+
+    
   
   return (
     <>
