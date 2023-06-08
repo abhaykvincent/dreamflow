@@ -4,12 +4,12 @@
 .panel-section__title{
   margin-bottom: 8px*1;
 }
-.layout{
+.position{
   position: relative;
   .panel-section__title{
     margin-bottom: 8px*2;
   }
-  .layout-property__label{
+  .position-property__label{
     line-height: 8px*4;
   }
   .tab__wrap{
@@ -22,10 +22,10 @@
     border: 1px  solid $gray5;
     border-radius: 8px;
   }
-  .layout-tabs{
+  .position-tabs{
     position: relative;
     z-index: 2;
-    .layout-tab{
+    .position-tab{
       display: inline-block;
       width: 8px*4;
       height: 8px*3.5;
@@ -41,30 +41,25 @@
         opacity: 1;
         transform: scale(1.05);
       }
-      &.block{
+      &.static{
         background-size: 60% 60% ;
-        background-image: url('../../assets/icons/layout/css-block.svg');
-        fill: white;
+        background-image: url('../../assets/icons/position/css-static.svg');
       }
-      &.flex{
+      &.relative{
         background-size: 60% 60% ;
-        background-image: url('../../assets/icons/layout/css-flex.svg');
+        background-image: url('../../assets/icons/position/css-relative.svg');
       }
-      &.grid{
+      &.absolute{
         background-size: 60% 60% ;
-        background-image: url('../../assets/icons/layout/css-grid.svg');
+        //background-image: url('../../assets/icons/position/css-absolute.svg');
       }
-      &.inline-block{
+      &.fixed{
         background-size: 60% 60% ;
-        background-image: url('../../assets/icons/layout/css-inline-block.svg');
+        background-image: url('../../assets/icons/position/css-fixed.svg');
       }
-      &.inline{
+      &.sticky{
         background-size: 60% 60% ;
-        background-image: url('../../assets/icons/layout/css-inline.svg');
-      }
-      &.none{
-        background-size: 60% 60% ;
-        background-image: url('../../assets/icons/layout/css-none.svg');
+        //background-image: url('../../assets/icons/position/css-sticky.svg');
       }
     }
   }
@@ -79,24 +74,20 @@
     border-radius: 8px;
     z-index: 1;
     box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
-    &.block{
+    &.static{
       left:8px*0;
     }
-    &.flex{
+    &.relative{
       left:8px*4;
     }
-    &.grid{
+    &.absolute{
       left:8px*8;
     }
-    &.inline-block{
+    &.fixed{
       left:8px*12;
     }
-    &.inline{
+    &.sticky{
       left:8px*16;
     }
-    &.none{
-      left:8px*20;
-    }
-
   }
 }

@@ -17,26 +17,42 @@ export function LayoutInspector({layoutStyle,targetID} : LayoutInspectorProps) {
   const layoutTabs = ['block', 'flex', 'grid' , 'inline-block', 'inline', 'none']
   const [highlightedLayoutTab, setHighlightedLayoutTab] = useState(layoutStyle);
 
+  // Dcuent stylesheet
+  let styleSheet = document.styleSheets[0];
   // Functions
 
-  // 1. Toggle Layout Tab
-  // Description: toggles the highlighted layout tab based on the tab clicked, passed as a parameter
-  const toggleLayoutTab = (layoutTab:string) => {
-
-    // set the highlighted layout tab to the tab clicked
-    setHighlightedLayoutTab(layoutTab);
-  };
-
+  const updateCSSRule = (targetSelector: string, highlightedLayoutTab: string) => {
+    let ruleExists = false;
+    // Check if the rule already exists
+    for (let i = 0; i < styleSheet.cssRules.length; i++) {
+        if (styleSheet.cssRules[i].cssText.startsWith(targetSelector)) {
+            ruleExists = true;
+            // Update the existing rule
+            const rule=styleSheet.cssRules[i] as CSSStyleRule;
+            rule.style.display=highlightedLayoutTab;
+            break;
+        }
+    }
+    // If the rule does not exist
+    if (!ruleExists) {
+      // Create a new rule
+      const newRule = `${targetSelector} { display: ${highlightedLayoutTab}; }`;
+      styleSheet.insertRule(newRule, styleSheet.cssRules.length);
+    }
+}
 
   // LIFE CYCLE METHODS
 
-  // 1. useEffect - highlightedLayoutTab
-  // when the highlightedLayoutTab changes, update the layout style of the selected element
+  // useEffect - highlightedLayoutTab | When user changes the display value of the selected element.
+  /* 
+    When the highlightedLayoutTab changes: 
+    1. 
+  */
   useEffect(() => {
-    // Get target element data-flow-id
-    const target = document.querySelector(`[data-flow-id="${targetID}"]`);
-    // set the layout style of the selected element to the highlighted layout tab
-    target?.setAttribute('style', `display: ${highlightedLayoutTab}`);
+    // Get the target element selector
+    const targetSelector = `[data-flow-id="${targetID}"]`;
+    // Update the CSS rule
+    updateCSSRule(targetSelector, highlightedLayoutTab);
     
   }, [highlightedLayoutTab]);
 
@@ -55,7 +71,7 @@ export function LayoutInspector({layoutStyle,targetID} : LayoutInspectorProps) {
           {
             layoutTabs.map(tab=>(
               <div key={tab} className={`layout-tab ${tab} ${ (tab===highlightedLayoutTab?'highlighted':'')} `}
-              onClick={() => toggleLayoutTab(tab)}
+              onClick={() => setHighlightedLayoutTab(tab)}
               ></div>
             ))
           }

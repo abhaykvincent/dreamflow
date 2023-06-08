@@ -4,6 +4,7 @@ import './Inspector.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectTarget, selectTargetStyles } from '../canvas/canvasSlice';
 import { LayoutInspector } from '../../components/layoutInspector/LayoutInspector';
+import { PositionInspector } from '../../components/positionInspector/PositionInspector';
 
 //Interface for target data
 interface TargetData {
@@ -33,6 +34,8 @@ export function Inspector() {
   // Styles
   // Layout
   const [layoutStyle, setLayoutStyle] = useState(targetCSS?.display) as any;;
+  // Position
+  const [positionStyle, setPositionStyle] = useState(targetCSS?.position) as any;;
 
   useEffect(() => {
     function getElementSignature(element: HTMLElement) {
@@ -172,7 +175,11 @@ console.log(parents);
             </div>
             
           </div>
+          {/* Style section: Layout */}
           <LayoutInspector layoutStyle={layoutStyle} targetID={targetID} />
+          {/* Style section: Position */}
+          <PositionInspector positionStyle={positionStyle} targetID={targetID} />
+
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
           
