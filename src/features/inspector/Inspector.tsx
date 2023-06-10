@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectTarget, selectTargetStyles } from '../canvas/canvasSlice';
 import { LayoutInspector } from '../../components/layoutInspector/LayoutInspector';
 import { PositionInspector } from '../../components/positionInspector/PositionInspector';
+import { SizeInspector } from '../../components/sizeInspector/SizeInspector';
 
 //Interface for target data
 interface TargetData {
@@ -17,6 +18,7 @@ interface TargetData {
 interface MyComponentProps {
   display: string;
   targetId: string;
+
 }
 
 export function Inspector() {
@@ -36,7 +38,15 @@ export function Inspector() {
   const [layoutStyle, setLayoutStyle] = useState(targetCSS?.display) as any;;
   // Position
   const [positionStyle, setPositionStyle] = useState(targetCSS?.position) as any;;
-
+  // Size
+  const [sizeStyle, setSizeStyle] = useState({
+    initialWidth: targetCSS?.width,
+    initialHeight: targetCSS?.height,
+    initialMinWidth: targetCSS?.minWidth,
+    initialMaxWidth: targetCSS?.maxWidth,
+    initialMinHeight: targetCSS?.minHeight,
+    initialMaxHeight: targetCSS?.maxHeight
+  }) as any;
   useEffect(() => {
     function getElementSignature(element: HTMLElement) {
       let name = element.tagName.toLowerCase();
@@ -84,6 +94,16 @@ console.log(parents);
   useEffect(() => {
     if (targetCSS) {
       console.log('targetCSS', targetCSS);
+      let sizeStyletemp = {
+        initialWidth: targetCSS?.width,
+        initialHeight: targetCSS?.height,
+        initialMinWidth: targetCSS?.minWidth,
+        initialMaxWidth: targetCSS?.maxWidth,
+        initialMinHeight: targetCSS?.minHeight,
+        initialMaxHeight: targetCSS?.maxHeight
+
+      }
+      setSizeStyle(sizeStyletemp);
     }
   }, [targetCSS]);
   
@@ -179,7 +199,17 @@ console.log(parents);
           <LayoutInspector layoutStyle={layoutStyle} targetID={targetID} />
           {/* Style section: Position */}
           <PositionInspector positionStyle={positionStyle} targetID={targetID} />
-
+          {/* Style section: Size */}
+          <SizeInspector 
+          initialWidth='100'
+          initialHeight='100'
+          initialMinWidth='100'
+          initialMaxWidth='100'
+          initialMinHeight='100'
+          initialMaxHeight='100'
+          
+          targetID={targetID} />
+          
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
           

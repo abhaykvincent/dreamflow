@@ -41,18 +41,20 @@ export function PositionInspector({positionStyle, targetID} : PositionInspectorP
         <div className="position-property">
           <div className="position-property__label">Position</div>
         </div>
-        <div className="tab__wrap">
-          <div className={`highlighter ${highlightedPositionTab}`}></div>
-          <div className="position-tabs">
-            {positionTabs.map(tab => (
-              
-                <div key={tab} className={`position-tab ${tab} ${ (tab===highlightedPositionTab?'highlighted':'')} `}
-                onClick={() => setHighlightedPositionTab(tab)}>
-                </div>
 
-            ))}
-          </div>
+       <div className="position-property__input">
+              <div className="position-property__input__option">
+                <select name="position" id="position" value={highlightedPositionTab} onChange={(e) => setHighlightedPositionTab(e.target.value)}>
+                  <option value="static">Static</option>
+                  <option value="relative">Relative</option>
+                  <option value="absolute">Absolute</option>
+                  <option value="fixed">Fixed</option>
+                  <option value="sticky">Sticky</option>
+                </select>
+              </div>
+
         </div>
+
       </div>
     </div>
   )

@@ -1,0 +1,42 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+
+.panel-section__title{
+  margin-bottom: 8px*1;
+}
+
+.size{
+  position: relative;
+  .panel-section__title{
+    margin-bottom: 8px*2;
+  }
+  .size-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px*2;
+    input{
+      width: 100%;
+      background-color: $gray6;
+      border: 1px solid $gray3;
+      color: white;
+      border-radius: 8px;
+      padding: 4px 8px;
+    }
+  }
+}
+.size-property{
+  line-height: 8px*3.5;
+  .size-property__label{
+    color: $gray1;
+  }
+}
+//size-grid immediate child of div
+.size-grid > div{
+  display: grid;
+    grid-template-columns: 8px*6 auto;
+  
+}
+.size-property__label{
+    line-height: 8px*3;
+    color: $gray1;
+}
