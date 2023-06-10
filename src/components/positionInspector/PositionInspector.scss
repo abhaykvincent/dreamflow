@@ -9,85 +9,18 @@
   .panel-section__title{
     margin-bottom: 8px*2;
   }
+  select{
+    width: 100%;
+    background-color: $gray6;
+    border: 1px solid $gray3;
+    color: white;
+    border-radius: 8px;
+    padding: 4px 8px;
+  }
+}
+.position-property{
+  line-height: 8px*3.5;
   .position-property__label{
-    line-height: 8px*4;
-  }
-  .tab__wrap{
-    float: left;
-    position: relative;
-    width: 8px*24.3;
-    height: 8px*3.5;
-    margin: 0px;
-    background-color: $gray6;
-    border: 1px  solid $gray5;
-    border-radius: 8px;
-  }
-  .position-tabs{
-    position: relative;
-    z-index: 2;
-    .position-tab{
-      display: inline-block;
-      width: 8px*4;
-      height: 8px*3.5;
-      background-size: 50% 50% ;
-      background-position: center center;
-      opacity: 0.5;
-      &:hover{
-        opacity: 0.75;
-        transform: scale(1.02);
-      }
-      
-      &.highlighted{
-        opacity: 1;
-        transform: scale(1.05);
-      }
-      &.static{
-        background-size: 60% 60% ;
-        background-image: url('../../assets/icons/position/css-static.svg');
-      }
-      &.relative{
-        background-size: 60% 60% ;
-        background-image: url('../../assets/icons/position/css-relative.svg');
-      }
-      &.absolute{
-        background-size: 60% 60% ;
-        //background-image: url('../../assets/icons/position/css-absolute.svg');
-      }
-      &.fixed{
-        background-size: 60% 60% ;
-        background-image: url('../../assets/icons/position/css-fixed.svg');
-      }
-      &.sticky{
-        background-size: 60% 60% ;
-        //background-image: url('../../assets/icons/position/css-sticky.svg');
-      }
-    }
-  }
-  .highlighter{
-    position: absolute;
-    top: 0px;
-    margin:  -2px 0px;
-    height: 8px*4;
-    width: 8px*4;
-    background-color: $gray6;
-    border:1px solid $gray2;
-    border-radius: 8px;
-    z-index: 1;
-    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
-    &.static{
-      left:8px*0;
-    }
-    &.relative{
-      left:8px*4;
-    }
-    &.absolute{
-      left:8px*8;
-    }
-    &.fixed{
-      left:8px*12;
-    }
-    &.sticky{
-      left:8px*16;
-    }
+    color: $gray1;
   }
 }
