@@ -31,6 +31,7 @@ const updateCSSRule = (targetSelector: string, highlightedLayoutTab: string) => 
 };
 
 const LayoutInspector: React.FC<LayoutInspectorProps> = ({ layoutStyle, targetID }) => {
+  
   const [highlightedLayoutTab, setHighlightedLayoutTab] = useState(layoutStyle);
 
   useEffect(() => {
