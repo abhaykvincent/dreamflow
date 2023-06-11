@@ -8,22 +8,18 @@ interface LayoutInspectorProps {
 
 const LAYOUT_TABS = ['block', 'flex', 'grid', 'inline-block', 'inline', 'none'];
 
-// Helper function to update CSS rule for the target selector
 const updateCSSRule = (targetSelector: string, highlightedLayoutTab: string) => {
   const styleSheet = document.styleSheets[0] as CSSStyleSheet;
   let ruleExists = false;
 
-  // Check if the rule already exists
   for (const rule of styleSheet.cssRules) {
     if (rule.cssText.startsWith(targetSelector)) {
       ruleExists = true;
-      // Update the existing rule with the new display value
       (rule as CSSStyleRule).style.display = highlightedLayoutTab;
       break;
     }
   }
 
-  // If the rule does not exist, create a new one
   if (!ruleExists) {
     const newRule = `${targetSelector} { display: ${highlightedLayoutTab}; }`;
     styleSheet.insertRule(newRule, styleSheet.cssRules.length);
@@ -31,11 +27,9 @@ const updateCSSRule = (targetSelector: string, highlightedLayoutTab: string) => 
 };
 
 const LayoutInspector: React.FC<LayoutInspectorProps> = ({ layoutStyle, targetID }) => {
-  
   const [highlightedLayoutTab, setHighlightedLayoutTab] = useState(layoutStyle);
 
   useEffect(() => {
-    // When the highlightedLayoutTab state changes, update the CSS rule for the target selector
     updateCSSRule(`[data-flow-id="${targetID}"]`, highlightedLayoutTab);
   }, [highlightedLayoutTab, targetID]);
 
@@ -49,7 +43,6 @@ const LayoutInspector: React.FC<LayoutInspectorProps> = ({ layoutStyle, targetID
         <div className="tab__wrap">
           <div className={`highlighter ${highlightedLayoutTab}`} />
           <div className="layout-tabs">
-            {/* Render layout tabs */}
             {LAYOUT_TABS.map((tab) => (
               <div
                 key={tab}
@@ -65,3 +58,4 @@ const LayoutInspector: React.FC<LayoutInspectorProps> = ({ layoutStyle, targetID
 };
 
 export default LayoutInspector;
+/* 75 -> 61 */
