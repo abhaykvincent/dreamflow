@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { store } from './app/store';
 import App from './App';
 
-test('renders App component with Provider and store', () => {
+test('Checks if canvas state is defined', () => {
   const container = document.createElement('div');
   container.setAttribute('id', 'root');
   const root = createRoot(container);

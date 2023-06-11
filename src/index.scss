@@ -1,3 +1,16 @@
+
+@import './style/dark-colour-variables.scss';
+*{
+  font-family: "SF Pro";
+  background-size: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  transition-duration: 0.1s;
+  &:hover{
+    transition-duration: 0.05s;
+  }
+}
 body {
   margin: 0;
   font-family: 'SF Pro', 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +18,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $gray5;
 }
 
 code {

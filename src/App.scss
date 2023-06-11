@@ -1,19 +1,5 @@
 @import './style/dark-colour-variables.scss';
 
-*{
-  box-sizing: border-box;
-  font-family: "SF Pro";
-  background-size: 100%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  transition-duration: 0.1s;
-  &:hover{
-    transition-duration: 0.05s;
-  }
-}
-body{
-  background-color: $gray5;
-}
 .App{
   width: 100vw;
   height: 100vh;
