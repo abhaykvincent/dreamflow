@@ -1,8 +1,11 @@
 @import '../../style/dark-colour-variables.scss';
 .elements{
   background-color: $gray6;
-  border: 1px solid #555;
+  border: 1px solid $gray3;
+  border-top: 1px solid $gray2;
+  border-right: 1px solid $gray2;
   border-radius: 8px;
+  box-shadow: -2px 2px  8px*0.5 rgba(0, 0, 0, 0.4);
   .elements-dragabble{
     display: grid;
     grid-template-columns: 1fr 1fr;

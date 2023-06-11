@@ -210,10 +210,13 @@ Gather feedback through usability testing and make necessary improvements. */
     height: calc(100vh - 8px*20);
     right: 8px*1.5;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-top: 1px solid $gray3;
+    border: 1px solid $gray4;
+    border-bottom: 1px solid $gray3;
+    border-top: 1px solid $gray2;
+    border-left: 1px solid $gray2;
     border-radius: 8px;
     z-index: -1;
+    box-shadow: 2px 2px  8px*0.75 rgba(0, 0, 0, 0.4);
     .panel{
       display: grid;
       position: absolute;
