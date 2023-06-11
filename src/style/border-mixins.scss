@@ -1,0 +1,5 @@
+@mixin shiny-top-right-border-gray3{
+    border: 1px solid $gray3;
+    border-right: 1px solid $gray2;
+    border-top: 1px solid $gray2;
+  }

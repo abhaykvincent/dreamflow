@@ -1,11 +1,7 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/colours.scss';
+@import '../../style/border-mixins.scss';
 
-@mixin shiny-top-right-border{
-  border: 1px solid $gray3;
-  border-right: 1px solid $gray2;
-  border-top: 1px solid $gray2;
-}
 .sidebar{
   .tools{
     position: fixed;
@@ -26,7 +22,7 @@
       background-color: $gray4;
       background-position: center center;
       background-size: auto 8px*2.5 ;
-      @include shiny-top-right-border;
+      @include shiny-top-right-border-gray3;
       border-radius: 6px;
 
       &.elements{
