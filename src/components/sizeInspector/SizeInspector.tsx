@@ -81,27 +81,27 @@ export function SizeInspector({
         <div className="size-grid">
           <div>
             <div className="size-property__label">Width</div>
-            <input type="text" value={width} onChange={(e) => setWidth(e.target.value)} />
+            <input type="number" value={width} onChange={(e) => setWidth(e.target.value)} />
           </div>
           <div>
             <div className="size-property__label">Height</div>
-            <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} />
+            <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} />
           </div>
           <div>
             <div className="size-property__label">Min W</div>
-                        <input type="text" value={minWidth} onChange={(e) => setMinWidth(e.target.value)} />
+                        <input type="number" value={minWidth} onChange={(e) => setMinWidth(e.target.value)} />
           </div>
           <div>
             <div className="size-property__label">Max H</div>
-            <input type="text" value={maxWidth} onChange={(e) => setMaxWidth(e.target.value)} />
+            <input type="number" value={maxWidth} onChange={(e) => setMaxWidth(e.target.value)} />
           </div>
           <div>
             <div className="size-property__label">Min W</div>
-            <input type="text" value={minHeight} onChange={(e) => setMinHeight(e.target.value)} />
+            <input type="number" value={minHeight} onChange={(e) => setMinHeight(e.target.value)} />
           </div>
           <div>
             <div className="size-property__label">Max H</div>
-            <input type="text" value={maxHeight} onChange={(e) => setMaxHeight(e.target.value)} />
+            <input type="number" value={maxHeight} onChange={(e) => setMaxHeight(e.target.value)} />
           </div>
         </div>
       </div>

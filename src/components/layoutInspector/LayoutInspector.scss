@@ -19,8 +19,11 @@
     height: 8px*3.5;
     margin: 0px;
     background-color: $gray6;
-    border: 1px  solid $gray5;
-    border-radius: 8px;
+    border: 1px  solid $gray4;
+    border-bottom: 1px solid $gray3;
+  border-right: 1px solid $gray3;
+  box-shadow:  inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
   }
   .layout-tabs{
     position: relative;
@@ -30,7 +33,7 @@
       width: 8px*4;
       height: 8px*3.5;
       background-size: 50% 50% ;
-      background-position: center center;
+      background-position: 50% 46%;
       opacity: 0.5;
       &:hover{
         opacity: 0.75;
@@ -78,7 +81,7 @@
     border:1px solid $gray2;
     border-radius: 8px;
     z-index: 1;
-    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.2);
     &.block{
       left:8px*0;
     }
