@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './Inspector.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectTarget, selectTargetStyles } from '../canvas/canvasSlice';
-import { LayoutInspector } from '../../components/layoutInspector/LayoutInspector';
+import LayoutInspector from '../../components/layoutInspector/LayoutInspector';
 import { PositionInspector } from '../../components/positionInspector/PositionInspector';
 import { SizeInspector } from '../../components/sizeInspector/SizeInspector';
 

@@ -112,10 +112,10 @@ Gather feedback through usability testing and make necessary improvements. */
 .inspector{
   position: fixed;
   top: 8px*14;
-  right: 8px * 1.5;
+  right: 8px * 2;
   height: calc(100vh - 8px*20);
   border-radius: 8px;
-  width: 8px*12*3;
+  width: 8px*12*3.1;
   background-color: $gray6;
   .tabs__wrap{
       float: left;
@@ -206,9 +206,9 @@ Gather feedback through usability testing and make necessary improvements. */
   // Panels
   .panels{
     position: fixed;
-    width: 8px*12*3;
+    width: 8px*12*3.1;
     height: calc(100vh - 8px*20);
-    right: 8px*1.5;
+    right: 8px*2;
     overflow: hidden;
     border: 1px solid $gray4;
     border-bottom: 1px solid $gray3;
@@ -248,6 +248,9 @@ Gather feedback through usability testing and make necessary improvements. */
       width: 100%;
       padding: 8px;
       border: 1px solid $gray4;
+      border-top: 1px solid $gray3;
+    border-left: 1px solid $gray3;
+    box-shadow:  2px 2px 4px rgba(0, 0, 0, 0.3);
       border-radius: 8px*0.5;
       background-color: $gray7;
       .panel__label{
@@ -334,6 +337,9 @@ Gather feedback through usability testing and make necessary improvements. */
       .panel_button{
 
         border: 1px solid $gray3;
+        border-top: 1px solid $gray2;
+        border-left: 1px solid $gray2;
+        box-shadow:  2px 2px 4px rgba(0, 0, 0, 0.3);
         width: 100%;
         padding: 8px*0.5 8px;
         color: white;
@@ -366,6 +372,9 @@ Gather feedback through usability testing and make necessary improvements. */
           background-color: $gray6;
           border-radius: 8px*0.5;
           border: 1px solid $gray5;
+          border-bottom: 1px solid $gray4;
+        border-right: 1px solid $gray4;
+        box-shadow:  inset 2px 2px 4px rgba(0, 0, 0, 0.3);
           color: white;
           font-size: 0.8em;
           //input number increment& decrement inbuilt buttons
