@@ -3,7 +3,7 @@ import './ElementPalette.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectTarget, setStyles, setTarget } from '../canvas/canvasSlice';
 
-/* HTML Element icons */
+/* HTML Element SVG icons */
 import icon_h  from '../../assets/icons/elements/awesome-heading.svg'
 import icon_p  from '../../assets/icons/elements/metro-paragraph-left.svg'
 import icon_a  from '../../assets/icons/elements/awesome-link.svg'
@@ -29,7 +29,6 @@ function highlightTargetElementInCanvas(target:any){
   document.querySelector('.canvas *.selected')?.classList.remove('selected')
   target.classList.add('selected')
 }
-
 function createHTMLElement(tag: string, target: string) {
   const newElement = document.createElement(tag);
   newElement.innerHTML = tag;
@@ -76,7 +75,6 @@ function handleTooltipHover() {
   }
   );
 }
-
 const AVAILABLE_ELEMENTS =[
   {
     tagName: "Div",
@@ -122,7 +120,6 @@ const AVAILABLE_ELEMENTS =[
 ]
 export function ElementPalette() {
   const dispatch = useAppDispatch();
-  
   const targetID = useAppSelector(selectTarget);
   function createElementWithTooltip(target:string,tag:string){
     const newElement = createHTMLElement(tag, target);
@@ -130,20 +127,18 @@ export function ElementPalette() {
       e.stopPropagation();
       // Store Target
       dispatch(setTarget(e.currentTarget.dataset.flowId));
+      
       highlightTargetElementInCanvas(e.currentTarget);
-      // Target Tooltip
       showTolltip(e.currentTarget);
     });
     // Hover on element to show tooltip
     handleElementHover(newElement);
     handleTooltipHover();
-    
   } 
-
   return (
     <>
     <div className="tabs">Elements</div>
-    <div className="elements-dragabble">
+    <div className="elements-dragabbles">
     {
       AVAILABLE_ELEMENTS.map(element=>(
         <div className={`element  html-${element.tag}` }
@@ -159,6 +154,5 @@ export function ElementPalette() {
     </div>
     </>
   );
-
 }
 //  210 -> 164 -> 158
