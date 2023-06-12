@@ -141,7 +141,9 @@ export function ElementPalette() {
     <div className="elements-dragabbles">
     {
       AVAILABLE_ELEMENTS.map(element=>(
-        <div className={`element  html-${element.tag}` }
+        <div key={element.tag} 
+          className={`element  html-${element.tag}` }
+          data-testid={`  html-${element.tag}` }
           onClick={()=>createElementWithTooltip(targetID,element.tag)}
         >
           <div className="element_icon"
