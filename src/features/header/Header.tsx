@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
 import './Header.scss';
+import ResponsiveControl from '../../components/ResponsiveControl/ResponsiveControl';
+import RolesControl from '../../components/RolesControl/RolesControl';
 
 export function Header() {
-
-  const devices = ['a', 'b', 'c', 'd']; // An array of labels
-  const roles = ['Design','Code']; // An array of labels
-
-  const [highlightedDevice, setHighlightedDevice] = useState('b');
-  const [highlightedRole, setHighlightedRole] = useState('Design');
-
-  const toggleHighlight = (device:string) => {
-    setHighlightedDevice(device);
-  };
-  const toggleRole = (role:string) => {
-    setHighlightedRole(role);
-  };
 
   return (
     <header>
@@ -30,37 +19,8 @@ export function Header() {
           
         </div>
         <div className="center">
-          <div className="responsive">
-            <div className="devices__wrap">
-              <div className={`highlighter ${highlightedDevice}`}></div>
-              <div className="devices">
-              {
-                devices.map(device=>(
-                  <div key={device} className={`device ${device} ${ (device===highlightedDevice?'highlighted':'')} `}
-                  onClick={() => toggleHighlight(device)}
-                  ></div>
-                ))
-              }
-              </div>
-            </div>
-            <div className="device__size">
-              <div className="unit">1920 px</div>
-            </div>
-          </div>
-          <div className="roles">
-            <div className="tab-button">
-              <div className={`highlighter ${highlightedRole.toLowerCase()}`}></div>
-              <div className="tabs">
-              {
-                roles.map(role=>(
-                  <div key={role} className={`role ${role.toLowerCase()} ${ (role===highlightedRole?'highlighted':'')} `}
-                  onClick={() => toggleRole(role)}
-                  >{role}</div>
-                ))
-              }
-              </div>
-            </div>
-          </div>
+          <ResponsiveControl/>
+          <RolesControl/>
           <div className="actions">
             <div className="button">Export</div>
           </div>
