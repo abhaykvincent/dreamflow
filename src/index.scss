@@ -1,10 +1,24 @@
+
+@import './style/dark-colour-variables.scss';
+*{
+  font-family: "SF Pro";
+  background-size: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  transition-duration: 0.1s;
+  &:hover{
+    transition-duration: 0.05s;
+  }
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'SF Pro', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $gray5;
 }
 
 code {
