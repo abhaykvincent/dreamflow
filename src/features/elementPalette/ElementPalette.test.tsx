@@ -7,8 +7,8 @@ import { Canvas } from '../canvas/Canvas';
 test ('New element is created when clicked', () => {
     render(
         <Provider store={store}>
-        <Canvas/>
-        <ElementPalette/>
+            <Canvas/>
+            <ElementPalette/>
         </Provider>
     );
 

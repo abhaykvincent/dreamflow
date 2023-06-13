@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
+import React from 'react';
+import $ from 'jquery';
+import {produce} from 'immer';
+import { act } from 'react-dom/test-utils';
 
 export interface CanvasState {
   canvasDOM: string;
@@ -9,7 +13,7 @@ export interface CanvasState {
 }
 
 const initialState: CanvasState = {
-  canvasDOM: '',
+  canvasDOM: $('#canvas').html() as string,
   targetId:'canvas',
   targetStyles:[
     { property: '', value: '' }
@@ -21,20 +25,22 @@ export const CanvasSlice = createSlice({
   name: 'canvas',
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
-  reducers: {
-    update: (state,action: PayloadAction<string>) => {
-      state.canvasDOM=action.payload
+  reducers:{
+    updateCanvasHTML: (state,action: PayloadAction<string>) => {
+      state.canvasDOM=action.payload;
+      console.log('%ccanvasDOM updatedin store', 'color: #AF52DE');
     },
     setTarget:(state,action:PayloadAction<string>)=>{
         state.targetId=action.payload
     },
     setStyles:(state,action:PayloadAction<{property:string,value:string}[]>)=>{
-      state.targetStyles=action.payload
+      state.targetStyles=action.payload;
+      console.log(state.targetStyles)
     }
   },
 });
 
-export const { update,setTarget,setStyles } = CanvasSlice.actions;
+export const { updateCanvasHTML,setTarget,setStyles } = CanvasSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
