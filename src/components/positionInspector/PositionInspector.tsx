@@ -28,12 +28,12 @@ const updateCSSRule = (targetSelector: string, highlightedPositionTab: string) =
 
 export function PositionInspector({positionStyle, targetID} : PositionInspectorProps) {
   const [highlightedPositionTab, setHighlightedPositionTab] = useState(positionStyle);
-  
+  console.log('highlightedPositionTab', highlightedPositionTab);
   useEffect(() => {
     const targetSelector = `[data-flow-id="${targetID}"]`;
     updateCSSRule(targetSelector, highlightedPositionTab);
   }, [highlightedPositionTab]);
-
+console.log('highlightedPositionTab', highlightedPositionTab);
   return(
     <div className="position-inspector">
       <div className="panel-section__title">Position</div>

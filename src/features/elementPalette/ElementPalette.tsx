@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './ElementPalette.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectTarget, setStyles, setTarget } from '../canvas/canvasSlice';
-
+import { selectTarget, setStyles, setTarget, updateCanvasHTML } from '../canvas/canvasSlice';
+import $ from 'jquery';
 /* HTML Element SVG icons */
 import icon_h  from '../../assets/icons/elements/awesome-heading.svg'
 import icon_p  from '../../assets/icons/elements/metro-paragraph-left.svg'
@@ -134,6 +134,9 @@ export function ElementPalette() {
     // Hover on element to show tooltip
     handleElementHover(newElement);
     handleTooltipHover();
+
+    const currentCanvasHTML = $('#canvas').html();
+   dispatch(updateCanvasHTML(currentCanvasHTML));
   } 
   return (
     <>

@@ -77,9 +77,7 @@ export function Inspector() {
           if(parentElement.id === 'canvas') break;
           parentElement = parentElement.parentElement;
       }
-      
 
-console.log(parents);
 
 
       setTargetData({
@@ -259,3 +257,5 @@ console.log(parents);
       </div>
   );
 }
+// lines -      259
+// complexity - 88 -> 
