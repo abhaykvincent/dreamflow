@@ -29,19 +29,19 @@
           opacity: 1;
           transform: scale(1.05);
         }
-        &.a{
-          background-size: 60% 60% ;
+        &.desktop{
+          background-size: 50% 50% ;
           background-image: url('../../assets/icons/devices/Icon\ material-laptop-mac.svg');
         }
-        &.b{
-          background-size: 60% 60% ;
+        &.tablet-portrait{
+          background-size: 50% 50% ;
           background-image: url('../../assets/icons/devices/Icon\ material-tablet-mac.svg');
         }
-        &.c{
-          background-size:  50% 50% ;
+        &.tablet-landscape{
+          background-size: 50% 50% ;
           background-image: url('../../assets/icons/devices/Icon\ material-tablet-mac-1.svg');
-        }
-        &.d{
+        } 
+        &.mobile{
           background-size: 50% 50% ;
           background-image: url('../../assets/icons/devices/Icon\ material-phone-iphone.svg');
         }
@@ -57,16 +57,16 @@
       border:1px solid $gray2;
       border-radius: 8px;
       z-index: 1;
-      &.a{
+      &.desktop{
         left:0px;
       }
-      &.b{
+      &.tablet-portrait{
         left:8px*4;
       }
-      &.c{
+      &.tablet-landscape{
         left:8px*4*2;
       }
-      &.d{
+      &.mobile{
         left:8px*4*3;
       }
 
