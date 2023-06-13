@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
-import { useAppDispatch } from '../../app/hooks';
+import { useState } from 'react';
 
 import { ElementPalette } from '../elementPalette/ElementPalette';
 import './Sidebar.scss';
 
+const SIDEBAR_TOOLS = [
+  'elements',
+  'layers',
+]
 export function Sidebar() {
   const [activeSidebarTool, setActiveSidebarTool] = useState('elements');
-
   return (
       <div className="sidebar">
         <div className="tools">
-
-          {/* Button for Element Pallette*/}
-          <div 
-            className={`quick-tool elements ${activeSidebarTool == 'elements' ? 'active':''}`}
-            onClick={()=>setActiveSidebarTool('elements')}
-          ></div>
-          {/* Button for Layers Panel*/}
-          <div 
-            className={`quick-tool layers ${activeSidebarTool == 'layers' ? 'active':''}`}
-            onClick={()=>setActiveSidebarTool('layers')}
-          ></div>
+          {
+            SIDEBAR_TOOLS.map((tool, index) => {
+              return (
+                <div 
+                  className={`quick-tool ${tool} ${activeSidebarTool == tool ? 'active':''}`}
+                  onClick={()=>setActiveSidebarTool(tool)}
+                  key={index}
+                ></div>
+              )
+            })
+          }
 
           <div className="quick-tool pages disabled"></div> {/* Disabled */}
           <div className="quick-tool assets disabled"></div> {/* Disabled */}
