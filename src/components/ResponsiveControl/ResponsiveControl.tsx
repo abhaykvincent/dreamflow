@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './ResponsiveControl.scss';
 
-const devices = ['a', 'b', 'c', 'd'];
+const devices = ['desktop', 'tablet-portrait', 'tablet-landscape', 'mobile'];
 const ResponsiveControl: React.FC = () => {
   const [highlightedDevice, setHighlightedDevice] = useState('b');
-  const toggleHighlight = (device:string) => {
-    setHighlightedDevice(device);
-  };
   return (
     <div className="responsive">
       <div className="responsive__devices">
@@ -15,7 +12,7 @@ const ResponsiveControl: React.FC = () => {
         {
           devices.map(device=>(
             <div key={device} className={`device ${device} ${ (device===highlightedDevice?'highlighted':'')} `}
-            onClick={() => toggleHighlight(device)}
+            onClick={() => setHighlightedDevice(device)}
             ></div>
           ))
         }
