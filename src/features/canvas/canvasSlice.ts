@@ -2,8 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
 import React from 'react';
 import $ from 'jquery';
-import {produce} from 'immer';
-import { act } from 'react-dom/test-utils';
 
 export interface CanvasState {
   canvasDOM: string;
@@ -32,15 +30,11 @@ export const CanvasSlice = createSlice({
     },
     setTarget:(state,action:PayloadAction<string>)=>{
         state.targetId=action.payload
-    },
-    setStyles:(state,action:PayloadAction<{property:string,value:string}[]>)=>{
-      state.targetStyles=action.payload;
-      console.log(state.targetStyles)
     }
   },
 });
 
-export const { updateCanvasHTML,setTarget,setStyles } = CanvasSlice.actions;
+export const { updateCanvasHTML,setTarget} = CanvasSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ElementPalette.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectTarget, setStyles, setTarget, updateCanvasHTML } from '../canvas/canvasSlice';
+import { selectTarget, setTarget, updateCanvasHTML } from '../canvas/canvasSlice';
 import $ from 'jquery';
 /* HTML Element SVG icons */
 import icon_h  from '../../assets/icons/elements/awesome-heading.svg'
