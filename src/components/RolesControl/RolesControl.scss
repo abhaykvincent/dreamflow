@@ -1,0 +1,56 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+.roles{
+    position: fixed;
+    left: 50vw;
+    width: 8px*16.3;
+    height: 8px*3.5;
+    margin: 8px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px  solid $gray5;
+    border-radius: 8px;
+
+    transform: translate(-50%,0%);
+    .tabs{
+        position: relative;
+        z-index: 2;
+        .role{
+          display: inline-block;
+          width: 8px*8;
+          height: 8px*3.5;
+          background-size: 50% 50% ;
+          background-position: center center;
+          opacity: 0.5;
+          text-align: center;
+          line-height: 2em;
+          cursor: pointer;
+          &:hover{
+            opacity: 0.75;
+            transform: scale(1.02);
+          }
+          
+          &.highlighted{
+            opacity: 1;
+            transform: scale(1.05);
+          }
+        }
+      }
+      .highlighter{
+        position: absolute;
+        top:0px;
+        margin:  -2px 0px;
+        height: 8px*4;
+        width: 8px*8;
+        background-color: $gray6;
+        border:1px solid $gray2;
+        border-radius: 8px;
+        z-index: 1;
+        &.design{
+          left:0;
+    
+        }&.code{
+          left:8px*8;
+          
+        }
+      }
+  }

@@ -1,5 +1,7 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/colours.scss';
+@import '../../style/border-mixins.scss';
+
 .sidebar{
   .tools{
     position: fixed;
@@ -10,7 +12,6 @@
     background-color: $gray6;
     border-right: 1px solid $gray3;
 
-    box-shadow:  inset -2px 2px 4px rgba(0, 0, 0, 0.3);
     z-index: 2;
     .quick-tool{
       width: 8px*4;
@@ -21,20 +22,14 @@
       background-color: $gray4;
       background-position: center center;
       background-size: auto 8px*2.5 ;
-
-      border-radius: 8px;
-      @include grey-border;
+      @include shiny-top-right-border-gray3;
+      border-radius: 6px;
 
       &.elements{
         background-image: url('../../assets/icons/Icon\ simple-atom.svg');
-        box-shadow: -2px 2px  8px*0.2 rgba(0, 0, 0, 0.4);
-        border: 1px solid $gray4;
-        border-right: 1px solid $gray2;
-        border-top: 1px solid $gray2;
       }
       &.layers{
         background-image: url('../../assets/icons/Icon\ feather-layers.svg');
-        background-size: 8px*2.5;
       }
       &.pages{
         background-image: url('../../assets/icons/Icon\ metro-files-empty.svg');
@@ -46,24 +41,23 @@
       }
   
       &.active{
-        background-color: $gray5;
         padding-right: 8px*3.9;
+
+        background-color: $gray5;
+        background-position: 8px center;
+        box-shadow: -1px 1px  8px*0.1 rgba(0, 0, 0, 0.4);
+
         border-top: 1px solid $gray3;
         border-bottom: 1px solid $gray3;
         border-right: 1px solid transparent;
         border-left: 1px solid $gray2;
-        
-        background-position: 6px center;
         border-radius: 8px 0px 0px 8px;
-        background-position: 8px center;
-        
-        box-shadow: -1px 1px  8px*0.1 rgba(0, 0, 0, 0.4);
         &:hover{
           background-position: 8px center;
-          border-top: 1px solid $gray3;
+          border-top: 1px solid $gray2;
           border-bottom: 1px solid $gray3;
           border-right: 1px solid transparent;
-          border-left: 1px solid $gray2;
+          border-left: 1px solid $gray1;
         }
       }
       &:hover{
@@ -77,7 +71,7 @@
       }
     }
   }
-  .side-menu{
+  .side-panels{
     position: fixed;
     top: 8px*14;
     left: 8px*7;
@@ -87,7 +81,6 @@
       &.hide{
         transform: translateX(-150%);
       }
-      
       &.layers{
         position: fixed;
         top: 8px*14;
@@ -96,20 +89,24 @@
       }
       .tabs{
         display: inline-block;
-        padding: 0px 8px*2;
         height: 8px*3;
-        background-color: $orange;
+        padding: 0px 8px*2;
         margin-left: auto;
-        transform: translate(50%,-50%);
-        border-radius: 4px;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        border-right: 1px solid rgb(255, 255, 255);
-        border-top: 1px solid rgb(255, 255, 255);
+
         font-size: 1.1em;
         font-weight: 500;
         text-align: center;
         line-height: 8px*2.5;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+
+        background-color: $orange;
+
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-right: 1px solid rgb(255, 255, 255);
+        border-top: 1px solid rgb(255, 255, 255);
+
+        transform: translate(50%,-50%);
       }
     }
   }

@@ -1,37 +1,23 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
+import { store } from '../../app/store';
 import { ElementPalette } from './ElementPalette';
-import { setTarget } from '../canvas/canvasSlice';
+import { Canvas } from '../canvas/Canvas';
 
-const mockStore = configureStore([]);
+test ('New element is created when clicked', () => {
+    render(
+        <Provider store={store}>
+            <Canvas/>
+            <ElementPalette/>
+        </Provider>
+    );
 
-describe('ElementPalette', () => {
-    let store: any;
-
-    beforeEach(() => {
-        store = mockStore({
-            canvas: {
-                target: 'canvas',
-            },
-        });
-    });
-
-    it('renders all elements', () => {
-        const { getByText } = render(
-            <Provider store={store}>
-                <ElementPalette />
-            </Provider>
-        );
-
-        expect(getByText('Div')).toBeInTheDocument();
-        expect(getByText('Section')).toBeInTheDocument();
-        expect(getByText('H1')).toBeInTheDocument();
-        expect(getByText('P')).toBeInTheDocument();
-        expect(getByText('A')).toBeInTheDocument();
-        expect(getByText('Input')).toBeInTheDocument();
-        expect(getByText('Button')).toBeInTheDocument();
-    });
-
-    
-});
+    // target element be clicked
+    const divButton = screen.getByTestId('html-div');
+    fireEvent.click(divButton);
+    // check if new element is created
+    const canvas = screen.getByTestId('canvas');
+    expect(canvas.children.length).toBe(1);
+    expect(canvas.children[0].tagName).toBe('DIV');
+    }
+    );
