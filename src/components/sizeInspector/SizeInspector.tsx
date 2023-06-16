@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './SizeInspector.scss';
 
 interface SizeInspectorProps {
-  initialWidth: string;
-  initialHeight: string;
-  initialMinWidth: string;
-  initialMaxWidth: string;
-  initialMinHeight: string;
-  initialMaxHeight: string;
   targetID: string;
 }
 
@@ -32,21 +26,15 @@ const updateCSSRule = (targetSelector: string, property: string, value: string) 
 }
 
 export function SizeInspector({
-  initialWidth,
-  initialHeight,
-  initialMinWidth,
-  initialMaxWidth,
-  initialMinHeight,
-  initialMaxHeight,
   targetID
 } : SizeInspectorProps) {
 
-  const [width, setWidth] = useState(initialWidth);
-  const [height, setHeight] = useState(initialHeight);
-  const [minWidth, setMinWidth] = useState(initialMinWidth);
-  const [maxWidth, setMaxWidth] = useState(initialMaxWidth);
-  const [minHeight, setMinHeight] = useState(initialMinHeight);
-  const [maxHeight, setMaxHeight] = useState(initialMaxHeight);
+  const [width, setWidth] = useState('');
+  const [height, setHeight] = useState('');
+  const [minWidth, setMinWidth] = useState('');
+  const [maxWidth, setMaxWidth] = useState('');
+  const [minHeight, setMinHeight] = useState('');
+  const [maxHeight, setMaxHeight] = useState('');
   
   const targetSelector = `[data-flow-id="${targetID}"]`;
   
