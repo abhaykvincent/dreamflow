@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './LayoutInspector.scss';
 
 interface LayoutInspectorProps {
-  layoutStyle: string;
   targetID: string;
 }
 
@@ -26,8 +25,8 @@ const updateCSSRule = (targetSelector: string, highlightedLayoutTab: string) => 
   }
 };
 
-const LayoutInspector: React.FC<LayoutInspectorProps> = ({ layoutStyle, targetID }) => {
-  const [highlightedLayoutTab, setHighlightedLayoutTab] = useState(layoutStyle);
+const LayoutInspector: React.FC<LayoutInspectorProps> = ({ targetID }) => {
+  const [highlightedLayoutTab, setHighlightedLayoutTab] = useState('');
 
   useEffect(() => {
     updateCSSRule(`[data-flow-id="${targetID}"]`, highlightedLayoutTab);

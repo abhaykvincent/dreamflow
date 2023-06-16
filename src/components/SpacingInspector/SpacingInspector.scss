@@ -1,0 +1,50 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+
+.spacing{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  .spacing__input{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 8px*0.5;
+    color: $gray1;
+    
+    .spacing__input__field{
+      width: 8px*3;
+      padding: 3px 4px;
+      background-color: $gray6;
+      border-radius: 8px*0.5;
+      border: 1px solid $gray5;
+      border-bottom: 1px solid $gray4;
+    border-right: 1px solid $gray4;
+    box-shadow:  inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+      color: white;
+      font-size: 0.8em;
+      //input number increment& decrement inbuilt buttons
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button { 
+        // fill red
+        -webkit-appearance: none;
+
+      }
+    }
+    .spacing__input__unit{
+      margin-left: -8px;
+      margin-top: 8px*0.5;
+      color: $gray3;
+    }
+  }
+  
+  .spacing__label{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin: 8px*0.5;
+    margin-top: 0;
+    color: $gray1;
+    &::after{
+      content: "px";
+      color: $gray3;
+    }
+  }
+}
