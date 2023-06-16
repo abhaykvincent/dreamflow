@@ -1,110 +1,17 @@
 
 import React, { useEffect, useState } from 'react';
 import './Inspector.scss';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { selectTarget, selectTargetStyles } from '../canvas/canvasSlice';
 import LayoutInspector from '../../components/layoutInspector/LayoutInspector';
 import { PositionInspector } from '../../components/positionInspector/PositionInspector';
 import { SizeInspector } from '../../components/sizeInspector/SizeInspector';
+import Target from '../../components/Target/Target';
+import { SpacingInspector } from '../../components/SpacingInspector/SpacingInspector';
 
-//Interface for target data
-interface TargetData {
-  name: string;
-  tag: string;
-  classes: string[];
-  breadcrumb: string[];
-}
-// Define an interface for the props object
-interface MyComponentProps {
-  display: string;
-  targetId: string;
 
-}
 
 export function Inspector() {
-  // State: Target Element
-  const targetID = useAppSelector(selectTarget);
-  // Target Data
-  const [targetData, setTargetData] = useState({
-    name: '',
-    tag: '',
-    classes: [],
-    breadcrumb: []
-  } as TargetData);
-  // Target Styles
-  const targetCSS = useAppSelector(selectTargetStyles) as any;
-  // Styles
-  // Layout
-  const [layoutStyle, setLayoutStyle] = useState(targetCSS?.display) as any;;
-  // Position
-  const [positionStyle, setPositionStyle] = useState(targetCSS?.position) as any;;
-  // Size
-  const [sizeStyle, setSizeStyle] = useState({
-    initialWidth: targetCSS?.width,
-    initialHeight: targetCSS?.height,
-    initialMinWidth: targetCSS?.minWidth,
-    initialMaxWidth: targetCSS?.maxWidth,
-    initialMinHeight: targetCSS?.minHeight,
-    initialMaxHeight: targetCSS?.maxHeight
-  }) as any;
-  useEffect(() => {
-    function getElementSignature(element: HTMLElement) {
-      let name = element.tagName.toLowerCase();
-      let id = element.id ? '#' + element.id : '';
-      let className = element.className ? '.' + element.className.split(' ').join('.') : '';
-      return name + className + id;
-  }
-    if (targetID) {
-      // Get target element data-flow-id
-      const target = document.querySelector(`[data-flow-id="${targetID}"]`);
-      // Get target name
-      const name = target?.getAttribute('name');
-      // Get target tag
-      const tag = target?.tagName;
-      // Get target classes
-      const classes = target?.classList;
-      // Get target breadcrumb (parent elemenets) till body using DOM API
-      let selectedElement = document.querySelector('#selectedElementId'); // change this to select your element
-      let parents = [];
-      let parentElement = target?.parentElement;
-      let breadcrumbs = [];
-      // make breadcrumb reverse oredr of parents
-
-      
-      while (parentElement) {
-          parents.push(parentElement);
-          breadcrumbs.push(getElementSignature(parentElement));
-          if(parentElement.id === 'canvas') break;
-          parentElement = parentElement.parentElement;
-      }
-
-
-
-      setTargetData({
-        name: name ? name : '',
-        tag: tag ? tag : '',
-        classes: classes ? Array.from(classes) : [],
-        breadcrumb: breadcrumbs ? Array.from(breadcrumbs) : []
-      });
-    }
-  }, [targetID]);
-
-  useEffect(() => {
-    if (targetCSS) {
-      console.log('targetCSS', targetCSS);
-      let sizeStyletemp = {
-        initialWidth: targetCSS?.width,
-        initialHeight: targetCSS?.height,
-        initialMinWidth: targetCSS?.minWidth,
-        initialMaxWidth: targetCSS?.maxWidth,
-        initialMinHeight: targetCSS?.minHeight,
-        initialMaxHeight: targetCSS?.maxHeight
-
-      }
-      setSizeStyle(sizeStyletemp);
-    }
-  }, [targetCSS]);
-  
 
   const [inspectorPanels, setInspectorPanels] = useState({
     panels: [
@@ -114,138 +21,53 @@ export function Inspector() {
     ],
     highlightedTab: 'visualStyle'
   })
-  const toggleHighlight = (panel:string) => {
+  const toggleInspectorPanels = (panel:string) => {
     setInspectorPanels({...inspectorPanels,highlightedTab:panel})
   };
-
-
-
+  // State: Target Element
+  const targetID = useAppSelector(selectTarget)
 
   return (
     <div className="inspector">
-       <div className="tabs__wrap">
-            <div className={`highlighter ${inspectorPanels.highlightedTab.toLowerCase()}`}></div>
-            <div className="tab-button">
-              <div className="tabs"
-              style={{userSelect:'none'}}>
-              {
-                inspectorPanels.panels.map(panel=>(
-                  <div key={panel.class} className={`tab ${inspectorPanels.highlightedTab.toLowerCase()} ${ (panel.class=== inspectorPanels.highlightedTab?'highlighted':'')} `}
-                  onClick={() => toggleHighlight(panel.class)}
-                  >{panel.name}</div>
-                ))
-              }
-              </div>
-              <div className="tabs__shadow"></div>
-            </div>
+      <div className="tabs__wrap">
+
+        <div className={`highlighter ${inspectorPanels.highlightedTab.toLowerCase()}`}></div>
+        <div className="tab-button">
+          <div className="tabs"
+          style={{userSelect:'none'}}>
+          {
+            inspectorPanels.panels.map(panel=>(
+              <div key={panel.class} className={`tab ${inspectorPanels.highlightedTab.toLowerCase()} ${ (panel.class=== inspectorPanels.highlightedTab?'highlighted':'')} `}
+              onClick={() => toggleInspectorPanels(panel.class)}
+              >{panel.name}</div>
+            ))
+          }
           </div>
-       <div className="panels">
+          <div className="tabs__shadow"></div>
+        </div>
+
+      </div>
+      <div className="panels">
         <div className={`panel ${inspectorPanels.highlightedTab === 'visualStyle' ? 'active' : ''}`}>
           
-          {/* As a web designer, I want to see the element tag, name, breadcrumb trail, and associated classes within the Inspector when I select an element. This way, I can better understand the context and styling of the element, which allows me to make more accurate and efficient changes to its design attributes.*/}
-          <div className="panel__section target">
-              <div className="panel__label">
-                {
-                  targetData.name ? targetData.name : targetData.tag
-                }
-              </div>
-              <div className="panel__input">
-                <div className="target__tag">header</div>
-                <div className="target__states">:hover</div>
-            </div>
-            <div className="breadcrumbs">
-              {
-              targetData.breadcrumb.map((node,index)=>(
-                <div key={index} className="node">{node}</div>
-              ))
-
-                
-              }
-            </div>
-          
-          </div>
+          {/* Style section: Target */}
+          <Target targetID={targetID} />
           {/* Create component button */}
           <div className="panel__section create_component">
             <div className="panel_button">Create Component </div>
           </div>
           {/* Style section: Spacing */}
-          <div className="panel-section__title">Spacing</div>
-          <div className="panel__section spacing">
-
-            <div className="spacing__wrap">
-              <div className="spacing__label">Padding</div>
-              <div className="spacing__input">
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-              </div>
-            </div>
-
-            <div className="spacing__wrap">
-              <div className="spacing__label">Margin</div>
-              <div className="spacing__input">
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-              </div>
-            </div>
-            
-          </div>
+         <SpacingInspector targetID={targetID} />
           {/* Style section: Layout */}
-          <LayoutInspector layoutStyle={layoutStyle} targetID={targetID} />
+          <LayoutInspector targetID={targetID} />
           {/* Style section: Position */}
-          <PositionInspector positionStyle={positionStyle} targetID={targetID} />
+          <PositionInspector targetID={targetID} />
           {/* Style section: Size */}
-          <SizeInspector 
-          initialWidth='100'
-          initialHeight='100'
-          initialMinWidth='100'
-          initialMaxWidth='100'
-          initialMinHeight='100'
-          initialMaxHeight='100'
-          
-          targetID={targetID} />
+          <SizeInspector targetID={targetID} />
           
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
-          
-          {/* As a web designer, I want to see the element tag, name, breadcrumb trail, and associated classes within the Inspector when I select an element. This way, I can better understand the context and styling of the element, which allows me to make more accurate and efficient changes to its design attributes.*/}
-          <div className="panel__section target">
-              <div className="panel__label">
-                {
-                  targetData.name ? targetData.name : targetData.tag
-                }
-              </div>
-              <div className="panel__input">
-                <div className="target__tag">ttt</div>
-                <div className="target__states">:hover</div>
-            </div>
-            <div className="breadcrumbs">
-              {
-              targetData.breadcrumb.map((node,index)=>(
-                <div key={index} className="node">{node}</div>
-              ))
-
-                
-              }
-            </div>
-          
-          </div>
           {/* Create component button */}
-          <div className="panel__section create_component">
-            <div className="panel_button">Create Component </div>
-          </div>
-          <div className="panel__section create_component">
-            <div className="panel_button">Create Component </div>
-          </div>
-          <div className="panel__section create_component">
-            <div className="panel_button">Create Component </div>
-          </div>
-          <div className="panel__section create_component">
-            <div className="panel_button">Create Component </div>
-          </div>
           <div className="panel__section create_component">
             <div className="panel_button">Create Component </div>
           </div>
@@ -253,9 +75,9 @@ export function Inspector() {
         <div className={`panel ${inspectorPanels.highlightedTab === 'interactions' ? 'active' : ''}`}>
           Intractions
         </div>
-       </div>
       </div>
+    </div>
   );
 }
-// lines -      259
-// complexity - 88 -> 
+// lines      - 156 ->  147 -> 112 ->
+// complexity - 44 -> 
