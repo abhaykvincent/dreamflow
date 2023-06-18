@@ -10,3 +10,19 @@
     border-top: 1px solid $gray1;
     box-shadow: -2px 2px  8px*0.5 rgba(0, 0, 0, 0.4);
   }
+
+@mixin shiny-left-border-gray3{
+    border: 1px solid $gray3;
+    border-left: 1px solid $gray2
+  }
+
+  @mixin shiny-left-border-orange2{
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid white;
+  }
+
+  @mixin shiny-bottom-left-border-orange2{
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
