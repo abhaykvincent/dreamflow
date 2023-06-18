@@ -9,8 +9,6 @@ import { SizeInspector } from '../../components/sizeInspector/SizeInspector';
 import Target from '../../components/Target/Target';
 import { SpacingInspector } from '../../components/SpacingInspector/SpacingInspector';
 
-
-
 export function Inspector() {
 
   const [inspectorPanels, setInspectorPanels] = useState({
@@ -56,13 +54,10 @@ export function Inspector() {
           <div className="panel__section create_component">
             <div className="panel_button">Create Component </div>
           </div>
-          {/* Style section: Spacing */}
-         <SpacingInspector targetID={targetID} />
-          {/* Style section: Layout */}
+          {/* Styles */}
+          <SpacingInspector targetID={targetID} />
           <LayoutInspector targetID={targetID} />
-          {/* Style section: Position */}
           <PositionInspector targetID={targetID} />
-          {/* Style section: Size */}
           <SizeInspector targetID={targetID} />
           
         </div>
@@ -79,5 +74,5 @@ export function Inspector() {
     </div>
   );
 }
-// lines      - 156 ->  147 -> 112 ->
-// complexity - 44 -> 
+// lines      - 156 ->  147 -> 112 -> 81
+// complexity - 44 -> 29
