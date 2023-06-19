@@ -60,26 +60,26 @@ const Target: React.FC<TargetProps> = ({ targetID }) => {
 
   return (
     <div className="panel__section target">
-              <div className="panel__label">
-                {
-                  targetData.name ? targetData.name : targetData.tag
-                }
-              </div>
-              <div className="panel__input">
-                <div className="target__tag">header</div>
-                <div className="target__states">:hover</div>
-            </div>
-            <div className="breadcrumbs">
-              {
-              targetData.breadcrumb.map((node,index)=>(
-                <div key={index} className="node">{node}</div>
-              ))
+      <div className="panel__label">
+        {
+          targetData.name ? targetData.name : targetData.tag
+        }
+      </div>
+      <div className="panel__input">
+        <div className="target__tag">header</div>
+        <div className="target__states">:hover</div>
+    </div>
+    <div className="breadcrumbs">
+      {
+      targetData.breadcrumb.map((node,index)=>(
+        <div key={index} className="node">{node}</div>
+      ))
 
-                
-              }
-            </div>
-          
-          </div>
+        
+      }
+    </div>
+  
+  </div>
   );
 };
 
