@@ -6,8 +6,8 @@ import { selectTarget, selectTargetStyles } from '../canvas/canvasSlice';
 import LayoutInspector from '../../components/layoutInspector/LayoutInspector';
 import { PositionInspector } from '../../components/positionInspector/PositionInspector';
 import { SizeInspector } from '../../components/sizeInspector/SizeInspector';
+import SpacingInspector from '../../components/SpacingInspector/SpacingInspector';
 import Target from '../../components/Target/Target';
-import { SpacingInspector } from '../../components/SpacingInspector/SpacingInspector';
 
 export function Inspector() {
 
@@ -49,7 +49,7 @@ export function Inspector() {
         <div className={`panel ${inspectorPanels.highlightedTab === 'visualStyle' ? 'active' : ''}`}>
           
           {/* Style section: Target */}
-          <Target targetID={targetID} />
+          <Target  targetID={targetID} />
           {/* Create component button */}
           <div className="panel__section create_component">
             <div className="panel_button">Create Component </div>
@@ -74,5 +74,3 @@ export function Inspector() {
     </div>
   );
 }
-// lines      - 156 ->  147 -> 112 -> 81
-// complexity - 44 -> 29
