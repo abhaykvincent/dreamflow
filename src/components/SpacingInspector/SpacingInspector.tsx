@@ -5,7 +5,7 @@ interface SpacingInspectorProps {
   targetID: string;
 }
 let styleSheet = document.styleSheets[0];
-export function SpacingInspector(targetID: SpacingInspectorProps) {
+export default function SpacingInspector(targetID: SpacingInspectorProps) {
   return(
     <div className="spacing-inspector">
        <div className="panel-section__title">Spacing</div>
