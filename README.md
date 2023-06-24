@@ -36,7 +36,7 @@ NB: Only the core structure is shown, the project is still in development and th
     │   │   │
     │   │   ├── App.jsx
     │   │   ├── App.scss
-    │   │   ├── Index.scss
+    │   │   ├── Index.sc ss
     │   │   └── index.jsx
     │   │
     │   └── package.json
