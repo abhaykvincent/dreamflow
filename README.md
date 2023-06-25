@@ -36,7 +36,7 @@ NB: Only the core structure is shown, the project is still in development and th
     │   │   │
     │   │   ├── App.jsx
     │   │   ├── App.scss
-    │   │   ├── Index.sc ss
+    │   │   ├── Index.scss
     │   │   └── index.jsx
     │   │
     │   └── package.json
@@ -74,5 +74,8 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
+qwerty
+
+qwertyuiop
 
 To learn more, check out  the [Project documentation]([https://reactjs.org/](https://apeiro.atlassian.net/wiki/spaces/FHOP/pages/2883847/DreamFlow)).
