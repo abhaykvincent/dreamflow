@@ -70,4 +70,31 @@
   }
 
 }
+
+//Canvas responsive controls for scaling
+.canvas-responsive-controls{
+  .responsive-control{
+    position: fixed;
+    padding: 0px;
+    z-index: 100;
+    border-radius: 8px;
+    margin: 2px;
+    &:hover{
+      background-color: $orange;
+      opacity: 0.9;
+    }
+    &.control__west{
+      cursor: ew-resize;
+      &:active{
+        cursor: grabbing;
+      }
+    }
+    &.control__east{
+      transform: translateX(-200%);
+    }
+    &.control__south{
+      transform: translateY(-120%);
+    }
+  }
+}
   

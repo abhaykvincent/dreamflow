@@ -14,20 +14,20 @@ export default function SpacingInspector(targetID: SpacingInspectorProps) {
             <div className="spacing__wrap">
               <div className="spacing__label">Padding</div>
               <div className="spacing__input">
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
+                <input type="number" className="spacing__input__field" value='0' />
+                <input type="number" className="spacing__input__field" value='0' />
+                <input type="number" className="spacing__input__field" value='0' />
+                <input type="number" className="spacing__input__field" value='0' />
               </div>
             </div>
 
             <div className="spacing__wrap">
               <div className="spacing__label">Margin</div>
               <div className="spacing__input">
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
-                <input type="number" className="spacing__input__field" />
+                <input type="number" className="spacing__input__field" value='0' />
+                <input type="number" className="spacing__input__field" value='0' />
+                <input type="number" className="spacing__input__field" value='0' />
+                <input type="number" className="spacing__input__field" value='0' />
               </div>
             </div>
             
