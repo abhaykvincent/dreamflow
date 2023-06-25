@@ -17,10 +17,11 @@
       border-radius: 8px*0.5;
       border: 1px solid $gray5;
       border-bottom: 1px solid $gray4;
-    border-right: 1px solid $gray4;
-    box-shadow:  inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+      border-right: 1px solid $gray4;
+      box-shadow:  inset 2px 2px 4px rgba(0, 0, 0, 0.3);
       color: white;
       font-size: 0.8em;
+      text-align: center;
       //input number increment& decrement inbuilt buttons
       &::-webkit-inner-spin-button,
       &::-webkit-outer-spin-button { 

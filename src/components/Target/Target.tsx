@@ -17,7 +17,8 @@ function getElementSignature(element: HTMLElement) {
   let className = element.className ? '.' + element.className.split(' ').join('.') : '';
   return name + className + id;
 }
-const Target: React.FC<TargetProps> = ({ targetID }) => {
+
+export default function Target(targetID: TargetProps){
   const [targetData, setTargetData] = useState({
     name: '',
     tag: '',
@@ -82,6 +83,3 @@ const Target: React.FC<TargetProps> = ({ targetID }) => {
   </div>
   );
 };
-
-export default Target;
-/* 75 -> 61 */
