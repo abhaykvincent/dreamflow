@@ -1,10 +1,17 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../app/store';
-import React from 'react';
+import {  createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import $ from 'jquery';
 
 export interface CanvasState {
   canvasDOM: string;
+  canvasDimensions: {
+    width: number|undefined,
+    height: number|undefined,
+    top: number|undefined,
+    left: number|undefined,
+    right: number|undefined,
+    bottom: number|undefined,
+  },
   targetId:string,
   targetStyles:{property:string,value:string}[]
   status: 'idle' | 'loading' | 'failed';
@@ -12,6 +19,14 @@ export interface CanvasState {
 
 const initialState: CanvasState = {
   canvasDOM: $('#canvas').html() as string,
+  canvasDimensions: {
+    width: undefined,
+    height: undefined, 
+    top: undefined,
+    left: undefined,
+    right: undefined,
+    bottom: undefined,
+  },
   targetId:'canvas',
   targetStyles:[
     { property: '', value: '' }
@@ -30,11 +45,14 @@ export const CanvasSlice = createSlice({
     },
     setTarget:(state,action:PayloadAction<string>)=>{
         state.targetId=action.payload
+    },
+    updateCanvasDimensions:(state,action:PayloadAction<{width:number,height:number,top:number,left:number,right:number,bottom:number}>)=>{
+      state.canvasDimensions=action.payload;
     }
   },
 });
 
-export const { updateCanvasHTML,setTarget} = CanvasSlice.actions;
+export const { updateCanvasHTML,setTarget,updateCanvasDimensions} = CanvasSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -42,6 +60,7 @@ export const { updateCanvasHTML,setTarget} = CanvasSlice.actions;
 export const selectCanvasDOM = (state: RootState) => state.canvas.canvasDOM;
 export const selectTarget = (state: RootState) => state.canvas.targetId;
 export const selectTargetStyles = (state: RootState) => state.canvas.targetStyles;
+export const selectCanvasDimensions = (state: RootState) => state.canvas.canvasDimensions;
 
 
 

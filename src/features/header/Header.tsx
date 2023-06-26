@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Header.scss';
 import ResponsiveControl from '../../components/ResponsiveControl/ResponsiveControl';
 import RolesControl from '../../components/RolesControl/RolesControl';
-
 export function Header() {
 
   return (
