@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './ResponsiveControl.scss';
+import { selectCanvasDimensions } from '../../features/canvas/canvasSlice';
+
 
 const devices = ['desktop', 'tablet-portrait', 'tablet-landscape', 'mobile'];
 const ResponsiveControl: React.FC = () => {
-  const [highlightedDevice, setHighlightedDevice] = useState('b');
+  const canvasDimensions = useSelector(selectCanvasDimensions);
+  const [highlightedDevice, setHighlightedDevice] = useState('desktop');
   return (
     <div className="responsive">
       <div className="responsive__devices">
@@ -19,7 +23,7 @@ const ResponsiveControl: React.FC = () => {
         </div>
       </div>
       <div className="device__size">
-        <div className="unit">1920 px</div>
+        <div className="unit">{canvasDimensions.width-16} px</div>
       </div>
     </div>
   );

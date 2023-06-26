@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import './Canvas.scss';
+import { useAppDispatch } from '../../app/hooks';
+import { updateCanvasDimensions } from './canvasSlice';
 
 export function Canvas() {
+  //useDispatch
+  const dispatch = useAppDispatch();
   const [canvasDimensions, setCanvasDimensions] = useState({
     width: 0,
     height: 0,
@@ -17,26 +21,36 @@ export function Canvas() {
       const { clientWidth, clientHeight} = canvas;
       const { top, left, right, bottom } = canvas.getBoundingClientRect();
       setCanvasDimensions({ width: clientWidth, height: clientHeight, top, left, right, bottom });
-      debugger
     }
   }, []);
+
+  //  on canvasDimensions change dispatch action to update canvasDimensions in store : updateCanvasDimensions
+
+  useEffect(() => {
+    dispatch(updateCanvasDimensions(canvasDimensions));
+  }, [canvasDimensions]);
 
   const handleWestControlDrag = (e: any) => {
     const canvas = document.getElementById('canvas');
     if (!canvas) return;
 
     const { clientWidth} = canvas;
+    console.log('onClick Width: ', clientWidth)
     const { left } = canvas.getBoundingClientRect();
     const initialMousePositionX = e.clientX;
 
     const handleMouseMove = (e: any) => {
       const mousePositionX = e.clientX;
       const difference = initialMousePositionX - mousePositionX;
-      const newWidth = clientWidth + difference * 2;
+      const newWidth = (clientWidth + difference * 2)+16;
+      console.log('onMove newWidth: ', newWidth)
       const newLeft = left - difference;
+      if (newWidth < 0) return;
 
       canvas.setAttribute('style', `width: ${newWidth}px; left: ${newLeft}px;`);
       setCanvasDimensions((prevDimensions) => ({ ...prevDimensions, width: newWidth, left: newLeft }));
+
+      console.log('Canvas width: ', newWidth);
     };
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', () => {
