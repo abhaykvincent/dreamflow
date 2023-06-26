@@ -11,16 +11,18 @@ export function Canvas() {
     bottom: 0,
   });
 
-  const canvas = document.getElementById('canvas');
   useEffect(() => {
+    const canvas = document.getElementById('canvas');
     if (canvas) {
       const { clientWidth, clientHeight} = canvas;
       const { top, left, right, bottom } = canvas.getBoundingClientRect();
       setCanvasDimensions({ width: clientWidth, height: clientHeight, top, left, right, bottom });
+      debugger
     }
   }, []);
 
   const handleWestControlDrag = (e: any) => {
+    const canvas = document.getElementById('canvas');
     if (!canvas) return;
 
     const { clientWidth} = canvas;
@@ -36,9 +38,7 @@ export function Canvas() {
       canvas.setAttribute('style', `width: ${newWidth}px; left: ${newLeft}px;`);
       setCanvasDimensions((prevDimensions) => ({ ...prevDimensions, width: newWidth, left: newLeft }));
     };
-
     document.addEventListener('mousemove', handleMouseMove);
-
     document.addEventListener('mouseup', () => {
       document.removeEventListener('mousemove', handleMouseMove);
     });
