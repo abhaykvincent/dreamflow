@@ -93,10 +93,10 @@ console.log('Inside Canvas');
       const difference = mousePositionX-initialMousePositionX;
       const newWidth = (clientWidth + difference * 2)+16*2;
       const newLeft = left - difference;
+      // Making sure canvas dosent overlap with obstracles
       if ( currentCanvasLeft - 8*2 >  obstacleRight){
         canvas.setAttribute('style', `width: ${newWidth}px; left: ${newLeft}px;`);
         setCanvasDimensions((prevDimensions) => ({ ...prevDimensions, width: newWidth, left: newLeft }));
-
       }
     }
 
@@ -130,4 +130,3 @@ console.log('Inside Canvas');
     </>
   );
 }
-// Line count -  137 ->
