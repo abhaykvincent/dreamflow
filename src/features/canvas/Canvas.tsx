@@ -49,7 +49,7 @@ console.log('Inside Canvas');
     }
   }, [canvasDimensionsStore]);
 
- 
+  // Obstacle detection
   const obstacle = document.getElementsByClassName('side-panels')[0];
   const obstacleRight = obstacle ? obstacle.getBoundingClientRect().right : 0;
 
@@ -67,6 +67,7 @@ console.log('Inside Canvas');
       const difference = initialMousePositionX - mousePositionX;
       const newWidth = (clientWidth + difference * 2)+16;
       const newLeft = left - difference;
+      // Making sure canvas dosent overlap with obstracles
       if (newWidth > 280+8  && mousePositionX > obstacleRight+8*2){
         canvas.setAttribute('style', `width: ${newWidth}px; left: ${newLeft}px;`);
         setCanvasDimensions((prevDimensions) => ({ ...prevDimensions, width: newWidth, left: newLeft }));
