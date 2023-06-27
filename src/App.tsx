@@ -7,13 +7,14 @@ import { Inspector } from './features/inspector/Inspector';
 import './App.scss';
 
 function App() {
-  
+  console.log('%c #DEBUG ⛳️ 1', 'color: red');
+  console.log('Inside APP');
   return (
     <div className="App">
       <MenuBar/>
       <Header/>
       <Sidebar/>
-      <Canvas/>
+        <Canvas/>
       <Inspector/>
       <div className="copilot"></div>
       <div className="footer"></div>
