@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import './Canvas.scss';
+import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../app/hooks';
 import { selectCanvasDimensions, updateCanvasDimensions } from './canvasSlice';
-import { useSelector } from 'react-redux';
+import './Canvas.scss';
 
 export function Canvas() {
-  //useDispatch
+
+console.log('%c #DEBUG ⛳️ 2', 'color: #f77700');
+console.log('Inside Canvas');
   const dispatch = useAppDispatch();
   const [canvasDimensions, setCanvasDimensions] = useState({
     width: 0,
@@ -15,42 +17,46 @@ export function Canvas() {
     right: 0,
     bottom: 0,
   });
-const canvasDimensionsStore = useSelector(selectCanvasDimensions);
+  const canvasDimensionsStore = useSelector(selectCanvasDimensions);
+
+  // ONLY run once on mount
+  // Setting canvas dimensions & dispatching to store
+  // IMPORTANT: This will replace the initial state of canvasDimensions in the store which is {width: 0, height: 0, top: 0, left: 0, right: 0, bottom: 0}
   useEffect(() => {
+    console.log('%c #DEBUG ⛳️ 3', 'color: #f77700');
+    console.log('Inside UseEffect []');
+    console.log('Setting canvas dimensions & dispatching to store');
     const canvas = document.getElementById('canvas');
     if (canvas) {
       const { clientWidth, clientHeight} = canvas;
       const { top, left, right, bottom } = canvas.getBoundingClientRect();
       setCanvasDimensions({ width: clientWidth, height: clientHeight, top, left, right, bottom });
       dispatch(updateCanvasDimensions(canvasDimensions));
-      console.log('Canvas width: ', clientWidth);
-      console.log('Canvas left: ', left);
-      canvas.setAttribute('style', `width: ${canvasDimensionsStore.width}px; left: ${canvasDimensionsStore.left}px;`);
     }
-  }, [dispatch]);
-
-  //  on canvasDimensions change dispatch action to update canvasDimensions in store : updateCanvasDimensions
+  },[]);
 
   useEffect(() => {
     dispatch(updateCanvasDimensions(canvasDimensions));
   }, [canvasDimensions]);
+
+  // Syncing canvas dimensions with store
   useEffect(() => {
     const canvas = document.getElementById('canvas');
     if (canvas) {
-      canvas.setAttribute('style', `width: ${canvasDimensionsStore.width}px; left: ${canvasDimensionsStore.left}px;`);
+      const { width, left } = canvasDimensionsStore;
+      canvas.style.width = `${width}px`;
+      canvas.style.left = `${left}px`;
     }
   }, [canvasDimensionsStore]);
 
  
+  const obstacle = document.getElementsByClassName('side-panels')[0];
+  const obstacleRight = obstacle ? obstacle.getBoundingClientRect().right : 0;
 
 
   const handleWestControlDrag = (e: any) => {
     const canvas = document.getElementById('canvas');
     if (!canvas) return;
-
-    const sidepanel = document.getElementsByClassName('side-panels')[0]
-    const  sidePanelRight = sidepanel.getBoundingClientRect().right;
-
 
     const { clientWidth} = canvas;
     const { left } = canvas.getBoundingClientRect();
@@ -61,16 +67,13 @@ const canvasDimensionsStore = useSelector(selectCanvasDimensions);
       const difference = initialMousePositionX - mousePositionX;
       const newWidth = (clientWidth + difference * 2)+16;
       const newLeft = left - difference;
-      if (newWidth > 280+8  && mousePositionX > sidePanelRight+8*2){
+      if (newWidth > 280+8  && mousePositionX > obstacleRight+8*2){
         canvas.setAttribute('style', `width: ${newWidth}px; left: ${newLeft}px;`);
         setCanvasDimensions((prevDimensions) => ({ ...prevDimensions, width: newWidth, left: newLeft }));
-  
       }
-
     };
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', () => {
-      console.log('onClick Width: ', clientWidth)
       document.removeEventListener('mousemove', handleMouseMove);
     });
   };
@@ -79,13 +82,8 @@ const canvasDimensionsStore = useSelector(selectCanvasDimensions);
     const canvas = document.getElementById('canvas');
     if (!canvas) return;
 
- 
-
-    const sidepanel = document.getElementsByClassName('side-panels')[0]
-    const  sidePanelRight = sidepanel.getBoundingClientRect().right;
-
     const { clientWidth} = canvas;
-    const { right,left } = canvas.getBoundingClientRect();
+    const { left } = canvas.getBoundingClientRect();
     const initialMousePositionX = e.clientX;
 
     const handleMouseMove = (e: any) => {
@@ -94,20 +92,15 @@ const canvasDimensionsStore = useSelector(selectCanvasDimensions);
       const difference = mousePositionX-initialMousePositionX;
       const newWidth = (clientWidth + difference * 2)+16*2;
       const newLeft = left - difference;
-      if ( currentCanvasLeft - 8*2 >  sidePanelRight){
-        console.log('=============')
-        console.log('Canvas left: ', left)
-        console.log('SidePanel Right: ', sidePanelRight)
+      if ( currentCanvasLeft - 8*2 >  obstacleRight){
         canvas.setAttribute('style', `width: ${newWidth}px; left: ${newLeft}px;`);
         setCanvasDimensions((prevDimensions) => ({ ...prevDimensions, width: newWidth, left: newLeft }));
 
       }
     }
 
-
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', () => {
-      console.log('onClick Width: ', clientWidth)
       document.removeEventListener('mousemove', handleMouseMove);
     });
   };
@@ -120,7 +113,7 @@ const canvasDimensionsStore = useSelector(selectCanvasDimensions);
       <div className="canvas-responsive-controls">
         <div
           className="responsive-control control__east"
-          style={{ top: canvasDimensions.top, left: canvasDimensions.right, width: 4, height: canvasDimensions.height }}
+          style={{ top: canvasDimensions.top, left: canvasDimensions.left+canvasDimensions.width, width: 4, height: canvasDimensions.height }}
           onMouseDown={handleEastControlDrag}
         ></div>
         <div
@@ -136,3 +129,4 @@ const canvasDimensionsStore = useSelector(selectCanvasDimensions);
     </>
   );
 }
+// Line count -  137 ->

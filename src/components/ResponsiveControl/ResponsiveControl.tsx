@@ -13,16 +13,49 @@ const ResponsiveControl: React.FC = () => {
   const [highlightedDevice, setHighlightedDevice] = useState('tablet-landscape');
 
   useEffect(() => {
-      if(highlightedDevice==='mobile'){
-      dispatch(updateCanvasDimensions({...canvasDimensions, width: 320, height: canvasDimensions.height || 0, top: canvasDimensions.top || 0, left: canvasDimensions.left || 0, right: canvasDimensions.right || 0, bottom: canvasDimensions.bottom || 0}));  
-      }else if(highlightedDevice==='tablet-portrait'){
-        dispatch(updateCanvasDimensions({...canvasDimensions, width: 480, height: canvasDimensions.height || 0, top: canvasDimensions.top || 0, left: canvasDimensions.left || 0, right: canvasDimensions.right || 0, bottom: canvasDimensions.bottom || 0}));
-      }else if(highlightedDevice==='tablet-landscape'){
-        dispatch(updateCanvasDimensions({...canvasDimensions, width: 768, height: canvasDimensions.height || 0, top: canvasDimensions.top || 0, left: canvasDimensions.left || 0, right: canvasDimensions.right || 0, bottom: canvasDimensions.bottom || 0}));
-      }else if(highlightedDevice==='desktop'){
-        dispatch(updateCanvasDimensions({...canvasDimensions, width: 992, height: canvasDimensions.height || 0, top: canvasDimensions.top || 0, left: canvasDimensions.left || 0, right: canvasDimensions.right || 0, bottom: canvasDimensions.bottom || 0}));
-      }
-
+    if (!canvasDimensions.left || !canvasDimensions.width) {
+      return;
+    }
+  
+    let newWidth = 0;
+    let newLeft = 0;
+  
+    switch (highlightedDevice) {
+      case 'mobile':
+        newWidth = 320+16;
+        break;
+      case 'tablet-portrait':
+        newWidth = 480+16;
+        break;
+      case 'tablet-landscape':
+        newWidth = 768+16;
+        break;
+      case 'desktop':
+        newWidth = 1200+16;
+        break;
+      default:
+        return;
+    }
+  
+    if (canvasDimensions.width > newWidth) {
+      newLeft = canvasDimensions.left + (canvasDimensions.width - newWidth) / 2;
+    } else if (canvasDimensions.width < newWidth) {
+      newLeft = canvasDimensions.left - (newWidth - canvasDimensions.width) / 2;
+    } else {
+      return;
+    }
+  
+    dispatch(
+      updateCanvasDimensions({
+        ...canvasDimensions,
+        width: newWidth,
+        height: canvasDimensions.height || 0,
+        top: canvasDimensions.top || 0,
+        left: newLeft,
+        right: canvasDimensions.right || 0,
+        bottom: canvasDimensions.bottom || 0,
+      })
+    );
   }, [highlightedDevice]);
   useEffect(() => {
     if(canvasDimensions.width){
