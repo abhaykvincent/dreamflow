@@ -42,6 +42,7 @@
     grid-template-columns: 1fr auto;
     margin: 8px*0.5;
     margin-top: 0;
+    margin-left: 0;
     color: $gray1;
     &::after{
       content: "px";

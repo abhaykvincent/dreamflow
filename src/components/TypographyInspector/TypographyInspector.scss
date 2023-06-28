@@ -1,0 +1,57 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+
+.typography-inspector {
+  .panel-section__title{
+    margin-bottom: 8px*1;
+  }
+  .typography{
+    position: relative;
+    gap: 0 !important;
+    .panel-section__title{
+      margin-bottom: 8px*2;
+    }
+    .typography-grid{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px*1;
+      input{
+        width: 100%;
+        height: 8px*3.5;
+        background-color: $gray6;
+        border: 1px solid $gray3;
+        color: white;
+        border-radius: 8px;
+        padding: 8px 8px;
+      }
+    }
+  }
+  .typography-property{
+    line-height: 8px*3.5;
+    .typography-property__label{
+      color: $gray1;
+    }
+  }
+  .typography-grid > div{
+    display: grid;
+    grid-template-columns: 8px*6 auto;
+  }
+  .property{
+    &.font{
+      display: grid;
+      grid-column: 1/3;
+    }
+    &.weight{
+      display: grid;
+      grid-column: 1/3;
+    }
+    &.color{
+      display: grid;
+      grid-column: 1/3;
+    }
+  }
+  .typography-property__label{
+      line-height: 8px*3;
+      color: $gray1;
+  }
+}
