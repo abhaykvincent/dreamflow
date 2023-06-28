@@ -6,8 +6,6 @@ import './Canvas.scss';
 
 export function Canvas() {
 
-console.log('%c #DEBUG ⛳️ 2', 'color: #f77700');
-console.log('Inside Canvas');
   const dispatch = useAppDispatch();
   const [canvasDimensions, setCanvasDimensions] = useState({
     width: 0,
@@ -23,9 +21,6 @@ console.log('Inside Canvas');
   // Setting canvas dimensions & dispatching to store
   // IMPORTANT: This will replace the initial state of canvasDimensions in the store which is {width: 0, height: 0, top: 0, left: 0, right: 0, bottom: 0}
   useEffect(() => {
-    console.log('%c #DEBUG ⛳️ 3', 'color: #f77700');
-    console.log('Inside UseEffect []');
-    console.log('Setting canvas dimensions & dispatching to store');
     const canvas = document.getElementById('canvas');
     if (canvas) {
       const { clientWidth, clientHeight} = canvas;
@@ -97,6 +92,7 @@ console.log('Inside Canvas');
       if ( currentCanvasLeft - 8*2 >  obstacleRight){
         canvas.setAttribute('style', `width: ${newWidth}px; left: ${newLeft}px;`);
         setCanvasDimensions((prevDimensions) => ({ ...prevDimensions, width: newWidth, left: newLeft }));
+
       }
     }
 
@@ -130,3 +126,4 @@ console.log('Inside Canvas');
     </>
   );
 }
+// Line count -  137 ->
