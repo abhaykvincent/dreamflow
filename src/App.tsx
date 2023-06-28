@@ -3,6 +3,9 @@ import { Header } from './features/header/Header';
 import { MenuBar } from './features/menu-bar/MenuBar';
 import { Canvas } from './features/canvas/Canvas';
 import { Inspector } from './features/inspector/Inspector';
+import './App.scss';
+import { Copilot } from './features/copilot/Copilot';
+
 
 function App() {
   return (
@@ -10,9 +13,9 @@ function App() {
       <MenuBar/>
       <Header/>
       <Sidebar/>
-        <Canvas/>
+      <Canvas/>
       <Inspector/>
-      <div className="copilot"></div>
+      <Copilot/>
       <div className="footer"></div>
     </div>
   );

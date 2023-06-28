@@ -1,0 +1,98 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+
+.copilot{
+
+  .chatbox{
+    width: 8px*8*5;
+    position: fixed;
+    bottom: 8px*6;
+    right: 8px*8*5.2;
+    background-color: $gray6;
+    border: 1px solid $gray2;
+    border-radius: 8px*1;
+    box-shadow: -1px -1px 8px*0.5 rgba(0, 0, 0, 0.5);
+
+    overflow: hidden;
+
+    z-index: 30;
+    .chatbox__header{
+      display: grid;
+      grid-template-columns: 1fr 8px*5;
+      border-bottom: 1px solid $gray3;
+      padding: 8px*1.5;
+      background-color: $gray7;
+      font-weight: 600;
+      box-shadow: 0 2px 8px*0.5 $gray7;
+      .chatbox__header__title{
+        font-size: 1.1em;
+        span{
+          font-weight: 200;
+          font-size: 0.8em;
+          margin-left: 8px*0.5;
+          color: $gray1;
+        }
+      }
+      .chatbox__header__buttons{
+        display: grid;
+        grid-template-columns: 8px*1 8px*1 8px*1;
+        align-items: center;
+        gap: 8px;
+        .close{
+          width: 8px*1.1;
+          height: 8px*1.1;
+          border-radius: 50%;
+          background-color: $red;
+          box-shadow: 0 0 8px*0.1 black;
+          &:hover{
+            background-color: $red;
+          }
+        }
+        .minimize{
+          width: 8px*1.1;
+          height: 8px*1.1;
+          border-radius: 50%;
+          background-color: $gray4;
+          box-shadow: 0 0 8px*0.4 rgb(0, 0, 0);
+          
+          &:hover{
+            background-color: $yellow;
+          }
+        }
+        .maximize{
+          width: 8px*1.1;
+          height: 8px*1.1;
+          border-radius: 50%;
+          background-color: $green;
+          box-shadow: 0 0 8px*0.4 rgb(0, 0, 0);
+        }
+      }
+    }
+    .chatbox__messages{
+      width: 100%;
+      padding: 8px;
+      height: 8px*8*5;
+      .messages{
+        .message{
+          width: 100%;
+          padding: 8px;
+  
+        }
+      }
+      
+      .input__message{
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        input{
+          width: calc(100% - 8px*2);
+          padding: 8px 8px*2;
+          background-color: $gray7;
+          border-radius: 8px*1;
+          border: 1px solid $gray4;
+          box-shadow: 0 2px 8px*0.5 $gray7;
+        }
+      }
+    }
+  }
+}
