@@ -7,7 +7,9 @@
     height: 8px*3.5;
     margin: 8px;
     background-color: rgba(0, 0, 0, 0.4);
-    border: 1px  solid $gray5;
+    border: 1px  solid $gray4;
+    border-left: 1px  solid $gray3;
+    border-right: 1px  solid $gray3;
     border-radius: 8px;
 
     transform: translate(-50%,0%);

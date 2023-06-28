@@ -26,3 +26,20 @@
     border-left: 1px solid rgba(255, 255, 255, 0.8);
     border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   }
+
+  // top
+  // top lefts
+
+  @mixin shiny-bottom-right-border-gray2{
+    border: 1px solid $gray3;
+    border-right: 1px solid $gray2;
+    border-bottom: 1px solid $gray2;
+    box-shadow: -2px -2px  8px*0.5 rgba(0, 0, 0, 0.4);
+  }
+
+  @mixin shiny-bottom-left-border-gray2{
+    border: 1px solid $gray3;
+    border-left: 1px solid $gray2;
+    border-bottom: 1px solid $gray2;
+    box-shadow: 2px -2px  8px*0.5 rgba(0, 0, 0, 0.4);
+  }
