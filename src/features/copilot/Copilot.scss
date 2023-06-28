@@ -85,12 +85,60 @@
     .chatbox__messages{
       width: 100%;
       padding: 8px;
+      padding-bottom: 8px*4;
       height: 8px*8*5;
+
+      overflow-y: scroll;
+      //hid scroll
+      &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* make scrollbar transparent */
+      }
       .messages{
         .message{
+          display: grid;
           width: 100%;
-          padding: 8px;
-  
+          padding: 4px 0;
+          font-size: 1em;
+
+          .message__content{
+            padding: 8px 8px*1.5;
+            border: 1px solid $gray4;
+          }
+          &.user{
+            justify-items: end;
+            .message__content{
+              display: grid;
+              width: auto;
+              background-color: $gray5;
+              color: white;
+              border-radius: 8px*1 8px*1 0 8px*1;
+              box-shadow: 2px 2px 8px*0.5 $gray6;
+            }
+          }
+          &.system{
+            text-align: center;
+            .message__content{
+              padding: 4px 0;
+              margin-bottom: 8px*1;
+              background-color: $gray6;
+              color: $gray2;
+              border-radius: 8px*1 8px*1 8px*1 8px*1;
+              box-shadow: 2px 2px 8px*0.5 $gray7;
+              border: 1px solid $gray5;
+            }
+          }
+          &.assistant{
+            text-align: left;
+            justify-items: start;
+            .message__content{
+              margin-right: 8px*2;
+              background-color: $gray7;
+              color: white;
+              border-radius: 8px*1 8px*1 8px*1 0;
+              box-shadow: 2px 2px 8px*0.5 $gray7;
+            }
+          }
         }
       }
       
@@ -105,7 +153,27 @@
           border-radius: 8px*1;
           border: 1px solid $gray4;
           box-shadow: 2 2px 8px*0.5 $gray7;
+          color:white;
         }
+      }
+      .send__button{
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        width: 8px*8;
+        padding: 8px 8px*2;
+        background-color: $gray5;
+        border-radius: 8px*1;
+        border: 1px solid $gray2;
+        box-shadow: 2 2px 8px*0.5 $gray7;
+        color:white;
+        &.loading{
+          width:calc(100% - 8px*2);
+          text-align: center;
+          background-color: $gray4;
+          color: $gray2;
+        }
+
       }
     }
     &.minimize{
@@ -128,6 +196,7 @@
       width:  8px*8*4;
       bottom: 8px*7.5;
       right: 8px*4.5;
+      top:none;
       z-index: 9;
       .chatbox__messages{
         display: none;
