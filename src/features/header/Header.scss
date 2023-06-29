@@ -1,4 +1,5 @@
 @import '../../style/dark-colour-variables.scss';
+@import '../../style/border-mixins.scss';
 
 header{
     display: grid;
@@ -11,10 +12,9 @@ header{
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     .left{
       display: grid;
-      grid-template-columns: 8px*5 auto 8px*6;
+      grid-template-columns: 8px*6 auto 8px*6;
       .logo{
-        height: 8px*6;
-        background-image: url('../../assets/logo/logo-infinite.png');
+        background-image: url('../../assets/logo/logo-prod.png');
         background-size: 75%;
         background-position: 8px*1 center;
         background-repeat: no-repeat;
@@ -25,9 +25,9 @@ header{
         height: 8px*3.5;
         width: calc(100% - 8px*2);
         margin: 8px 0;
-        margin-left: 8px*2;
-        background-color: rgba(0, 0, 0, 0.4);
-        border: 1px  solid $gray5;
+        margin-left: 8px*1;
+        background-color: $gray7;
+        border: 1px  solid $gray4;
         border-radius: 8px;
         font-size: 1.2em;
         overflow: hidden;
@@ -46,7 +46,7 @@ header{
           padding: 0 8px;
           text-align: left;
           transform: translateY(-8px*0.1);
-          color: $gray2;
+          color: $gray1;
         }
       }
       .preview{
@@ -63,13 +63,13 @@ header{
         position: relative;
         width: 100%;
         top: -4px;
-        left: 8px*3;
-        color: $gray4;
+        left: 8px*2;
+        color: $gray3;
         cursor: pointer;
         span{
-          color: $gray3;
+          color: $gray2;
           &:hover{
-            color: $gray2;
+            color: $gray1;
             text-decoration: underline;
 
           }
@@ -147,8 +147,8 @@ header{
 
     background-color: $gray6;
     border: 1px solid $gray2;
+    @include shiny-bottom-left-border-gray2;
     border-radius: 8px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 
     font-size: 1em;
     line-height: 1.2em;
@@ -178,6 +178,7 @@ header{
       &.highlighted{
         opacity: 1;
         transform: scale(1.05);
+
       }
     }
   }
@@ -188,7 +189,7 @@ header{
     height: 8px*4;
     width: 8px*8;
     background-color: $gray6;
-    border:1px solid $gray2;
+    @include shiny-bottom-right-border-gray2;
     border-radius: 8px;
     z-index: 1;
     &.design{

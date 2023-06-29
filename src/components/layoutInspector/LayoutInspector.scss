@@ -19,10 +19,10 @@
     height: 8px*3.5;
     margin: 0px;
     background-color: $gray6;
-    border: 1px  solid $gray4;
+    border: 1px  solid $gray5;
     border-bottom: 1px solid $gray3;
-  border-right: 1px solid $gray3;
-  box-shadow:  inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+    border-right: 1px solid $gray3;
+  box-shadow:  inset 2px 2px 6px rgba(0, 0, 0, 0.4);
     border-radius: 6px;
   }
   .layout-tabs{
@@ -77,11 +77,13 @@
     margin:  -2px 0px;
     height: 8px*4;
     width: 8px*4;
-    background-color: $gray6;
-    border:1px solid $gray2;
+    background-color: $gray7;
+    border:1px solid $gray3;
+    border-left: 1px solid $gray2;
+    border-top: 1px solid $gray2;
     border-radius: 8px;
     z-index: 1;
-    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.2);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     &.block{
       left:8px*0;
     }

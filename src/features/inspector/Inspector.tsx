@@ -8,6 +8,7 @@ import { PositionInspector } from '../../components/positionInspector/PositionIn
 import { SizeInspector } from '../../components/sizeInspector/SizeInspector';
 import SpacingInspector from '../../components/SpacingInspector/SpacingInspector';
 import Target from '../../components/Target/Target';
+import { TypographyInspector } from '../../components/TypographyInspector/TypographyInspector';
 
 export function Inspector() {
 
@@ -59,6 +60,7 @@ export function Inspector() {
           <LayoutInspector targetID={targetID} />
           <PositionInspector targetID={targetID} />
           <SizeInspector targetID={targetID} />
+          <TypographyInspector targetID={targetID} />
           
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>

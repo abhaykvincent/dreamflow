@@ -1,0 +1,290 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+
+.copilot{
+  position: fixed;
+  bottom: 8px*51.5;
+  right: 8px*8*10.1;
+  z-index: 30;
+  .chatbox{
+    width: 8px*8*5;
+    position: fixed;
+    background-color: $gray6;
+    border: 1px solid $gray2;
+    border-radius: 8px*1;
+    box-shadow: 2px 2px 8px*0.5 rgba(0, 0, 0, 0.5);
+
+    overflow: hidden;
+
+    z-index: 30;
+    transition-duration: 0s;
+    transition-delay: 0s;
+    &:hover{
+      transition-duration: 0s;
+      transition-delay: 0s;
+    }
+    .chatbox__header{
+      display: grid;
+      grid-template-columns: 1fr 8px*5;
+      border-bottom: 1px solid $gray3;
+      padding: 8px*1.5;
+      background-color: $gray7;
+      font-weight: 600;
+      box-shadow: 0 2px 8px*0.5 $gray7;
+      //not text selectable
+      user-select: none;
+      cursor: hand;
+      &:active{
+        cursor: grabbing;
+      }
+      .chatbox__header__title{
+        font-size: 1.1em;
+        span{
+          font-weight: 200;
+          font-size: 0.8em;
+          margin-left: 8px*0.5;
+          color: $gray1;
+        }
+      }
+      .chatbox__header__buttons{
+        display: grid;
+        grid-template-columns: 8px*1 8px*1 8px*1;
+        align-items: center;
+        gap: 8px;
+        .close{
+          width: 8px*1.1;
+          height: 8px*1.1;
+          border-radius: 50%;
+          background-color: $red;
+          box-shadow: 0 0 8px*0.1 black;
+          &:hover{
+            
+            background-color: $red;
+          }
+        }
+        .minimize{
+          width: 8px*1.1;
+          height: 8px*1.1;
+          border-radius: 50%;
+          background-color: $gray4;
+          box-shadow: 0 0 8px*0.4 rgb(0, 0, 0);
+          
+          &:hover{
+            background-color: $yellow;
+          }
+        }
+        .maximize{
+          width: 8px*1.1;
+          height: 8px*1.1;
+          border-radius: 50%;
+          background-color: $green;
+          box-shadow: 0 0 8px*0.4 rgb(0, 0, 0);
+        }
+      }
+    }
+    .chatbox__messages{
+      width: 100%;
+      padding: 8px;
+      padding-bottom: 8px*4;
+      height: 8px*8*5;
+
+      overflow-y: scroll;
+      //hid scroll
+      &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* make scrollbar transparent */
+      }
+      .messages{
+        .message{
+          display: grid;
+          width: 100%;
+          padding: 4px 0;
+          font-size: 1em;
+
+          .message__content{
+            padding: 8px 8px*1.5;
+            border: 1px solid $gray4;
+          }
+          &.user{
+            justify-items: end;
+            .message__content{
+              display: grid;
+              width: auto;
+              background-color: $gray5;
+              color: white;
+              border-radius: 8px*1 8px*1 0 8px*1;
+              box-shadow: 2px 2px 8px*0.5 $gray6;
+            }
+          }
+          &.system{
+            text-align: center;
+            .message__content{
+              padding: 4px 0;
+              margin-bottom: 8px*1;
+              background-color: $gray6;
+              color: $gray2;
+              border-radius: 8px*1 8px*1 8px*1 8px*1;
+              box-shadow: 2px 2px 8px*0.5 $gray7;
+              border: 1px solid $gray5;
+            }
+          }
+          &.assistant{
+            text-align: left;
+            justify-items: start;
+            .message__content{
+              margin-right: 8px*2;
+              background-color: $gray7;
+              color: white;
+              border-radius: 8px*1 8px*1 8px*1 0;
+              box-shadow: 2px 2px 8px*0.5 $gray7;
+            }
+          }
+        }
+      }
+      
+      .input__message{
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        input{
+          width: calc(100% - 8px*2);
+          padding: 8px 8px*2;
+          background-color: $gray7;
+          border-radius: 8px*1;
+          border: 1px solid $gray4;
+          box-shadow: 2 2px 8px*0.5 $gray7;
+          color:white;
+        }
+      }
+      .send__button{
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        width: 8px*8;
+        padding: 8px 8px*2;
+        background-color: $gray5;
+        border-radius: 8px*1;
+        border: 1px solid $gray2;
+        box-shadow: 2 2px 8px*0.5 $gray7;
+        color:white;
+        &.loading{
+          width:calc(100% - 8px*2);
+          text-align: center;
+          background-color: $gray4;
+          color: $gray2;
+        }
+
+      }
+    }
+    &.minimize{
+      bottom: 8px*6.5;
+      width: 8px*8*5;
+      height: 8px*5;
+      .chatbox__messages{
+        display: none;
+      }
+    }
+    &.maximize{
+      bottom: 8px*6;
+      width: 8px*8*5;
+      height: 8px*8*6;
+      .chatbox__messages{
+        display: block;
+      }
+    }
+    &.close{
+      width:  8px*8*4;
+      bottom: 8px*7.5;
+      right: 8px*4.5;
+      top:none;
+      z-index: 9;
+      &.show-history{
+        
+      }
+      .chatbox__messages{
+        display: none;
+      }
+      .chatbox__header{
+        background-color: $gray6;
+      }
+
+      
+    }
+
+    
+
+
+    
+  }
+  &.show-history{
+    .chatbox{
+      &.close:nth-of-type(1){
+        transform: translateY(-8px*5);
+      }
+      &:nth-of-type(2){
+        transform: translateY(-8px*11);
+      }
+      &:nth-of-type(3){
+        transform: translateY(-8px*17);
+      }
+      &:nth-of-type(4){
+        transform: translateY(-8px*23);
+      }
+      &:nth-of-type(5){
+        transform: translateY(-8px*29);
+
+      }
+      &:nth-of-type(6){
+        transform: translateY(-8px*35);
+      }
+      &:nth-of-type(7){
+        transform: translateY(-8px*41);
+      }
+      &:nth-of-type(8){
+        transform: translateY(-8px*47);
+      }
+      &:nth-of-type(9){
+        transform: translateY(-8px*53);
+      }
+      &:nth-child(10){
+        transform: translateY(-8px*59);
+      }
+    }
+  }
+  .newChat{
+    position: fixed;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    bottom: 8px*6.5;
+    right: 8px*1.9;
+    width: 8px*8*4.7;
+    border: 1px solid $gray2;
+    padding: 8px*0.5;
+    padding-left: 8px*3;
+    background-color: $gray7;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px*2 $gray7;
+    z-index: 10;
+    p{
+      margin: 0;
+      line-height: 8px*4;
+    }
+    .history__button{
+      display: grid;
+      justify-self: end;
+      padding: 0px 8px;
+      text-align: right;
+      font-weight: 400;
+      color: $gray1;
+      border-radius: 4px;
+      line-height: 8px*3;
+      margin: 8px*0.5;
+      cursor: pointer;
+      background-color: $gray6;
+      &:hover{
+        background-color: $gray5;
+      }
+    }
+  }
+}

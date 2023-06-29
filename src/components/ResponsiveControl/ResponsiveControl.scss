@@ -1,5 +1,6 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/colours.scss';
+@import '../../style/border-mixins.scss';
 .responsive{
   .responsive__devices{
     float: left;
@@ -56,6 +57,7 @@
       background-color: $gray6;
       border:1px solid $gray2;
       border-radius: 8px;
+      @include shiny-bottom-right-border-gray2;
       z-index: 1;
       &.desktop{
         left:0px;
