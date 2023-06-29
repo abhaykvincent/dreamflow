@@ -198,25 +198,93 @@
       right: 8px*4.5;
       top:none;
       z-index: 9;
+      &.show-history{
+        
+      }
       .chatbox__messages{
         display: none;
       }
       .chatbox__header{
         background-color: $gray6;
       }
+
+      
+    }
+
+    
+
+
+    
+  }
+  &.show-history{
+    .chatbox{
+      &.close:nth-of-type(1){
+        transform: translateY(-8px*5);
+      }
+      &:nth-of-type(2){
+        transform: translateY(-8px*11);
+      }
+      &:nth-of-type(3){
+        transform: translateY(-8px*17);
+      }
+      &:nth-of-type(4){
+        transform: translateY(-8px*23);
+      }
+      &:nth-of-type(5){
+        transform: translateY(-8px*29);
+
+      }
+      &:nth-of-type(6){
+        transform: translateY(-8px*35);
+      }
+      &:nth-of-type(7){
+        transform: translateY(-8px*41);
+      }
+      &:nth-of-type(8){
+        transform: translateY(-8px*47);
+      }
+      &:nth-of-type(9){
+        transform: translateY(-8px*53);
+      }
+      &:nth-child(10){
+        transform: translateY(-8px*59);
+      }
     }
   }
   .newChat{
     position: fixed;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     bottom: 8px*6.5;
     right: 8px*1.9;
     width: 8px*8*4.7;
     border: 1px solid $gray2;
-    padding: 8px*1.5;
+    padding: 8px*0.5;
+    padding-left: 8px*3;
     background-color: $gray7;
     font-weight: 600;
     border-radius: 8px;
     box-shadow: 2px 2px 8px*2 $gray7;
     z-index: 10;
+    p{
+      margin: 0;
+      line-height: 8px*4;
+    }
+    .history__button{
+      display: grid;
+      justify-self: end;
+      padding: 0px 8px;
+      text-align: right;
+      font-weight: 400;
+      color: $gray1;
+      border-radius: 4px;
+      line-height: 8px*3;
+      margin: 8px*0.5;
+      cursor: pointer;
+      background-color: $gray6;
+      &:hover{
+        background-color: $gray5;
+      }
+    }
   }
 }
