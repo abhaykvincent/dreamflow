@@ -135,8 +135,7 @@ export function ElementPalette() {
     handleElementHover(newElement);
     handleTooltipHover();
 
-    const currentCanvasHTML = $('#canvas').html();
-   dispatch(updateCanvasHTML(currentCanvasHTML));
+   dispatch(updateCanvasHTML());
   } 
   return (
     <>

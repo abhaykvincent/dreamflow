@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import $ from 'jquery';
 
 export interface CanvasState {
-  canvasDOM: string;
+  canvasDOM: any;
   canvasDimensions: {
     width: number|undefined,
     height: number|undefined,
@@ -18,7 +18,7 @@ export interface CanvasState {
 }
 
 const initialState: CanvasState = {
-  canvasDOM: $('#canvas').html() as string,
+  canvasDOM: $('#canvas'),
   canvasDimensions: {
     width: undefined,
     height: undefined, 
@@ -39,8 +39,8 @@ export const CanvasSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers:{
-    updateCanvasHTML: (state,action: PayloadAction<string>) => {
-      state.canvasDOM=action.payload;
+    updateCanvasHTML: (state) => {
+      state.canvasDOM=$('#canvas');
       console.log('%ccanvasDOM updatedin store', 'color: #AF52DE');
     },
     setTarget:(state,action:PayloadAction<string>)=>{
