@@ -102,4 +102,21 @@
     }
   }
 }
+
+.quickPrompt{
+position: fixed;
+left: 50vw;
+top: 50vh;
+z-index: 40;
+.prompt{
+
+  width: calc(100% - 8px*2);
+  padding: 8px 8px*2;
+  background-color: $gray7;
+  border-radius: 8px*1;
+  border: 1px solid $gray2;
+  box-shadow: 1px 1px 8px*0.5 $gray4;
+  color:white;
+}
+}
   

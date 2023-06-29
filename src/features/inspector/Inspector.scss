@@ -6,7 +6,7 @@
   position: fixed;
   top: 8px*14;
   right: 8px * 2;
-  height: calc(100vh - 8px*20);
+  height: calc(100vh - 8px*28);
   border-radius: 8px;
   width: 8px*12*3.1;
   background-color: $gray6;
@@ -99,7 +99,8 @@
   .panels{
     position: fixed;
     width: 8px*12*3.1;
-    height: calc(100vh - 8px*20);
+    height: calc(100vh - 8px*28);
+    overflow: scroll;
     right: 8px*2;
     overflow: hidden;
     border: 1px solid $gray4;
