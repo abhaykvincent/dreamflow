@@ -1,10 +1,29 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/colours.scss';
 
-.target{
-  .target__name{
+.quickPrompt{
+  position: fixed;
+  width: 8px*8*4;
+  left: 50vw;
+  top: 50vh;
+  z-index: 40;
+  color: black;
+  border-radius: 8px;
+  background-color: $gray6;
+  .prompt{
+    width: calc(100% );
+    padding: 8px 8px*2;
+    background-color: $gray7;
+    border-radius: 8px*1;
+    border: 1px solid $gray2;
+    box-shadow: 1px 1px 8px*0.5 $gray4;
+    color:white;
   }
-  .target__breadcrumb{
-    width: 100%;
+  .promptSuggestions{
+    color: white;
+    .suggestion{
+      padding: 8px 8px*2;
+      color:$gray1;
+    }
   }
 }
