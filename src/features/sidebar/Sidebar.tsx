@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ElementPalette } from '../elementPalette/ElementPalette';
 import './Sidebar.scss';
+import { useSelector } from 'react-redux';
+import { selectCanvasDOM } from '../canvas/canvasSlice';
+import $ from 'jquery';
 
 const SIDEBAR_TOOLS = [
   'elements',
@@ -27,15 +30,56 @@ function gatherNodes(element: HTMLElement): NodeObj[] {
   return nodes;
 }
 
+// function to create DOM layer from node object
+// each node with html <div className="node" key={index}>{node.node.tagName}</div>
 
 
+const generateLayer = (value:any,level:number,currentLayer:any) => {
+  $(value).children().each(function(index:number, v:any) {
+
+    let lvl = level + 1;
+
+    let newLayer = document.createElement('div');
+    newLayer.className = 'layer';
+
+    let selectorClasses=$('.selected')[0].className.replace('selected','');
+
+    // if selectorClasses starts with flow, remove it
+    if(selectorClasses.startsWith('flow')) {
+      selectorClasses = selectorClasses.replace('flow','');
+      // all uppercase
+      selectorClasses = selectorClasses.toUpperCase();
+    }
+    console.log(selectorClasses)
+    //class name exept 'selected
+    // get tag name of the element
+    newLayer.innerHTML=`<div class="layer__tab">${v.tagName}<div/>`
+    
+    newLayer.dataset.layerId = $(v).data('flow-id');
+    newLayer.style.marginLeft = lvl*4 + 'px';
+    newLayer.style.borderLeft = lvl*0.5+'px solid rgba(255, 255, 255, 0.1)'
+    currentLayer.append(newLayer);
+    generateLayer(v,lvl++,newLayer);
+  });
+}
 
 export function Sidebar() {
+  const canvasDOM = useSelector(selectCanvasDOM);
   let canvas = document.getElementById('canvas') as HTMLElement;
-  let allNodes: any[] = [];
-  if(canvas){
-    allNodes = gatherNodes(canvas);
+  const [allNodes, setAllNodes] = useState<NodeObj[]>([]);
+  
+  useEffect(() => {if(canvas){
+    setAllNodes(gatherNodes(canvas))
   }
+  }, []);
+  useEffect(() => {
+    let canvas = document.getElementById('canvas') as HTMLElement;
+    if(canvas){
+      setAllNodes(gatherNodes(canvas))
+    }
+
+    generateLayer('#canvas',0,$('.nodes'));
+  }, [canvasDOM]);
 
   const [activeSidebarTool, setActiveSidebarTool] = useState('elements');
   return (
@@ -65,14 +109,7 @@ export function Sidebar() {
         <div className={`side-panel layers ${activeSidebarTool == 'layers' ? '':'hide'}`}>
           <div className="tabs">Layers</div>
           <div className="nodes">
-            {
-              allNodes.map((node, index) => {
-                return (
-                  <div className="node" key={index}>{node.node.tagName}</div>
-                )
-              })
-            }
-              
+           
           </div>
         </div>
 
