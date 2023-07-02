@@ -188,13 +188,14 @@ styleElement.textContent = cssString;
         console.log(responseString.substring(responseString.indexOf('|||')+3,responseString.lastIndexOf('|||')));
         setResponse(responseString.substring(responseString.indexOf('|||')+3,responseString.lastIndexOf('|||')));
         setLoading(false);
+
+        setInput('');
       }
       )
       .catch(error => {
         console.log(error);
       });
 
-    setInput('');
 
     console.log('loading done')
   }
@@ -248,10 +249,14 @@ styleElement.textContent = cssString;
       value={input}
       onChange={(e) => setInput(e.target.value)}
     className="prompt" placeholder="Create a basic .."  type="text" />
-    <div className="ask"
+    <div className={`ask ${loading? 'loading' : ''}`}
     onClick={handlePromptEnter}
-    >ask</div>
-    <div className="promptSuggestions">
+    >
+      {
+        loading? 'Loading...' : '🔮'
+      }
+    </div>
+    <div className={`promptSuggestions ${loading? 'hide': ''}`}>
       {
         suggestions.map((suggestion: any,i) => (
           <div key={i} className="suggestion"

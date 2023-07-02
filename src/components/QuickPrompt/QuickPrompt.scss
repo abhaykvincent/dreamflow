@@ -10,6 +10,7 @@
   color: black;
   border-radius: 8px;
   background-color: $gray6;
+  overflow: hidden;
   .prompt{
     width: calc(100% );
     padding: 8px 8px*2;
@@ -19,11 +20,30 @@
     box-shadow: 1px 1px 8px*0.5 $gray4;
     color:white;
   }
+  .ask{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 5px 8px;
+    background-color: $gray5;
+    border-radius: 4px;
+    border: 1px solid $gray1;
+    color: white;
+    padding: 8px 8px;
+    &.loading{
+      background-color: $gray4;
+      color: $gray2;
+    }
+  }
   .promptSuggestions{
     color: white;
+    background-color: $gray5;
     .suggestion{
       padding: 8px 8px*2;
       color:$gray1;
+    }
+    &.hide{
+      height: 0px;;
     }
   }
 }
