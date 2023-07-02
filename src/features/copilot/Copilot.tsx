@@ -19,7 +19,9 @@ export function Copilot() {
   return (
     <div className={`copilot ${showHistory?'show-history':''}`}>
       {
-        [...Array(chatCount)].map((_, i) => <ChatBox  index={i}/>)
+        [...Array(chatCount)].map((_, i) => 
+          <ChatBox  index={i}/>
+        )
       }
       <div className="newChat"
         onClick={onNewChat}
