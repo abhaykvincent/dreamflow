@@ -104,20 +104,17 @@ export default function ChatBox({index}: {index: number}) {
       }
     };
     axios.get(url, config)
-      .then(response => {
-        console.log({response});
-        setMessages([...messages,{role: "user", content: input}, response.data]);
+    .then(response => {
+      console.log({response});
+      setMessages([...messages,{role: "user", content: input}, response.data]);
 
-        setLoading(false);
-      }
-      )
-      .catch(error => {
-        console.log(error);
-      });
-
+      setLoading(false);
+    }
+    )
+    .catch(error => {
+      console.log(error);
+    });
     setInput('');
-
-    console.log('loading done')
   }
   return (
     <div className={`chatbox ${windowStatus}`} key={index}>

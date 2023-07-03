@@ -1,29 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './QuickPrompt.scss';
 import axios from 'axios';
-import { cssNumber } from 'jquery';
 import { useSelector } from 'react-redux';
 import { selectTarget, updateCanvasHTML } from '../../features/canvas/canvasSlice';
 import { useAppDispatch } from '../../app/hooks';
+import { debounce} from 'lodash';
+
+const  storeVanGoughResponses = (response: any) => {
+  let vanGoughResponses = localStorage.getItem('van-goughResponses');
+  if(vanGoughResponses === null){
+    vanGoughResponses = JSON.stringify([response]);
+  }else{
+    let vanGoughResponsesARR = JSON.parse(vanGoughResponses);
+    vanGoughResponsesARR.push(response);
+    console.log(response);
+    debugger;
+    vanGoughResponses = JSON.stringify(vanGoughResponsesARR);
+  }
+  localStorage.setItem('van-goughResponses', vanGoughResponses);
+}
 
 export default function QuickPrompt() {
 
   const dispatch = useAppDispatch();
+  const [isVisible, setIsVisible] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [prompt, setPrompt] = useState({});
-  const [response, setResponse] = useState(``);
+  const [response, setResponse] = useState({
+    html:'' as string,
+    css:'' as string,
+    js:'' as string
+  }  as any);
   const [suggestions, setSuggestions] = useState([
     {text:'create a layout for calculator'}
   ]);
   const targetID = useSelector(selectTarget);
   const dynamicPrompt = [
-    {role: "system", content: "You are a helpful web developer, web designer and copywriter. respond with js code to create what asked for"},
-    {role: "user", content: "Provide style which is simple design and aesthetic , No text response other than // comment"},
-    {role: "assistant", content: "Elements will be appended to this canvas. Code should be written in vanilla js and embedded in |||...|||"},
+    {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using eval. Check for syntax errors before sending. "},
+    {role: "user", content: "Provide structure style which is simple design and aesthetic."},
+    {role: "assistant", content: `Elements will be appended to [data-flow-id="${targetID}"].`},
     {role: "user", content: "Create a section with three subscription plans in a grid"},
-    {role: "assistant", content: `|||// Define the plan data in an array of objects
+    {role: "assistant", content: `
+    //Data//
     const plansData = [
       {
         title: 'Basic Plan',
@@ -41,173 +59,47 @@ export default function QuickPrompt() {
         features: ['Custom features and integrations', 'Unlimited user accounts']
       },
     ];
-    
-    // Create the main section element
-    const section = document.createElement('section');
-    section.className = 'subscription-plans';
-    
-    // Create the heading
-    const h1 = document.createElement('h1');
-    h1.textContent = 'Our Subscription Plans';
-    section.appendChild(h1);
-    
-    // Create the grid container
-    const grid = document.createElement('div');
-    grid.className = 'plans-grid';
-    section.appendChild(grid);
-    
-    // Create each plan card
-    for (const plan of plansData) {
-      const card = document.createElement('div');
-      card.className = 'plan-card';
-    
-      const h2 = document.createElement('h2');
-      h2.textContent = plan.title;
-      card.appendChild(h2);
-    
-      const p = document.createElement('p');
-      p.textContent = plan.price;
-      card.appendChild(p);
-    
-      const ul = document.createElement('ul');
-      for (const feature of plan.features) {
-        const li = document.createElement('li');
-        li.textContent = feature;
-        ul.appendChild(li);
-      }
-      card.appendChild(ul);
-    
-      grid.appendChild(card);
-    }
-    
-    // Append the section to the body (or another container element)
-    const target = document.querySelector('[data-flow-id="${targetID}"]');
-    target.appendChild(section);
-
-    // Define your CSS as a string
-let cssString = '.subscription-plans { width: 80%; margin: auto; text-align: center; } .plans-grid { display: flex; justify-content: space-between; gap: 20px; } .plan-card { background-color: #f8f8f8; border-radius: 10px; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); } .plan-card h2 { margin-top: 0; } .plan-card ul { text-align: left; }';
-
-
-// Create a new style element
-let styleElement = document.createElement("style");
-
-// Set its content to the CSS string
-styleElement.textContent = cssString;
-
-// Append the style element to the head of the document
-    document.head.appendChild(styleElement);|||`},
-    /* {role: "user", content: "Create a login page with a form that has a username input and a submit button"},
-    {role: "assistant", content: `|||// Create an HTML element
-    let mainElement = document.createElement('main');
-    
-    // Create a form
-    let formElement = document.createElement('form');
-    formElement.action = "/login";
-    formElement.method = "post";
-    
-    // Create a label for username
-    let usernameLabel = document.createElement('label');
-    usernameLabel.for = "username";
-    usernameLabel.textContent = "Username:";
-    
-    // Create an input for username
-    let usernameInput = document.createElement('input');
-    usernameInput.type = "text";
-    usernameInput.id = "username";
-    usernameInput.name = "username";
-    usernameInput.required = true;
-    
-    // Append the label and input to the form
-    formElement.appendChild(usernameLabel);
-    formElement.appendChild(usernameInput);
-    
-    // Append the form to the main element
-    mainElement.appendChild(formElement);
-    
-    // Append the main element to the body
-    const target = document.querySelector('[data-flow-id="${targetID}"]');
-    target.appendChild(mainElement);
-    
-    // Create a style element
-    let styleElement = document.createElement('style');
-    styleElement.textContent = "
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
+    //HTML//
+    <section class="subscription-plans" data-flow-name="Subscription plans" data-flow-component="subscription-plans">
+      <h1>Our Subscription Plans</h1>
+      <div class="plans-grid">
+        {
+          plansData.map(plan => {
+            return (
+              <div class="plan-card">
+                <h2>{plan.title}</h2>
+                <p>{plan.price}</p>
+                <ul>
+                  {
+                    plan.features.map(feature => {
+                      return <li>{feature}</li>
+                    })
+                  }
+                </ul>
+              </div>
+            )
+          })        
         }
-        main {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        form {
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-    ";
-    
-    // Append the style to the head
-    document.head.appendChild(styleElement);|||`}, */
-  ]
+      </div>
 
-  const handlePromptEnter = (e: any) => 
-  {
-    setLoading(true);
-    setPrompt({role: "user", content: input});
-    dynamicPrompt.push({role: "user", content: input});
-    // call the backend http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/copilot
-    // to get the response using axios
-    // setMessages([...messages, {role: "system", content: response}]);
-
-    const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/copilot';
-    const config = {  
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'no-cors',
-      params: {
-        messages:dynamicPrompt
-      }
-    };
-    axios.get(url, config)
-      .then(response => {
-        // response.data.content extract everything inside ``` ```
-        let responseString = response.data.content;
-        console.log(responseString.substring(responseString.indexOf('|||')+3,responseString.lastIndexOf('|||')));
-        setResponse(responseString.substring(responseString.indexOf('|||')+3,responseString.lastIndexOf('|||')));
-        setLoading(false);
-
-        setInput('');
-      }
-      )
-      .catch(error => {
-        console.log(error);
-      });
+    //CSS//
+    .subscription-plans { width: 80%; margin: auto; text-align: center; } 
+    .plans-grid { display: flex; justify-content: space-between; gap: 20px; } 
+    .plan-card { background-color: #f8f8f8; border-radius: 10px; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); } 
+    .plan-card h2 { margin-top: 0; } 
+    .plan-card ul { text-align: left; }
+`}]
+const [askFeedback, setAskFeedback] = useState(false);
+const [feedback, setFeedback] = useState({});
 
 
-    console.log('loading done')
-  }
-
-
-  const completions = (input: string) => {
+  const promptCompletions = (userInput: string) => {
     const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
     const config = {  
       headers: { 'Content-Type': 'application/json' },
       mode: 'no-cors',
       params: {
-        prompt:input
+        prompt:userInput
       }
     };
     axios.get(url, config)
@@ -220,11 +112,94 @@ styleElement.textContent = cssString;
         //console.log(error);
       });
   }
+  const sendPrompt = (e: any) => 
+  {
+    setLoading(true);
+    dynamicPrompt.push({role: "user", content: input});
+    const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/van-gough';
+    const config = {  
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'no-cors',
+      params: {
+        targetID:targetID,
+        messages:dynamicPrompt  
+      }
+    };
+    axios.get(url, config)
+    .then(response => {
+      // store response.data.choices[0] to local storage for later use
+      // function store to local storage named van-goughResponses
+      
+      
     
+      let responseString = response.data.choices[0].message.content;
 
+      setLoading(false);
+      setInput('');
+      setFeedback(response.data.choices[0])
+
+      // regeg for html and css seperated by ```html and ```css
+      let htmlRegex = /```html([\s\S]*?)```/;
+      let cssRegex = /```css([\s\S]*?)```/;
+      // regeg for html and css seperated by //HTML and //CSS
+      let htmlRegex2 = /\/\/HTML\/\/([\s\S]*?)\/\/CSS/;
+      let cssRegex2 = /\/\/CSS\/\/([\s\S]*?)\/\/JS/;
+
+
+
+      let htmlMatch = responseString.match(htmlRegex);
+      let cssMatch = responseString.match(cssRegex);
+
+      let htmlCode = htmlMatch ? htmlMatch[1].trim() : '' as string;
+      let cssCode = cssMatch ? cssMatch[1].trim() : '' as string;
+      if(htmlCode === '' || cssCode === ''){
+        console.log(responseString);
+        htmlCode = htmlCode.match(htmlRegex2)[1].trim();
+        cssCode = cssCode.match(cssRegex2)[1].trim();
+      }
+      debugger  ;
+      // reemove /n from html and css
+      htmlCode = htmlCode.replace(/\n/g, '');
+      cssCode = cssCode.replace(/\n/g, '');
+
+      setResponse({
+        html:htmlCode,
+        css:cssCode,
+        js:'',
+        targetID:targetID
+      });
+    }
+    )
+    .catch(error => {
+      console.log(error);
+    });
+  }
+    
   useEffect(() => {
+
     try{
-      eval(response);
+      {
+        let htmlDummy="<div class=\"calculator\">  <input type=\"text\" class=\"calculator-screen\" disabled />  <div class=\"calculator-buttons\">    <button class=\"operator\">+</button>    <button class=\"operator\">-</button>    <button class=\"operator\">*</button>    <button class=\"operator\">/</button>    <button>7</button>    <button>8</button>    <button>9</button>    <button>4</button>    <button>5</button>    <button>6</button>    <button>1</button>    <button>2</button>    <button>3</button>    <button>0</button>    <button>.</button>    <button class=\"clear\">C</button>    <button class=\"equal\">=</button>  </div></div>";
+        let cssDummy= ".calculator {  width: 300px;  margin: auto;  background-color: #f8f8f8;  border-radius: 10px;  padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);}.calculator-screen {  width: 100%;  height: 40px;  margin-bottom: 10px;  padding: 5px;  font-size: 20px;  text-align: right;}.calculator-buttons {  display: grid;  grid-template-columns: repeat(4, 1fr);  grid-gap: 10px;}.calculator-buttons button {  width: 100%;  height: 40px;  font-size: 18px;  background-color: #e0e0e0;  border: none;  border-radius: 5px;  cursor: pointer;}.calculator-buttons button.operator {  background-color: #ff9800;  color: white;}";
+        let targetIDDummy= "canvas";
+    }
+
+      const html = response.html;
+      const css = response.css;
+      const targetID = response.targetID;
+      console.log({html, css, targetID});
+      console.log(html);
+      
+      // update html
+      const target = document.querySelector(`[data-flow-id="${targetID}"]`);
+      if(target){
+        target.innerHTML = html;
+        // add style to head
+        const style = document.createElement('style');
+        style.innerHTML = css;
+        document.head.appendChild(style);
+
+      }
       dispatch(updateCanvasHTML());
 
     }catch(error:any){
@@ -235,37 +210,83 @@ styleElement.textContent = cssString;
     }
   }, [response]);
 
-  // prompt commpletion helper
+  // prompt completion
+ 
+  const fetchApi = useCallback(debounce((input: string) => {
+    promptCompletions(input);
+  }, 1500), []);  
+
+
   useEffect(() => {
-    // if input ends with a space or the current word  has more than 3 characters ,then prompt completion is needed
-    if (input.endsWith(' ') || (input.split(' ').pop()?.length ?? 0) > 3) {
-      completions(input);
+    if ((input.length ?? 0) > 3) {
+      fetchApi(input);
+
     }
-  }, [input]);
+
+    // Cleanup
+    return () => {
+      fetchApi.cancel();
+    };
+  }, [input, fetchApi]);
+
+  useEffect(() => {
+    if(askFeedback){
+      storeVanGoughResponses(feedback);
+      setAskFeedback(false);
+    }
+  }, [feedback]);
+
+
+
   return (
-    
-    <div className="quickPrompt">
-    <input
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-    className="prompt" placeholder="Create a basic .."  type="text" />
-    <div className={`ask ${loading? 'loading' : ''}`}
-    onClick={handlePromptEnter}
-    >
+    <div className={`quickPrompt ${isVisible? '' : 'hide'}`}>
+      <input
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      className="prompt" placeholder="Create a basic .."  type="text" />
+      <div className={`ask ${loading? 'loading' : ''}`}
+      onClick={sendPrompt}
+      >
+        {
+          loading? 'Loading...' : '🔮'
+        }
+      </div>
+      <div className={`promptSuggestions ${loading? 'hide': ''}`}>
+        {
+          suggestions.length > 0 &&
+          suggestions.map((suggestion: any,i) => (
+            <div key={i} className="suggestion"
+            onClick={() => setInput(input.substring(0,input.lastIndexOf(' ')+1)+suggestion.text)}
+            >{suggestion.text}</div>
+          ))
+        }
+      </div>
+      <div className="quickPrompt__icon"
+      onClick={()=>setIsVisible(!isVisible)}
+
+      >🔮</div>
+      <div className="close__icon"
+      onClick={()=>setIsVisible(!isVisible)}
+      >x</div>
       {
-        loading? 'Loading...' : '🔮'
+        askFeedback ?
+        <div className="feedback">
+          <div className="thumbs-up">
+            <div className="icon"
+            onClick={() => {
+              setAskFeedback(true);
+              setLoading(false);
+              
+            }}
+            >👍</div>
+          </div>
+          <div className="thumbs-down">
+            <div className="icon">👎</div>
+          </div>
+        </div>
+        : null
       }
     </div>
-    <div className={`promptSuggestions ${loading? 'hide': ''}`}>
-      {
-        suggestions.map((suggestion: any,i) => (
-          <div key={i} className="suggestion"
-          onClick={() => setInput(input.substring(0,input.lastIndexOf(' ')+1)+suggestion.text)}
-          >{suggestion.text}</div>
-        ))
-      }
-    </div>
-  </div>
   );
 
   
