@@ -24,18 +24,8 @@ const  storeVanGoughResponses = (response: any) => {
 export default function QuickPrompt() {
 
   const dispatch = useAppDispatch();
+  
   const [isVisible, setIsVisible] = useState(false);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState({
-    html:'' as string,
-    css:'' as string,
-    js:'' as string
-  }  as any);
-  const [suggestions, setSuggestions] = useState([
-    {text:'create a layout for calculator'}
-  ]);
-  const targetID = useSelector(selectTarget);
   const dynamicPrompt = [
     {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using eval. Check for syntax errors before sending. "},
     {role: "user", content: "Provide structure style which is simple design and aesthetic."},
@@ -90,6 +80,17 @@ export default function QuickPrompt() {
     .plan-card h2 { margin-top: 0; } 
     .plan-card ul { text-align: left; }
 `}]
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState({
+    html:'' as string,
+    css:'' as string,
+    js:'' as string
+  }  as any);
+  const [suggestions, setSuggestions] = useState([
+    {text:'create a layout for calculator'}
+  ]);
+  const targetID = useSelector(selectTarget);
 const [askFeedback, setAskFeedback] = useState(false);
 const [feedback, setFeedback] = useState({});
 
