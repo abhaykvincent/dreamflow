@@ -131,9 +131,6 @@ const [feedback, setFeedback] = useState({});
     .then(response => {
       // store response.data.choices[0] to local storage for later use
       // function store to local storage named van-goughResponses
-      
-      
-    
       let responseString = response.data.choices[0].message.content;
 
       setLoading(false);
@@ -146,8 +143,6 @@ const [feedback, setFeedback] = useState({});
       // regeg for html and css seperated by //HTML and //CSS
       let htmlRegex2 = /\/\/HTML\/\/([\s\S]*?)\/\/CSS/;
       let cssRegex2 = /\/\/CSS\/\/([\s\S]*?)\/\/JS/;
-
-
 
       let htmlMatch = responseString.match(htmlRegex);
       let cssMatch = responseString.match(cssRegex);
