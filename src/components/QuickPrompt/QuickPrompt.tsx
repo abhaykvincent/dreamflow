@@ -6,6 +6,7 @@ import { selectTarget, updateCanvasHTML } from '../../features/canvas/canvasSlic
 import { useAppDispatch } from '../../app/hooks';
 import { debounce} from 'lodash';
 
+// This function is used to store Van Gough's responses in the local storage.
 const  storeVanGoughResponses = (response: any) => {
   let vanGoughResponses = localStorage.getItem('van-goughResponses');
   if(vanGoughResponses === null){
