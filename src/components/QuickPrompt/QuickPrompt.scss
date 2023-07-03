@@ -10,9 +10,10 @@
   color: black;
   border-radius: 8px;
   background-color: $gray6;
-  overflow: hidden;
+  overflow: visible;
+  transform: translate(-50%, -50%);
   .prompt{
-    width: calc(100% );
+    width: calc(100% - 8px*5);
     padding: 8px 8px*2;
     background-color: $gray7;
     border-radius: 8px*1;
@@ -24,12 +25,12 @@
     position: absolute;
     top: 0px;
     right: 0px;
-    padding: 5px 8px;
+    padding: 5px 8px*2;
+    min-width: 8px*4;
     background-color: $gray5;
     border-radius: 4px;
     border: 1px solid $gray1;
     color: white;
-    padding: 8px 8px;
     &.loading{
       background-color: $gray4;
       color: $gray2;
@@ -38,6 +39,7 @@
   .promptSuggestions{
     color: white;
     background-color: $gray5;
+    border-radius: 0 0px 8px 8px;
     .suggestion{
       padding: 8px 8px*2;
       color:$gray1;
@@ -45,5 +47,67 @@
     &.hide{
       height: 0px;;
     }
+  }
+  .quickPrompt__icon{
+    display: none;
+    position: fixed;
+    height: 8px*4;
+    z-index: 40;
+    font-size: 1.2rem;
+  }
+  .close__icon{
+    position: absolute;
+    top: 0px;
+    right: -8px*2;
+    height: 8px*2;
+    z-index: 40;
+    font-size: 1.2rem;
+  }
+  .feedback{
+    position: absolute;
+    display: flex;
+    top: 38px;
+  }
+  &.hide{
+    top: auto;
+    left: auto;
+    bottom: 8px*11;
+    right: 8px*-4.8;
+    overflow:  visible;
+    transition-duration: 1s;
+    .prompt{
+      display: none;
+    }
+    .ask{
+      display: none;
+    }
+    .promptSuggestions{
+      display: none;
+      .suggestion{
+        display: none;
+      }
+    }
+
+    .quickPrompt__icon{
+      display: block;
+      animation: bounce 1s 2;
+    }
+    .close__icon{
+      display: none;
+    }
+
+
+
+  }
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
