@@ -6,6 +6,7 @@ import { selectTarget, updateCanvasHTML } from '../../features/canvas/canvasSlic
 import { useAppDispatch } from '../../app/hooks';
 import { debounce} from 'lodash';
 
+// This function is used to store Van Gough's responses in the local storage.
 const  storeVanGoughResponses = (response: any) => {
   let vanGoughResponses = localStorage.getItem('van-goughResponses');
   if(vanGoughResponses === null){
@@ -23,18 +24,8 @@ const  storeVanGoughResponses = (response: any) => {
 export default function QuickPrompt() {
 
   const dispatch = useAppDispatch();
+  
   const [isVisible, setIsVisible] = useState(false);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState({
-    html:'' as string,
-    css:'' as string,
-    js:'' as string
-  }  as any);
-  const [suggestions, setSuggestions] = useState([
-    {text:'create a layout for calculator'}
-  ]);
-  const targetID = useSelector(selectTarget);
   const dynamicPrompt = [
     {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using eval. Check for syntax errors before sending. "},
     {role: "user", content: "Provide structure style which is simple design and aesthetic."},
@@ -89,6 +80,17 @@ export default function QuickPrompt() {
     .plan-card h2 { margin-top: 0; } 
     .plan-card ul { text-align: left; }
 `}]
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState({
+    html:'' as string,
+    css:'' as string,
+    js:'' as string
+  }  as any);
+  const [suggestions, setSuggestions] = useState([
+    {text:'create a layout for calculator'}
+  ]);
+  const targetID = useSelector(selectTarget);
 const [askFeedback, setAskFeedback] = useState(false);
 const [feedback, setFeedback] = useState({});
 
@@ -129,9 +131,6 @@ const [feedback, setFeedback] = useState({});
     .then(response => {
       // store response.data.choices[0] to local storage for later use
       // function store to local storage named van-goughResponses
-      
-      
-    
       let responseString = response.data.choices[0].message.content;
 
       setLoading(false);
@@ -144,8 +143,6 @@ const [feedback, setFeedback] = useState({});
       // regeg for html and css seperated by //HTML and //CSS
       let htmlRegex2 = /\/\/HTML\/\/([\s\S]*?)\/\/CSS/;
       let cssRegex2 = /\/\/CSS\/\/([\s\S]*?)\/\/JS/;
-
-
 
       let htmlMatch = responseString.match(htmlRegex);
       let cssMatch = responseString.match(cssRegex);
