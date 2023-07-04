@@ -14,11 +14,33 @@ const  storeVanGoughResponses = (response: any) => {
   }else{
     let vanGoughResponsesARR = JSON.parse(vanGoughResponses);
     vanGoughResponsesARR.push(response);
-    console.log(response);
-    debugger;
     vanGoughResponses = JSON.stringify(vanGoughResponsesARR);
   }
   localStorage.setItem('van-goughResponses', vanGoughResponses);
+}
+
+function validateExtractHTMLCSS(responseString: any) {
+  console.log('String to be validated')
+  console.log(responseString);
+  let htmlRegex = /```html([\s\S]*?)```/;
+  let cssRegex = /```css([\s\S]*?)```/;
+  // regeg for html and css seperated by //HTML and //CSS
+  let htmlRegex2 = /\/\/HTML\/\/([\s\S]*?)\/\/CSS/;
+  let cssRegex2 = /\/\/CSS\/\/([\s\S]*?)\/\/JS/;
+
+  let htmlMatch = responseString.match(htmlRegex);
+  let cssMatch = responseString.match(cssRegex);
+
+  let htmlCode = htmlMatch ? htmlMatch[1].trim() : '' as string;
+  let cssCode = cssMatch ? cssMatch[1].trim() : '' as string;
+  if (htmlCode === '' || cssCode === '') {
+    htmlCode = htmlCode.match(htmlRegex2)[1].trim();
+    cssCode = cssCode.match(cssRegex2)[1].trim();
+  }
+  // reemove /n from html and css
+  htmlCode = htmlCode.replace(/\n/g, '');
+  cssCode = cssCode.replace(/\n/g, '');
+  return { htmlCode, cssCode };
 }
 
 export default function QuickPrompt() {
@@ -26,6 +48,8 @@ export default function QuickPrompt() {
   const dispatch = useAppDispatch();
   
   const [isVisible, setIsVisible] = useState(false);
+  const [input, setInput] = useState('');
+  const targetID = useSelector(selectTarget);
   const dynamicPrompt = [
     {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using eval. Check for syntax errors before sending. "},
     {role: "user", content: "Provide structure style which is simple design and aesthetic."},
@@ -80,7 +104,6 @@ export default function QuickPrompt() {
     .plan-card h2 { margin-top: 0; } 
     .plan-card ul { text-align: left; }
 `}]
-  const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({
     html:'' as string,
@@ -90,30 +113,11 @@ export default function QuickPrompt() {
   const [suggestions, setSuggestions] = useState([
     {text:'create a layout for calculator'}
   ]);
-  const targetID = useSelector(selectTarget);
 const [askFeedback, setAskFeedback] = useState(false);
 const [feedback, setFeedback] = useState({});
 
 
-  const promptCompletions = (userInput: string) => {
-    const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
-    const config = {  
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'no-cors',
-      params: {
-        prompt:userInput
-      }
-    };
-    axios.get(url, config)
-      .then(response => {
-        console.log(response.data);
-        setSuggestions(response.data);
-      }
-      )
-      .catch(error => {
-        //console.log(error);
-      });
-  }
+  
   const sendPrompt = (e: any) => 
   {
     setLoading(true);
@@ -132,32 +136,16 @@ const [feedback, setFeedback] = useState({});
       // store response.data.choices[0] to local storage for later use
       // function store to local storage named van-goughResponses
       let responseString = response.data.choices[0].message.content;
+      console.log(responseString);
 
       setLoading(false);
       setInput('');
-      setFeedback(response.data.choices[0])
+      setFeedback(responseString)
+
+      setAskFeedback(true);
 
       // regeg for html and css seperated by ```html and ```css
-      let htmlRegex = /```html([\s\S]*?)```/;
-      let cssRegex = /```css([\s\S]*?)```/;
-      // regeg for html and css seperated by //HTML and //CSS
-      let htmlRegex2 = /\/\/HTML\/\/([\s\S]*?)\/\/CSS/;
-      let cssRegex2 = /\/\/CSS\/\/([\s\S]*?)\/\/JS/;
-
-      let htmlMatch = responseString.match(htmlRegex);
-      let cssMatch = responseString.match(cssRegex);
-
-      let htmlCode = htmlMatch ? htmlMatch[1].trim() : '' as string;
-      let cssCode = cssMatch ? cssMatch[1].trim() : '' as string;
-      if(htmlCode === '' || cssCode === ''){
-        console.log(responseString);
-        htmlCode = htmlCode.match(htmlRegex2)[1].trim();
-        cssCode = cssCode.match(cssRegex2)[1].trim();
-      }
-      debugger  ;
-      // reemove /n from html and css
-      htmlCode = htmlCode.replace(/\n/g, '');
-      cssCode = cssCode.replace(/\n/g, '');
+      let { htmlCode, cssCode } = validateExtractHTMLCSS(responseString);
 
       setResponse({
         html:htmlCode,
@@ -169,17 +157,30 @@ const [feedback, setFeedback] = useState({});
     )
     .catch(error => {
       console.log(error);
+      console.log('failed to get response from van-gough');
+      console.log('Generating random response from local storage');
+
+      // if API call FAILED; GET a cached response
+      let vanGoughResponses = localStorage.getItem('van-goughResponses');
+      if(vanGoughResponses){
+        let vanGoughResponsesOBJ = JSON.parse(vanGoughResponses);
+        let randomIndex = Math.floor(Math.random() * vanGoughResponsesOBJ.length);
+        let randomResponse = vanGoughResponsesOBJ[randomIndex];
+        let { htmlCode, cssCode } = validateExtractHTMLCSS(randomResponse);
+
+      setResponse({
+        html:htmlCode,
+        css:cssCode,
+        js:'',
+        targetID:targetID
+      });
+      }
     });
   }
     
   useEffect(() => {
 
     try{
-      {
-        let htmlDummy="<div class=\"calculator\">  <input type=\"text\" class=\"calculator-screen\" disabled />  <div class=\"calculator-buttons\">    <button class=\"operator\">+</button>    <button class=\"operator\">-</button>    <button class=\"operator\">*</button>    <button class=\"operator\">/</button>    <button>7</button>    <button>8</button>    <button>9</button>    <button>4</button>    <button>5</button>    <button>6</button>    <button>1</button>    <button>2</button>    <button>3</button>    <button>0</button>    <button>.</button>    <button class=\"clear\">C</button>    <button class=\"equal\">=</button>  </div></div>";
-        let cssDummy= ".calculator {  width: 300px;  margin: auto;  background-color: #f8f8f8;  border-radius: 10px;  padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);}.calculator-screen {  width: 100%;  height: 40px;  margin-bottom: 10px;  padding: 5px;  font-size: 20px;  text-align: right;}.calculator-buttons {  display: grid;  grid-template-columns: repeat(4, 1fr);  grid-gap: 10px;}.calculator-buttons button {  width: 100%;  height: 40px;  font-size: 18px;  background-color: #e0e0e0;  border: none;  border-radius: 5px;  cursor: pointer;}.calculator-buttons button.operator {  background-color: #ff9800;  color: white;}";
-        let targetIDDummy= "canvas";
-    }
 
       const html = response.html;
       const css = response.css;
@@ -201,46 +202,65 @@ const [feedback, setFeedback] = useState({});
 
     }catch(error:any){
       console.log(error);
-      console.log(error.name);
-      console.log(error.message);
-      console.log(error.stack);
-    }
-  }, [response]);
 
-  // prompt completion
- 
+        let htmlDummy="<div class=\"calculator\">Failed: ⛳️  <input type=\"text\" class=\"calculator-screen\" disabled />  <div class=\"calculator-buttons\">    <button class=\"operator\">+</button>    <button class=\"operator\">-</button>    <button class=\"operator\">*</button>    <button class=\"operator\">/</button>    <button>7</button>    <button>8</button>    <button>9</button>    <button>4</button>    <button>5</button>    <button>6</button>    <button>1</button>    <button>2</button>    <button>3</button>    <button>0</button>    <button>.</button>    <button class=\"clear\">C</button>    <button class=\"equal\">=</button>  </div></div>";
+        let cssDummy= ".calculator {  width: 300px;  margin: auto;  background-color: #f8f8f8;  border-radius: 10px;  padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);}.calculator-screen {  width: 100%;  height: 40px;  margin-bottom: 10px;  padding: 5px;  font-size: 20px;  text-align: right;}.calculator-buttons {  display: grid;  grid-template-columns: repeat(4, 1fr);  grid-gap: 10px;}.calculator-buttons button {  width: 100%;  height: 40px;  font-size: 18px;  background-color: #e0e0e0;  border: none;  border-radius: 5px;  cursor: pointer;}.calculator-buttons button.operator {  background-color: #ff9800;  color: white;}";
+        let targetIDDummy= "canvas";
+        if(targetIDDummy){
+          const target = document.querySelector(`[data-flow-id="${targetIDDummy}"]`);
+          if(target){
+            target.innerHTML = htmlDummy;
+            // add style to head
+            const style = document.createElement('style');
+            style.innerHTML = cssDummy;
+            document.head.appendChild(style);
+          }
+        }
+    }
+  }, [response, dispatch]);
+
+
+  // Auto-completion
+
+  const promptCompletions = (userInput: string) => {
+    const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
+    const config = {  
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'no-cors',
+      params: {
+        prompt:userInput
+      }
+    };
+    axios.get(url, config)
+      .then(response => {
+        console.log(response.data);
+        setSuggestions(response.data);
+      }
+      )
+      .catch(error => {
+        //console.log(error);
+      });
+  }
+  // Debounced to AVOID too many api calls
   const fetchApi = useCallback(debounce((input: string) => {
     promptCompletions(input);
   }, 1500), []);  
-
-
   useEffect(() => {
     if ((input.length ?? 0) > 3) {
       fetchApi(input);
-
     }
-
-    // Cleanup
     return () => {
       fetchApi.cancel();
     };
   }, [input, fetchApi]);
 
-  useEffect(() => {
-    if(askFeedback){
-      storeVanGoughResponses(feedback);
-      setAskFeedback(false);
-    }
-  }, [feedback]);
-
-
 
   return (
     <div className={`quickPrompt ${isVisible? '' : 'hide'}`}>
-      <input
+      <input className="prompt" placeholder="Create a basic .."  type="text" 
         value={input}
         onChange={(e) => setInput(e.target.value)}
-      className="prompt" placeholder="Create a basic .."  type="text" />
+      />
       <div className={`ask ${loading? 'loading' : ''}`}
       onClick={sendPrompt}
       >
@@ -259,26 +279,41 @@ const [feedback, setFeedback] = useState({});
         }
       </div>
       <div className="quickPrompt__icon"
-      onClick={()=>setIsVisible(!isVisible)}
-
+        onClick={()=>setIsVisible(!isVisible)}
       >🔮</div>
       <div className="close__icon"
       onClick={()=>setIsVisible(!isVisible)}
       >x</div>
+      <div className="clear-localStorage"
+      onClick={() => {
+        localStorage.removeItem('van-goughResponses');
+        // orange color
+        console.log("%c Cached Vangough responses Cleared", "color: #ff9800")
+      }}
+      >
+        clear
+      </div>
       {
         askFeedback ?
         <div className="feedback">
           <div className="thumbs-up">
             <div className="icon"
             onClick={() => {
-              setAskFeedback(true);
+
+              storeVanGoughResponses(feedback);
+              setAskFeedback(false);
               setLoading(false);
               
             }}
             >👍</div>
           </div>
           <div className="thumbs-down">
-            <div className="icon">👎</div>
+            <div className="icon"
+            onClick={() => {
+              setAskFeedback(false);
+              setLoading(false);
+            }}
+            >👎</div>
           </div>
         </div>
         : null
