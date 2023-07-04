@@ -63,6 +63,15 @@
     z-index: 40;
     font-size: 1.2rem;
   }
+  .clear-localStorage{
+    position: absolute;
+    top: 4px;
+    right: -8px*7;
+    height: 8px*2;
+    z-index: 40;
+    color: rgba(0, 0, 0, 0.626);
+    font-size: 0.8rem;
+  }
   .feedback{
     position: absolute;
     display: flex;

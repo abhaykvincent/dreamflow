@@ -1,32 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import './ChatBox.scss';
 import axios from 'axios';
-import { cssNumber } from 'jquery';
-/* conncet the chatbox with this backeend http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/copilot cod blow
-
-app.get('/copilot', (req, res) => {
-  
-  const callOpenAI = async () => {
-    const completion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {role: "system", content: "You are a helpfuls web developer"},
-        
-    ],
-    });
-    res.json(completion.data.choices[0].message);
-
-    // 
-    console.log(completion.data.choices[0].message);
-  }
-  callOpenAI()
-  .catch((err) => {
-    console.log(err);
-  }
-  );
-}
-)
-*/
 
 export default function ChatBox({index}: {index: number}) {
   let chatbox = document.getElementsByClassName('chatbox')[index] as HTMLDivElement;
@@ -78,11 +52,8 @@ export default function ChatBox({index}: {index: number}) {
  
 
   // OpeenAI chatbot
-  const [chat, setChat] = useState('First Chat');
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
     {role: "system", content: "You are a helpfull assistant"}
   ]);
