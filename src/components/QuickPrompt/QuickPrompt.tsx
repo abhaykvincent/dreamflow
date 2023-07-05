@@ -44,11 +44,11 @@ export default function QuickPrompt() {
   const [feedback, setFeedback] = useState({});
 
   //// Code Snippet Generation
-  const sendPrompt = (e: any) => 
+  const handlePrompt = (e: any) => 
   {
     setLoading(true);
     dynamicPrompt.push({role: "user", content: input});
-    const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/van-gough';
+    const API_VANGOUGH_URL = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/van-gough';
     const config = {  
       headers: { 'Content-Type': 'application/json' },
       mode: 'no-cors',
@@ -57,7 +57,7 @@ export default function QuickPrompt() {
         messages:dynamicPrompt  
       }
     };
-    axios.get(url, config)
+    axios.get(API_VANGOUGH_URL, config)
     .then(response => {
       let responseString = response.data.choices[0].message.content;
       setLoading(false);
@@ -78,15 +78,9 @@ export default function QuickPrompt() {
       renderCachedResponse(targetID);
     });
   }
-  
   //// Auto-completion
-
-  // Debounced to AVOID too many api calls
-   const fetchApi = useCallback(debounce((input: string) => {
-    promptCompletions(input);
-  }, 1500), []);  
-  const promptCompletions = (userInput: string) => {
-    const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
+  const handleCompletions = (userInput: string) => {
+    const API_URL_MONALISA = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
     const config = {  
       headers: { 'Content-Type': 'application/json' },
       mode: 'no-cors',
@@ -94,7 +88,7 @@ export default function QuickPrompt() {
         prompt:userInput
       }
     };
-    axios.get(url, config)
+    axios.get(API_URL_MONALISA, config)
     .then(response => {
       console.log(response.data);
       setSuggestions(response.data);
@@ -103,6 +97,10 @@ export default function QuickPrompt() {
       console.log(error);
     });
   }
+  // Debounced to AVOID too many api calls
+   const fetchApi = useCallback(debounce((input: string) => {
+    handleCompletions(input);
+  }, 1500), []);  
   useEffect(() => {
     if ((input.length ?? 0) > 3) {
       fetchApi(input);
@@ -116,7 +114,7 @@ export default function QuickPrompt() {
     <div className={`quickPrompt ${isVisible? '' : 'hide'}`}>
       {QuickPromptInput(input, setInput)}
       <div className={`ask ${loading? 'loading' : ''}`}
-      onClick={sendPrompt}
+      onClick={handlePrompt}
       >{ loading? 'Loading...' : '🔮' }
       </div>
       <PromptSuggestions   suggestions={suggestions} setInput={setInput} input={input} loading={loading}/>
@@ -139,5 +137,5 @@ export default function QuickPrompt() {
     </div>
   );
 };
-// Lines     : 324  -> 270  -> 230  -> 187  -> 141
+// Lines     : 324  -> 270  -> 230  -> 187  -> 139
 // Complexity: 51   -> 43   -> 36   -> 30   -> 27
