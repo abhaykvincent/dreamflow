@@ -6,45 +6,9 @@ import { selectTarget, updateCanvasHTML } from '../../features/canvas/canvasSlic
 import './QuickPrompt.scss';
 import Feedback from './Feedback';
 import PromptSuggestions from './PromptSuggestions';
+import QuickPromptInput from './QuickPromptInput';
+import { renderCodeSnippet, validateExtractHTMLCSS } from './helper';
 
-
-// Extract HTML and CSS from response
-function validateExtractHTMLCSS(responseString: any) {
-  console.log('String to be validated')
-  console.log(responseString);
-  let htmlRegex = /```html([\s\S]*?)```/;
-  let cssRegex = /```css([\s\S]*?)```/;
-
-  let htmlMatch = responseString.match(htmlRegex);
-  let cssMatch = responseString.match(cssRegex);
-
-
-  let htmlCode = htmlMatch ? htmlMatch[0].trim() : '' as string;
-  let cssCode = cssMatch ? cssMatch[0].trim() : '' as string;
-  console.log(htmlCode);
-  console.log(cssCode);
-  if (htmlCode === '' || cssCode === '') {
-    // regeg for html and css seperated by //HTML// and //CSS//
-    let htmlRegex2 = /\/\/HTML\/\/([\s\S]*?)\/\/CSS/;
-    //CSS// to the last } of css
-    let cssRegex2 = /\/\/CSS\/\/([\s\S]*?)$/;
-    htmlCode = htmlCode.match(htmlRegex2)[1].trim();
-    cssCode = cssCode.match(cssRegex2)[1].trim();
-  }
-  console.log('HTML and CSS extracted');
-  debugger
-  return { htmlCode, cssCode };
-}
-// Render HTML and CSS and append to target
-const renderCodeSnippet = ({htmlCode,cssCode,targetID}:any) =>{
-  const target = document.querySelector(`[data-flow-id="${targetID}"]`);
-  const style = document.createElement('style');
-  if(target){
-    target.innerHTML = htmlCode;
-    style.innerHTML = cssCode;
-    document.head.appendChild(style);
-  }
-}
 // Dynamic Prompt prefix for Van Gough
 const dynamicPrompt = [
   {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using eval. Check for syntax errors before sending. "},
@@ -104,7 +68,7 @@ export default function QuickPrompt() {
       // Extract HTML and CSS from response
       let { htmlCode, cssCode } = validateExtractHTMLCSS(responseString);
       console.log('responseString', htmlCode, cssCode );
-      renderCodeSnippet({htmlCode, cssCode, targetID});
+      renderCodeSnippet(htmlCode, cssCode, targetID);
     })
     .catch(error => {
       console.log(error);
@@ -118,7 +82,7 @@ export default function QuickPrompt() {
         let randomResponse = vanGoughResponsesOBJ[randomIndex];
         // Extract HTML and CSS from random response
         let { htmlCode, cssCode } = validateExtractHTMLCSS(randomResponse);
-        renderCodeSnippet({htmlCode, cssCode, targetID});
+        renderCodeSnippet(htmlCode, cssCode, targetID);
       }
     });
   }
@@ -184,10 +148,5 @@ export default function QuickPrompt() {
   );
 };
 
-function QuickPromptInput(input: string, setInput:any) {
-  return <input className="prompt" placeholder="Create a basic .." type="text"
-    value={input}
-    onChange={(e) => setInput(e.target.value)} />;
-}
 // Lines     : 324  -> 270  -> 230  -> 187
 // Complexity: 51   -> 43   -> 36   -> 30
