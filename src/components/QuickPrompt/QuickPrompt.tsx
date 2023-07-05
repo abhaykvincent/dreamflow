@@ -147,7 +147,6 @@ export default function QuickPrompt() {
       console.log(error);
     });
   }
- 
   useEffect(() => {
     if ((input.length ?? 0) > 3) {
       fetchApi(input);
@@ -159,9 +158,7 @@ export default function QuickPrompt() {
 
   return (
     <div className={`quickPrompt ${isVisible? '' : 'hide'}`}>
-      <input className="prompt" placeholder="Create a basic .."  type="text" 
-        value={input}
-        onChange={(e) => setInput(e.target.value)}/>
+      {QuickPromptInput(input, setInput)}
       <div className={`ask ${loading? 'loading' : ''}`}
       onClick={sendPrompt}
       >{ loading? 'Loading...' : '🔮' }
@@ -187,5 +184,10 @@ export default function QuickPrompt() {
   );
 };
 
-// Lines     : 324  -> 270  -> 230
-// Complexity: 51   -> 43   -> 36
+function QuickPromptInput(input: string, setInput:any) {
+  return <input className="prompt" placeholder="Create a basic .." type="text"
+    value={input}
+    onChange={(e) => setInput(e.target.value)} />;
+}
+// Lines     : 324  -> 270  -> 230  -> 187
+// Complexity: 51   -> 43   -> 36   -> 30
