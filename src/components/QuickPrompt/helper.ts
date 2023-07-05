@@ -9,7 +9,6 @@ function validateExtractHTMLCSS(responseString: any) {
     let htmlMatch = responseString.match(htmlRegex);
     let cssMatch = responseString.match(cssRegex);
   
-  
     let htmlCode = htmlMatch ? htmlMatch[0].trim() : '' as string;
     let cssCode = cssMatch ? cssMatch[0].trim() : '' as string;
     console.log(htmlCode);
@@ -26,15 +25,29 @@ function validateExtractHTMLCSS(responseString: any) {
     debugger
     return { htmlCode, cssCode };
   }
-  // Render HTML and CSS and append to target
-  export function renderCodeSnippet(targetID: string, htmlCode: string, cssCode: string) {
-    const target = document.querySelector(`[data-flow-id="${targetID}"]`);
-    const style = document.createElement('style');
-    if(target){
-      target.innerHTML = htmlCode;
-      
-      style.innerHTML = cssCode;
-      document.head.appendChild(style);
-    }
-    return ''
+
+// Render HTML and CSS and append to target
+export function renderCodeSnippet(targetID: string, htmlCode: string, cssCode: string) {
+  const target = document.querySelector(`[data-flow-id="${targetID}"]`);
+  const style = document.createElement('style');
+  if(target){
+    target.innerHTML = htmlCode;
+    
+    style.innerHTML = cssCode;
+    document.head.appendChild(style);
   }
+  return ''
+}
+
+//
+export function renderCachedResponse(targetID: string) {
+  let vanGoughResponses = localStorage.getItem('van-goughResponses');
+  if (vanGoughResponses) {
+    let vanGoughResponsesOBJ = JSON.parse(vanGoughResponses);
+    let randomIndex = Math.floor(Math.random() * vanGoughResponsesOBJ.length);
+    let randomResponse = vanGoughResponsesOBJ[randomIndex];
+    // Extract HTML and CSS from random response
+    let { htmlCode, cssCode } = validateExtractHTMLCSS(randomResponse);
+    renderCodeSnippet(htmlCode, cssCode, targetID);
+  }
+}

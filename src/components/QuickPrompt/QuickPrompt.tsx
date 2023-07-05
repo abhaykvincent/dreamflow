@@ -7,7 +7,7 @@ import './QuickPrompt.scss';
 import Feedback from './Feedback';
 import PromptSuggestions from './PromptSuggestions';
 import QuickPromptInput from './QuickPromptInput';
-import { renderCodeSnippet, validateExtractHTMLCSS } from './helper';
+import { renderCachedResponse, renderCodeSnippet, validateExtractHTMLCSS } from './helper';
 
 // Dynamic Prompt prefix for Van Gough
 const dynamicPrompt = [
@@ -75,15 +75,7 @@ export default function QuickPrompt() {
       console.log('%c failed to get response from van-gough', 'color: red');
       console.log('Generating random response from local storage');
       // if API call FAILED; GET a cached response
-      let vanGoughResponses = localStorage.getItem('van-goughResponses');
-      if(vanGoughResponses){
-        let vanGoughResponsesOBJ = JSON.parse(vanGoughResponses);
-        let randomIndex = Math.floor(Math.random() * vanGoughResponsesOBJ.length);
-        let randomResponse = vanGoughResponsesOBJ[randomIndex];
-        // Extract HTML and CSS from random response
-        let { htmlCode, cssCode } = validateExtractHTMLCSS(randomResponse);
-        renderCodeSnippet(htmlCode, cssCode, targetID);
-      }
+      renderCachedResponse(targetID);
     });
   }
   
@@ -147,6 +139,5 @@ export default function QuickPrompt() {
     </div>
   );
 };
-
-// Lines     : 324  -> 270  -> 230  -> 187
-// Complexity: 51   -> 43   -> 36   -> 30
+// Lines     : 324  -> 270  -> 230  -> 187  -> 141
+// Complexity: 51   -> 43   -> 36   -> 30   -> 27
