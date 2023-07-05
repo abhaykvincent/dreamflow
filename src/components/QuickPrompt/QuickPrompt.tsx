@@ -6,45 +6,9 @@ import { selectTarget, updateCanvasHTML } from '../../features/canvas/canvasSlic
 import './QuickPrompt.scss';
 import Feedback from './Feedback';
 import PromptSuggestions from './PromptSuggestions';
+import QuickPromptInput from './QuickPromptInput';
+import { renderCachedResponse, renderCodeSnippet, validateExtractHTMLCSS } from './helper';
 
-
-// Extract HTML and CSS from response
-function validateExtractHTMLCSS(responseString: any) {
-  console.log('String to be validated')
-  console.log(responseString);
-  let htmlRegex = /```html([\s\S]*?)```/;
-  let cssRegex = /```css([\s\S]*?)```/;
-
-  let htmlMatch = responseString.match(htmlRegex);
-  let cssMatch = responseString.match(cssRegex);
-
-
-  let htmlCode = htmlMatch ? htmlMatch[0].trim() : '' as string;
-  let cssCode = cssMatch ? cssMatch[0].trim() : '' as string;
-  console.log(htmlCode);
-  console.log(cssCode);
-  if (htmlCode === '' || cssCode === '') {
-    // regeg for html and css seperated by //HTML// and //CSS//
-    let htmlRegex2 = /\/\/HTML\/\/([\s\S]*?)\/\/CSS/;
-    //CSS// to the last } of css
-    let cssRegex2 = /\/\/CSS\/\/([\s\S]*?)$/;
-    htmlCode = htmlCode.match(htmlRegex2)[1].trim();
-    cssCode = cssCode.match(cssRegex2)[1].trim();
-  }
-  console.log('HTML and CSS extracted');
-  debugger
-  return { htmlCode, cssCode };
-}
-// Render HTML and CSS and append to target
-const renderCodeSnippet = ({htmlCode,cssCode,targetID}:any) =>{
-  const target = document.querySelector(`[data-flow-id="${targetID}"]`);
-  const style = document.createElement('style');
-  if(target){
-    target.innerHTML = htmlCode;
-    style.innerHTML = cssCode;
-    document.head.appendChild(style);
-  }
-}
 // Dynamic Prompt prefix for Van Gough
 const dynamicPrompt = [
   {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using eval. Check for syntax errors before sending. "},
@@ -80,11 +44,11 @@ export default function QuickPrompt() {
   const [feedback, setFeedback] = useState({});
 
   //// Code Snippet Generation
-  const sendPrompt = (e: any) => 
+  const handlePrompt = (e: any) => 
   {
     setLoading(true);
     dynamicPrompt.push({role: "user", content: input});
-    const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/van-gough';
+    const API_VANGOUGH_URL = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/van-gough';
     const config = {  
       headers: { 'Content-Type': 'application/json' },
       mode: 'no-cors',
@@ -93,7 +57,7 @@ export default function QuickPrompt() {
         messages:dynamicPrompt  
       }
     };
-    axios.get(url, config)
+    axios.get(API_VANGOUGH_URL, config)
     .then(response => {
       let responseString = response.data.choices[0].message.content;
       setLoading(false);
@@ -104,33 +68,19 @@ export default function QuickPrompt() {
       // Extract HTML and CSS from response
       let { htmlCode, cssCode } = validateExtractHTMLCSS(responseString);
       console.log('responseString', htmlCode, cssCode );
-      renderCodeSnippet({htmlCode, cssCode, targetID});
+      renderCodeSnippet(htmlCode, cssCode, targetID);
     })
     .catch(error => {
       console.log(error);
       console.log('%c failed to get response from van-gough', 'color: red');
       console.log('Generating random response from local storage');
       // if API call FAILED; GET a cached response
-      let vanGoughResponses = localStorage.getItem('van-goughResponses');
-      if(vanGoughResponses){
-        let vanGoughResponsesOBJ = JSON.parse(vanGoughResponses);
-        let randomIndex = Math.floor(Math.random() * vanGoughResponsesOBJ.length);
-        let randomResponse = vanGoughResponsesOBJ[randomIndex];
-        // Extract HTML and CSS from random response
-        let { htmlCode, cssCode } = validateExtractHTMLCSS(randomResponse);
-        renderCodeSnippet({htmlCode, cssCode, targetID});
-      }
+      renderCachedResponse(targetID);
     });
   }
-  
   //// Auto-completion
-
-  // Debounced to AVOID too many api calls
-   const fetchApi = useCallback(debounce((input: string) => {
-    promptCompletions(input);
-  }, 1500), []);  
-  const promptCompletions = (userInput: string) => {
-    const url = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
+  const handleCompletions = (userInput: string) => {
+    const API_URL_MONALISA = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
     const config = {  
       headers: { 'Content-Type': 'application/json' },
       mode: 'no-cors',
@@ -138,7 +88,7 @@ export default function QuickPrompt() {
         prompt:userInput
       }
     };
-    axios.get(url, config)
+    axios.get(API_URL_MONALISA, config)
     .then(response => {
       console.log(response.data);
       setSuggestions(response.data);
@@ -147,7 +97,10 @@ export default function QuickPrompt() {
       console.log(error);
     });
   }
- 
+  // Debounced to AVOID too many api calls
+   const fetchApi = useCallback(debounce((input: string) => {
+    handleCompletions(input);
+  }, 1500), []);  
   useEffect(() => {
     if ((input.length ?? 0) > 3) {
       fetchApi(input);
@@ -159,11 +112,9 @@ export default function QuickPrompt() {
 
   return (
     <div className={`quickPrompt ${isVisible? '' : 'hide'}`}>
-      <input className="prompt" placeholder="Create a basic .."  type="text" 
-        value={input}
-        onChange={(e) => setInput(e.target.value)}/>
+      {QuickPromptInput(input, setInput)}
       <div className={`ask ${loading? 'loading' : ''}`}
-      onClick={sendPrompt}
+      onClick={handlePrompt}
       >{ loading? 'Loading...' : '🔮' }
       </div>
       <PromptSuggestions   suggestions={suggestions} setInput={setInput} input={input} loading={loading}/>
@@ -186,6 +137,5 @@ export default function QuickPrompt() {
     </div>
   );
 };
-
-// Lines     : 324  -> 270  -> 230
-// Complexity: 51   -> 43   -> 36
+// Lines     : 324  -> 270  -> 230  -> 187  -> 139
+// Complexity: 51   -> 43   -> 36   -> 30   -> 27
