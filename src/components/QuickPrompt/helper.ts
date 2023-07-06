@@ -39,8 +39,11 @@ export function renderCodeSnippet(targetID: string, htmlCode: string, cssCode: s
   return ''
 }
 
-//
+// Render HTML and CSS from cached response
 export function renderCachedResponse(targetID: string) {
+
+  console.log('%c failed to get response from van-gough', 'color: red');
+  console.log('Generating random response from local storage');
   let vanGoughResponses = localStorage.getItem('van-goughResponses');
   if (vanGoughResponses) {
     let vanGoughResponsesOBJ = JSON.parse(vanGoughResponses);

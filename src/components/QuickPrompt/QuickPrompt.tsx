@@ -2,12 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSelector }    from 'react-redux';
 import { debounce}  from 'lodash';
 import   axios      from 'axios';
-import { selectTarget, updateCanvasHTML } from '../../features/canvas/canvasSlice';
+import { selectTarget } from '../../features/canvas/canvasSlice';
 import './QuickPrompt.scss';
 import Feedback from './Feedback';
 import PromptSuggestions from './PromptSuggestions';
 import QuickPromptInput from './QuickPromptInput';
 import { renderCachedResponse, renderCodeSnippet, validateExtractHTMLCSS } from './helper';
+import { set } from 'lodash';
 
 // Dynamic Prompt prefix for Van Gough
 const dynamicPrompt = [
@@ -15,8 +16,7 @@ const dynamicPrompt = [
   {role: "user", content: "Provide structure style which is simple design and aesthetic."},
   {role: "assistant", content: `Certainly! I can assist you. What is the task"].`},
   {role: "user", content: "Create a section with three subscription plans in a grid"},
-  {role: "assistant", content: `
-  //HTML//
+  {role: "assistant", content: `//HTML//
   <section class="subscription-plans" data-flow-name="Subscription plans" data-flow-component="subscription-plans"><h1>Our Subscription Plans</h1><div class="plans-grid"><div class="plan-card"><h2>{plan.title}</h2><p>{plan.price}</p><ul><li>{feature}</li></ul></div></div>
   //CSS//
   .subscription-plans { width: 80%; margin: auto; text-align: center; } 
@@ -24,8 +24,7 @@ const dynamicPrompt = [
   .plan-card { background-color: #f8f8f8; border-radius: 10px; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); } 
   .plan-card h2 { margin-top: 0; } 
   .plan-card ul { text-align: left; }
-  //
-`}]
+  //`}]
 
 export default function QuickPrompt() {
   const targetID = useSelector(selectTarget);
@@ -39,6 +38,9 @@ export default function QuickPrompt() {
     {text:'create a layout for 1 week calendar'},
     {text:'create a todo list  with 6 items'},
   ]);
+
+  const [error, setError] = useState({})as any;
+  const [isErrorVisible, setErrorVisible] = useState(false);
   
   const [askFeedback, setAskFeedback] = useState(false);
   const [feedback, setFeedback] = useState({});
@@ -71,14 +73,18 @@ export default function QuickPrompt() {
       renderCodeSnippet(htmlCode, cssCode, targetID);
     })
     .catch(error => {
-      console.log(error);
-      console.log('%c failed to get response from van-gough', 'color: red');
-      console.log('Generating random response from local storage');
+      setError(error);
+      setErrorVisible(true);
+      setLoading(false);
+      setInput('');
+      setSuggestions([]);
+      setFeedback({});
+      setAskFeedback(false);
       // if API call FAILED; GET a cached response
       renderCachedResponse(targetID);
     });
   }
-  //// Auto-completion
+  //// Auto-completionq
   const handleCompletions = (userInput: string) => {
     const API_URL_MONALISA = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
     const config = {  
@@ -110,14 +116,23 @@ export default function QuickPrompt() {
     };
   }, [input]);
 
+
   return (
     <div className={`quickPrompt ${isVisible? '' : 'hide'}`}>
-      {QuickPromptInput(input, setInput)}
-      <div className={`ask ${loading? 'loading' : ''}`}
-      onClick={handlePrompt}
-      >{ loading? 'Loading...' : '🔮' }
+      { QuickPromptInput(input, setInput) }
+      <div className={`ask ${loading? 'loading' : ''}`} onClick={handlePrompt}>
+        { loading? 'Loading...' : '🔮' }
       </div>
-      <PromptSuggestions   suggestions={suggestions} setInput={setInput} input={input} loading={loading}/>
+      <PromptSuggestions   setSuggestions={setSuggestions} suggestions={suggestions} setInput={setInput} input={input} loading={loading}/>
+        {
+          isErrorVisible&&error ?
+          <div className={`response__info`}>
+          <div className="response__info__text model">Model : Van Gough</div>
+          <div className="response__info__text error__name">{error.name}</div>
+        </div>
+          : null
+        }
+        
       <div className="quickPrompt__icon"
         onClick={()=>setIsVisible(!isVisible)}
       >🔮</div>
@@ -133,7 +148,10 @@ export default function QuickPrompt() {
       >
         clear
       </div>
-      { askFeedback ? Feedback(feedback, setAskFeedback, setLoading): null }
+      { askFeedback ? 
+        Feedback(feedback, setAskFeedback, setLoading)
+        : null 
+      }
     </div>
   );
 };
