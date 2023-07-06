@@ -3,7 +3,9 @@
 
 .quickPrompt{
   position: fixed;
+    display: block;
   width: 8px*8*4;
+  height: 8px*4;
   left: 50vw;
   top: 50vh;
   z-index: 40;
@@ -12,28 +14,54 @@
   background-color: $gray6;
   overflow: visible;
   transform: translate(-50%, -50%);
+  transition-duration: 0.8s;
   .prompt{
     width: calc(100% - 8px*5);
     padding: 8px 8px*2;
     background-color: $gray7;
-    border-radius: 8px*1;
+    border-radius: 8px*0.5;
     border: 1px solid $gray2;
     box-shadow: 1px 1px 8px*0.5 $gray4;
     color:white;
   }
   .ask{
     position: absolute;
-    top: 0px;
+    top:-1px;
     right: 0px;
-    padding: 5px 8px*2;
+    padding: 6px 8px*1.5;
     min-width: 8px*4;
     background-color: $gray5;
     border-radius: 4px;
     border: 1px solid $gray1;
     color: white;
+    transform: scale(1.1);
     &.loading{
-      background-color: $gray4;
-      color: $gray2;
+      transform: scale(1);
+    }
+  }
+  .response__info{
+    color: $gray1;
+    font-size: 0.7rem;
+
+    font-weight: 400;
+    text-align: center;
+    padding: 8px;
+    background-color: $gray5;
+    border-radius:  0px 0px 8px 8px;
+    animation-name: hideInfo;
+    animation-duration: 0.4s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+    transition-duration: 0.4s;
+    overflow: hidden;
+    .response__info__text{
+    margin-bottom: 4px;
+      &.model{
+        color: $gray3;
+      }
+      &.error__name{
+        color: $orange;
+      }
     }
   }
   .promptSuggestions{
@@ -80,10 +108,11 @@
   &.hide{
     top: auto;
     left: auto;
-    bottom: 8px*11;
+    bottom: 8px*5;
     right: 8px*-4.8;
     overflow:  visible;
-    transition-duration: 1s;
+    transition-duration: 0.1s;
+    background-color: transparent;
     .prompt{
       display: none;
     }
@@ -95,6 +124,12 @@
       .suggestion{
         display: none;
       }
+    }
+    .response__info{
+      display: none;
+    }
+    .clear-localStorage{
+      display: none;
     }
 
     .quickPrompt__icon{
@@ -119,4 +154,17 @@
   100% {
     transform: translateY(0px);
   }
+}
+@keyframes hideInfo {
+  0% {
+    opacity: 1;
+    height: 8px*3;
+
+  }
+  100% {
+    opacity: 0;
+    height: 0px;
+    padding: 0;
+  }
+
 }
