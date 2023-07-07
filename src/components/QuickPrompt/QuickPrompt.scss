@@ -15,6 +15,7 @@
   overflow: visible;
   transform: translate(-50%, -50%);
   transition-duration: 0.8s;
+  z-index: 29;
   .prompt{
     width: calc(100% - 8px*5);
     padding: 8px 8px*2;
