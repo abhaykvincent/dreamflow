@@ -3,7 +3,6 @@ import './Copilot.scss';
 import ChatBox from '../../components/ChatBox/ChatBox';
 
 export function Copilot() {
-
   const [chatCount, setChatCount] = useState(0);
   const onNewChat = (e:any) => {
     e.stopPropagation();
@@ -20,7 +19,7 @@ export function Copilot() {
       {
         [...Array(chatCount)]
         .map((_, i) => 
-          <ChatBox  index={i}/>
+          <ChatBox index={i}/>
         )
       }
       <div className="newChat"
