@@ -30,11 +30,6 @@ function gatherNodes(element: HTMLElement): NodeObj[] {
   return nodes;
 }
 
-// function to create DOM layer from node object
-// each node with html <div className="node" key={index}>{node.node.tagName}</div>
-
-
-
 export function Sidebar() {
   const canvasDOM = useSelector(selectCanvasDOM);
   let canvas = document.getElementById('canvas') as HTMLElement;
