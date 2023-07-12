@@ -23,21 +23,55 @@ NB: Only the core structure is shown, the project is still in development and th
     │   ├── 📁 public
     │   │
     │   ├── 📁 src
-    │   │   ├── 📁 app
-    │   │   │   ├── hooks.ts
-    │   │   │   └── store.ts
-    │   │   ├── 📁 assets
-    │   │   ├── 📁 components
-    │   │   │
-    │   │   ├── 📁 features
-    │   │   │   ├── 📁 canvas
-    │   │   │   ├── 📁 commandControl
-    │   │   │   └── 📁 [...incomplete]
-    │   │   │
-    │   │   ├── App.jsx
-    │   │   ├── App.scss
-    │   │   ├── Index.scss
-    │   │   └── index.jsx
+    │   ├── 📄 App.test.tsx
+    │   ├── 📄 App.tsx
+    │   ├── 📄 index.tsx
+    │   ├── 📄 react-app-env.d.ts
+    │   ├── 📄 reportWebVitals.ts
+    │   ├── 📄 setupTests.ts
+    │   ├── 📄 .DS_Store
+    │   ├── 📁 app
+    │   │   ├── 📄 hooks.ts
+    │   │   ├── 📄 store.ts
+    │   │   └── 📁 utils
+    │   │       └── 📄 apiUtils.js
+    │   ├── 📁 assets
+    │   │   ├── 📁 icons
+    │   │   │   ├── 📁 devices
+    │   │   │   ├── 📁 elements
+    │   │   │   ├── 📁 layout
+    │   │   │   ├── 📁 position
+    │   │   │   └── ... (other icons)
+    │   │   └── 📁 logo
+    │   │       ├── 📄 logo-infinite.png
+    │   │       └── 📄 logo-prod.png
+    │   ├── 📁 components
+    │   │   ├── 📁 ChatBox
+    │   │   ├── 📁 RolesControl
+    │   │   ├── 📁 sizeInspector
+    │   │   ├── 📁 ResponsiveControl
+    │   │   ├── 📁 QuickPrompt
+    │   │   ├── 📁 positionInspector
+    │   │   ├── 📁 layoutInspector
+    │   │   ├── 📁 menu-bar
+    │   │   ├── 📁 SpacingInspector
+    │   │   └── 📁 TypographyInspector
+    │   ├── 📁 declarations
+    │   │   └── 📄 declarations.d.ts
+    │   ├── 📁 features
+    │   │   ├── 📁 _counter
+    │   │   ├── 📁 sidebar
+    │   │   ├── 📁 copilot
+    │   │   ├── 📁 inspector
+    │   │   ├── 📁 header
+    │   │   ├── 📁 canvas
+    │   │   └── 📁 elementPalette
+    │   ├── 📁 style
+    │   |   ├── 📄 App.scss
+    │   |   ├── 📄 index.scss
+    │   |   ├── 📄 border-mixins.scss
+    │   |   ├── 📄 colours.scss
+    │   |   └── 📄 dark-colour-variables.scss
     │   │
     │   └── package.json
     │
