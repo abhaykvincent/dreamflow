@@ -25,7 +25,6 @@ NB: Only the core structure is shown, the project is still in development and th
     │   ├── 📄 react-app-env.d.ts
     │   ├── 📄 reportWebVitals.ts
     │   ├── 📄 setupTests.ts
-    │   ├── 📄 .DS_Store
     │   ├── 📁 app
     │   │   ├── 📄 hooks.ts
     │   │   ├── 📄 store.ts
