@@ -3,6 +3,8 @@ import './Copilot.scss';
 import ChatBox from '../../components/ChatBox/ChatBox';
 
 export function Copilot() {
+  // state for checking is copilot is connected with OpenAI API and key is valid
+  const [isValidOpenAIKey, setIsValidOpenAIKey] = useState(false);
   const [chatCount, setChatCount] = useState(0);
   const onNewChat = (e:any) => {
     e.stopPropagation();
