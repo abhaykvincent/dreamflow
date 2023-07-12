@@ -17,12 +17,8 @@ The core structure of the project is as follows:
 NB: Only the core structure is shown, the project is still in development and the structure is subject to change.
 
 ```
-    Code
     │
-    ├── flow (Frontend)
-    │   ├── 📁 public
-    │   │
-    │   ├── 📁 src
+    ├── 📁 src
     │   ├── 📄 App.test.tsx
     │   ├── 📄 App.tsx
     │   ├── 📄 index.tsx
@@ -75,8 +71,6 @@ NB: Only the core structure is shown, the project is still in development and th
     │   │
     │   └── package.json
     │
-    ├── .gitignore
-    └── README.md
 ```
 ## Read first
 
