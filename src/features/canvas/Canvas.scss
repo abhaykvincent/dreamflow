@@ -29,7 +29,8 @@
     &:hover{
       border-radius: 8px*0.25;
       box-shadow: inset 0 0 0 1px $orange;
-    }.selected{
+    }
+    &.selected{
       border-radius: 8px*0.5;
       box-shadow: 0 0 0 0px $orange, inset 0 0 0 1px $orange;
       
@@ -69,10 +70,6 @@
     width: 8px*2;
     background-size: 80%;
   }
-  &.hide {
-    opacity: 0;
-    transition-duration: 0.2s;
-  }
 }
 .target-tooltip-active{
   transform: translateY(-100%);
@@ -80,7 +77,15 @@
   &.slide-down{
     transform: translateY(0%);
   }
-
+}
+.target-tooltip{
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid $orange;
+  color: $orange;
+  &.hide {
+    opacity: 0;
+    transition-duration: 0.2s;
+  }
 }
 
 //Canvas responsive controls for scaling

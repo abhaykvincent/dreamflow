@@ -13,17 +13,84 @@ import icon_inputText  from '../../assets/icons/elements/element-input.svg'
 import icon_inputButton  from '../../assets/icons/elements/elemenet-button.svg'
 import icon_section  from '../../assets/icons/elements/element-section.svg'
 
-function generateUniqueID() {
-  const timestamp = Date.now();
-  const randomSuffix = Math.floor(Math.random() * 1000);
-  return `${timestamp}-${randomSuffix}`;
-}
-function getLabelAndIcon(target: HTMLElement) {
-  const elementName = target.tagName
-  const elementId = target.dataset.flowId
-  const label = elementName ? elementName : elementId
-  const icon = AVAILABLE_ELEMENTS.find(element => element.tag === target.tagName.toLowerCase())?.icon
-  return { label, icon }
+
+import icon_h_orange  from '../../assets/icons/elements/orangeElements/awesome-heading.svg'
+import icon_p_orange  from '../../assets/icons/elements/orangeElements/metro-paragraph-left.svg'
+import icon_a_orange  from '../../assets/icons/elements/orangeElements/awesome-link.svg'
+import icon_img_orange  from '../../assets/icons/elements/orangeElements/awesome-image.svg'
+import icon_div_orange  from '../../assets/icons/elements/orangeElements/material-check-box-outline-blank.svg'
+import icon_inputText_orange  from '../../assets/icons/elements/orangeElements/element-input.svg'
+import icon_inputButton_orange  from '../../assets/icons/elements/orangeElements/elemenet-button.svg'
+import icon_section_orange  from '../../assets/icons/elements/orangeElements/element-section.svg'
+import generateUniqueID from '../../app/utils/uniqueIdGenerator';
+
+
+const AVAILABLE_ELEMENTS =[
+  {
+    tagName: "Div",
+    tag: "div",
+    icon: icon_div,
+    iconOrange: icon_div_orange
+  },
+  {
+    tagName: "Section",
+    tag: "section",
+    icon: icon_section,
+    iconOrange: icon_section_orange
+  },
+  {
+    tagName: "H1",
+    tag: "h1",
+    icon: icon_h,
+    iconOrange: icon_h_orange
+  },
+  {
+    tagName: "P",
+    tag: "p",
+    icon: icon_p,
+    iconOrange: icon_p_orange
+  },
+  {
+    tagName: "Img",
+    tag: "img",
+    icon: icon_img,
+    iconOrange: icon_img_orange
+  },
+  {
+    tagName: "A",
+    tag: "a",
+    icon: icon_a,
+    iconOrange: icon_a_orange
+  },
+  {
+    tagName: "Input",
+    tag: "input",
+    icon: icon_inputText,
+    iconOrange: icon_inputText_orange
+  },
+  {
+    tagName: "Button",
+    tag: "button",
+    icon: icon_inputButton,
+    iconOrange: icon_inputButton_orange
+  }
+
+]
+function getLabelAndIcon(target: HTMLElement,isPrimarySelection:boolean) {
+  if(isPrimarySelection){
+    const elementName = target.tagName
+    const elementId = target.dataset.flowId
+    const label = elementName ? elementName : elementId
+    const icon = AVAILABLE_ELEMENTS.find(element => element.tag === target.tagName.toLowerCase())?.icon
+    return { label, icon }
+  }
+  else{
+    const elementName = target.tagName
+    const elementId = target.dataset.flowId
+    const label = elementName ? elementName : elementId
+    const icon = AVAILABLE_ELEMENTS.find(element => element.tag === target.tagName.toLowerCase())?.iconOrange
+    return { label, icon }
+  }
 }
 function highlightTargetElementInCanvas(target:any){
   document.querySelector('.canvas *.selected')?.classList.remove('selected')
@@ -34,11 +101,26 @@ function createHTMLElement(tag: string, target: string) {
   newElement.innerHTML = tag;
   newElement.dataset.flowId = generateUniqueID();
   document.querySelector(`[data-flow-id="${target}"]`)?.appendChild(newElement);
+ console.log(target)
   return newElement;
 }
-function showTolltip(target:any){
+function showTolltipActive(target:any){
   const tooltip = document.querySelector('.target-tooltip-active') as HTMLElement
-  const { label, icon } = getLabelAndIcon(target)
+  const isPrimarySelection = true;
+  const { label, icon } = getLabelAndIcon(target,isPrimarySelection)
+  tooltip.innerHTML = `
+    <div class="icon" style="${icon ? `background-image: url(${icon})` : ''}"></div>
+    <div class="label">${label}</div>
+  `;
+  const rect = target.getBoundingClientRect();
+  tooltip.style.top = `${rect.top}px`;
+  tooltip.style.left = `${rect.left}px`;
+  tooltip.classList.remove('hide')
+}
+function showTolltip(target:any){
+  const tooltip = document.querySelector('.target-tooltip') as HTMLElement;
+  const isPrimarySelection = false;
+  const { label, icon } = getLabelAndIcon(target,isPrimarySelection)
   tooltip.innerHTML = `
     <div class="icon" style="${icon ? `background-image: url(${icon})` : ''}"></div>
     <div class="label">${label}</div>
@@ -75,49 +157,6 @@ function handleTooltipHover() {
   }
   );
 }
-const AVAILABLE_ELEMENTS =[
-  {
-    tagName: "Div",
-    tag: "div",
-    icon: icon_div
-  },
-  {
-    tagName: "Section",
-    tag: "section",
-    icon: icon_section
-  },
-  {
-    tagName: "H1",
-    tag: "h1",
-    icon: icon_h
-  },
-  {
-    tagName: "P",
-    tag: "p",
-    icon: icon_p
-  },
-  {
-    tagName: "Img",
-    tag: "img",
-    icon: icon_img
-  },
-  {
-    tagName: "A",
-    tag: "a",
-    icon: icon_a
-  },
-  {
-    tagName: "Input",
-    tag: "input",
-    icon: icon_inputText
-  },
-  {
-    tagName: "Button",
-    tag: "button",
-    icon: icon_inputButton
-  }
-
-]
 export function ElementPalette() {
   const dispatch = useAppDispatch();
   const targetID = useAppSelector(selectTarget);
@@ -129,7 +168,7 @@ export function ElementPalette() {
       dispatch(setTarget(e.currentTarget.dataset.flowId));
       
       highlightTargetElementInCanvas(e.currentTarget);
-      showTolltip(e.currentTarget);
+      showTolltipActive(e.currentTarget);
     });
     // Hover on element to show tooltip
     handleElementHover(newElement);
@@ -159,4 +198,4 @@ export function ElementPalette() {
     </>
   );
 }
-//  210 -> 164 -> 158
+//  210 -> 164 

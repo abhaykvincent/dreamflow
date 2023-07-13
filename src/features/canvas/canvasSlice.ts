@@ -18,7 +18,7 @@ export interface CanvasState {
 }
 
 const initialState: CanvasState = {
-  canvasDOM: $('#canvas'),
+  canvasDOM: $('#canvas').html(),
   canvasDimensions: {
     width: undefined,
     height: undefined, 
@@ -40,11 +40,12 @@ export const CanvasSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers:{
     updateCanvasHTML: (state) => {
-      state.canvasDOM=$('#canvas');
+      state.canvasDOM = $('#canvas').html();
       console.log('%ccanvasDOM updatedin store', 'color: #AF52DE');
     },
     setTarget:(state,action:PayloadAction<string>)=>{
-        state.targetId=action.payload
+        state.targetId=action.payload;
+        console.log('%ctargetId updatedin store', 'color: #AF52DE');
     },
     updateCanvasDimensions:(state,action:PayloadAction<{width:number,height:number,top:number,left:number,right:number,bottom:number}>)=>{
       state.canvasDimensions=action.payload;
