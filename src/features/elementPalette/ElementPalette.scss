@@ -4,17 +4,17 @@
   .elements-dragabbles{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap:8px;
+    gap:8px*1.5;
     padding: 8px*2;
     margin-top: -8px*2;
     overflow: scroll;
     .element{
       width: 8px*9;
-      height: 8px*9;
+      height: 8px*8;
       text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.5);
-      background-color: $gray5;
+      background-color: $gray7;
       border-radius: 8px;
-      @include shiny-top-right-border-gray3;
+      @include shiny-top-right-border-gray4;
       cursor: grab;
       &:hover{
         @include shiny-top-right-border-gray2;
@@ -26,12 +26,12 @@
         transform: scale(1.04);
       }
       &_icon{
-        height: 8px*5.5;
+        height: 8px*5;
         background-size: 8px*2;
       }
       &_label{
         text-align: center;
-        height:8px*3.5;
+        height:8px*4;
         color: rgba(255, 255, 255, 0.6);
       }
       &.html-{

@@ -19,7 +19,7 @@
   .prompt{
     width: calc(100% - 8px*5);
     padding: 8px 8px*2;
-    background-color: $gray7;
+    background-color: $gray6;
     border-radius: 8px*0.5;
     border: 1px solid $gray2;
     box-shadow: 1px 1px 8px*0.5 $gray4;
@@ -27,17 +27,17 @@
   }
   .ask{
     position: absolute;
-    top:-1px;
+    top:0px;
     right: 0px;
-    padding: 6px 8px*1.5;
+    padding: 8px 8px*1.5;
     min-width: 8px*4;
-    background-color: $gray5;
+    background-color: $gray7;
     border-radius: 4px;
     border: 1px solid $gray1;
     color: white;
     transform: scale(1.1);
     &.loading{
-      transform: scale(1);
+      border: 1px solid $gray2;
     }
   }
   .response__info{
@@ -69,9 +69,20 @@
     color: white;
     background-color: $gray5;
     border-radius: 0 0px 8px 8px;
+    padding: 0 8px;
+    padding-top: 0;
+    margin-left: 3px;
     .suggestion{
-      padding: 8px 8px*2;
+      display: inline-block;
+      padding: 6px 8px;
       color:$gray1;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover{
+        background-color: $gray4;
+        color: white;
+        box-shadow: 1px 1px  4px rgba(0, 0, 0, 0.2);
+      }
     }
     &.hide{
       height: 0px;;

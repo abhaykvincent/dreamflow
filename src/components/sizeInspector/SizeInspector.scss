@@ -28,7 +28,7 @@
 .size-property{
   line-height: 8px*3.5;
   .size-property__label{
-    color: $gray1;
+    color: white;
   }
 }
 //size-grid immediate child of div
@@ -39,5 +39,5 @@
 }
 .size-property__label{
     line-height: 8px*3;
-    color: $gray1;
+    color: white
 }

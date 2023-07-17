@@ -29,7 +29,8 @@
   .typography-property{
     line-height: 8px*3.5;
     .typography-property__label{
-      color: $gray1;
+      color: white;
+      line-height: 8px*3;
     }
   }
   .typography-grid > div{
@@ -49,9 +50,5 @@
       display: grid;
       grid-column: 1/3;
     }
-  }
-  .typography-property__label{
-      line-height: 8px*3;
-      color: $gray1;
   }
 }
