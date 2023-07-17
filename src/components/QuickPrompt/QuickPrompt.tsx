@@ -1,30 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector }    from 'react-redux';
 import { debounce}  from 'lodash';
-import   axios      from 'axios';
-import { selectTarget } from '../../features/canvas/canvasSlice';
-import './QuickPrompt.scss';
+import axios from 'axios';
 import Feedback from './Feedback';
 import PromptSuggestions from './PromptSuggestions';
 import QuickPromptInput from './QuickPromptInput';
+import ErrorView from './ErrorView';
+import { selectTarget } from '../../features/canvas/canvasSlice';
 import { renderCachedResponse, renderCodeSnippet, validateExtractHTMLCSS } from './helper';
-import { set } from 'lodash';
-
-// Dynamic Prompt prefix for Van Gough
-const dynamicPrompt = [
-  {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using eval. Check for syntax errors before sending. "},
-  {role: "user", content: "Provide structure style which is simple design and aesthetic."},
-  {role: "assistant", content: `Certainly! I can assist you. What is the task"].`},
-  {role: "user", content: "Create a section with three subscription plans in a grid"},
-  {role: "assistant", content: `//HTML//
-  <section class="subscription-plans" data-flow-name="Subscription plans" data-flow-component="subscription-plans"><h1>Our Subscription Plans</h1><div class="plans-grid"><div class="plan-card"><h2>{plan.title}</h2><p>{plan.price}</p><ul><li>{feature}</li></ul></div></div>
-  //CSS//
-  .subscription-plans { width: 80%; margin: auto; text-align: center; } 
-  .plans-grid { display: flex; justify-content: space-between; gap: 20px; } 
-  .plan-card { background-color: #f8f8f8; border-radius: 10px; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); } 
-  .plan-card h2 { margin-top: 0; } 
-  .plan-card ul { text-align: left; }
-  //`}]
+import { dynamicPrompt } from './dynamicPrompt';
+import './QuickPrompt.scss';
 
 export default function QuickPrompt() {
   const targetID = useSelector(selectTarget);
@@ -44,7 +29,6 @@ export default function QuickPrompt() {
   
   const [askFeedback, setAskFeedback] = useState(false);
   const [feedback, setFeedback] = useState({});
-
   //// Code Snippet Generation
   const handlePrompt = (e: any) => 
   {
@@ -64,7 +48,6 @@ export default function QuickPrompt() {
       let responseString = response.data.choices[0].message.content;
       setLoading(false);
       setInput('');
-      setSuggestions([]);
       setFeedback(responseString)
       setAskFeedback(true);
       // Extract HTML and CSS from response
@@ -77,65 +60,26 @@ export default function QuickPrompt() {
       setErrorVisible(true);
       setLoading(false);
       setInput('');
-      setSuggestions([]);
       setFeedback({});
       setAskFeedback(false);
       // if API call FAILED; GET a cached response
       renderCachedResponse(targetID);
     });
-  }
-  //// Auto-completionq
-  const handleCompletions = (userInput: string) => {
-    const API_URL_MONALISA = 'http://127.0.0.1:5001/dreamflow-cloud/us-central1/api/monalisa';
-    const config = {  
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'no-cors',
-      params: {
-        prompt:userInput
-      }
-    };
-    axios.get(API_URL_MONALISA, config)
-    .then(response => {
-      console.log(response.data);
-      setSuggestions(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-  // Debounced to AVOID too many api calls
-   const fetchApi = useCallback(debounce((input: string) => {
-    handleCompletions(input);
-  }, 1500), []);  
-  useEffect(() => {
-    if ((input.length ?? 0) > 3) {
-      fetchApi(input);
     }
-    return () => {
-      fetchApi.cancel();
-    };
-  }, [input]);
-
 
   return (
     <div className={`quickPrompt ${isVisible? '' : 'hide'}`}>
-      { QuickPromptInput(input, setInput) }
-      <div className={`ask ${loading? 'loading' : ''}`} onClick={handlePrompt}>
-        { loading? 'Loading...' : '🔮' }
-      </div>
-      <PromptSuggestions   setSuggestions={setSuggestions} suggestions={suggestions} setInput={setInput} input={input} loading={loading}/>
-        {
-          isErrorVisible&&error ?
-          <div className={`response__info`}>
-          <div className="response__info__text model">Model : Van Gough</div>
-          <div className="response__info__text error__name">{error.name}</div>
-        </div>
-          : null
-        }
-        
       <div className="quickPrompt__icon"
         onClick={()=>setIsVisible(!isVisible)}
       >🔮</div>
+      <QuickPromptInput  input={input} setInput={setInput}/>
+      <div className={`ask ${loading? 'loading' : ''}`} onClick={handlePrompt}>
+        { loading? 'Loading...' : 'Generate' }
+      </div>
+      <PromptSuggestions  suggestions={suggestions} setSuggestions={setSuggestions}  input={input} setInput={setInput}  loading={loading}/>
+      <ErrorView error={error} isErrorVisible={isErrorVisible} />
+        
+      
       <div className="close__icon"
       onClick={()=>setIsVisible(!isVisible)}
       >x</div>
@@ -155,5 +99,5 @@ export default function QuickPrompt() {
     </div>
   );
 };
-// Lines     : 324  -> 270  -> 230  -> 187  -> 139
+// Lines     : 324  -> 270  -> 230  -> 187  -> 121
 // Complexity: 51   -> 43   -> 36   -> 30   -> 27

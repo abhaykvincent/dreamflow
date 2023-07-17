@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="52" height="17" viewBox="0 0 52 17">
   <g id="Group_722" data-name="Group 722" transform="translate(-243 -469)">
-    <g id="Rectangle_211" data-name="Rectangle 211" transform="translate(243 469)" fill="rgba(0,0,0,0)" stroke="#fff" stroke-width="2">
+    <g id="Rectangle_211" data-name="Rectangle 211" transform="translate(243 469)" fill="rgba(0,0,0,0)" stroke="#f77700" stroke-width="2">
       <rect width="52" height="17" rx="6" stroke="none"/>
       <rect x="1" y="1" width="50" height="15" rx="5" fill="none"/>
     </g>
-    <line id="Line_1" data-name="Line 1" x2="30" transform="translate(254.5 477.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+    <line id="Line_1" data-name="Line 1" x2="30" transform="translate(254.5 477.5)" fill="none" stroke="#f77700" stroke-linecap="round" stroke-width="2"/>
   </g>
 </svg>

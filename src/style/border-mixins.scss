@@ -1,7 +1,7 @@
 @mixin shiny-top-right-border-gray3{
-    border: 1px solid $gray3;
-    border-right: 1px solid $gray2;
-    border-top: 1px solid $gray2;
+    border: 1px solid $gray4;
+    border-right: 1px solid $gray3;
+    border-top: 1px solid $gray3;
     box-shadow: -2px 2px  8px*0.5 rgba(0, 0, 0, 0.4);
   }
 @mixin shiny-top-right-border-gray2{
@@ -42,4 +42,10 @@
     border-left: 1px solid $gray2;
     border-bottom: 1px solid $gray2;
     box-shadow: 2px -2px  8px*0.5 rgba(0, 0, 0, 0.4);
+  }
+  @mixin shiny-top-right-border-gray4{
+    border: 1px solid $gray5;
+    border-right: 1px solid $gray3;
+    border-top: 1px solid $gray3;
+    box-shadow: -2px 2px  8px*0.5 rgba(0, 0, 0, 0.4);
   }
