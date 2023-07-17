@@ -107,7 +107,9 @@ export function ElementPalette() {
   } 
   return (
     <>
-    <div className="tabs">Elements</div>
+    <div className="tabs">
+      <div className="tab highlighted">Elements</div>
+    </div>
     <div className="elements-dragabbles">
     {
       AVAILABLE_ELEMENTS.map(element=>(
