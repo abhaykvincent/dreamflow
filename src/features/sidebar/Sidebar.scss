@@ -1,11 +1,12 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/colours.scss';
 @import '../../style/border-mixins.scss';
+@import '../../style/heights-variables.scss';
 
 .sidebar{
   .tools{
     position: fixed;
-    top: 8px*11;
+    top: $header-height;
     height: 100vh;
     width: 8px*6;
 
