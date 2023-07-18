@@ -8,21 +8,41 @@ import './Canvas.scss';
 export function Canvas() {
 
   const canvasDimensionsStore = useSelector(selectCanvasDimensions);
-
+  const { width, left } = canvasDimensionsStore;
 
   // Syncing canvas dimensions with store
   useEffect(() => {
     const canvas = document.getElementById('canvas');
-    if (canvas) {
-      const { width, left } = canvasDimensionsStore;
+    const ruler = document.getElementById('responsive-ruler')
+    
+    if (canvas&&ruler) {
       canvas.style.width = `${width}px`;
       canvas.style.left = `${left}px`;
+
+      ruler.style.width = `${width}px`;
+      ruler.style.left = `${left}px`;
     }
+
+    
   }, [canvasDimensionsStore]);
 
+  const marks = Array.from(Array(Math.ceil(canvasDimensionsStore.width?canvasDimensionsStore.width / 50-1:0)).keys()).map(index => {
+    const value = 50 * index;
+    return (
+      <div key={index} className="responsive-ruler__horizontal__mark" style={{left: value}}>
+        <div className="responsive-ruler__horizontal__mark__label">{value}</div>
+      </div>
+    );
+  });
 
   return (
     <>
+      <div id="responsive-ruler">
+        <div className="responsive-ruler__horizontal"> 
+        {/* get list of widths in equal sizes */}
+        {marks}
+        </div>
+      </div>
       <div className="canvas" id="canvas" data-flow-id="canvas" data-testid="canvas"></div>
       <CanvasResponsiveControl/>
       <div className="target-tooltip"></div>
@@ -30,6 +50,14 @@ export function Canvas() {
     </>
   );
 }
+
+
+
+
+
+
+
+
 
 
 
