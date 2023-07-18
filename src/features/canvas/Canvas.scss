@@ -64,7 +64,7 @@
       left: 0;
       width: 1px;
       height: 100%;
-      font-size: 0.8em;
+      font-size: 0.6em;
       margin-right: 4px;
       background-color: $gray3;
       color: $gray2;
@@ -79,6 +79,7 @@
       &:nth-child(5n){
       height: 8px*3;
       color: $gray1;
+      font-size: 0.8em;
       background-color: $gray1;
       }
     }

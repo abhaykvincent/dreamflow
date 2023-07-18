@@ -26,7 +26,7 @@ export function Canvas() {
     
   }, [canvasDimensionsStore]);
 
-  const marks = Array.from(Array(Math.ceil(canvasDimensionsStore.width?canvasDimensionsStore.width / 50-1:0)).keys()).map(index => {
+  const marks = Array.from(Array(Math.ceil(canvasDimensionsStore.width?canvasDimensionsStore.width / 50:0)).keys()).map(index => {
     const value = 50 * index;
     return (
       <div key={index} className="responsive-ruler__horizontal__mark" style={{left: value}}>
