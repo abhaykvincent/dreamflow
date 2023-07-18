@@ -1,9 +1,10 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/colours.scss';
+@import '../../style/heights-variables.scss';
 
 .canvas{
   position: fixed;
-  top: 8px * 9;
+  top: $header-height - $unit*2;
   left: 8px * 34;
   height: calc(100vh - 8px*11);
   width: calc(100vw - 8px*19*4);
