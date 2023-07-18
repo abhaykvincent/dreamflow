@@ -1,10 +1,11 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/border-mixins.scss';
 @import '../../style/colours.scss';
+@import '../../style/heights-variables.scss';
 
 .inspector{
   position: fixed;
-  top: 8px*14;
+  top: $header-height + $chatty*0.5;
   right: 8px * 2;
   height: calc(100vh - 8px*28);
   border-radius: 8px;
@@ -244,5 +245,31 @@
 
 
     
+  }
+}
+
+.tab{
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  font-size: 1em;
+  font-weight: 400;
+  text-align: center;
+  line-height: 8px*3.2;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  &:hover{
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  &.highlighted{
+    opacity: 1;
+    transform: scale(1);
+    z-index: 1;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 500;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    cursor: ew-resize
   }
 }

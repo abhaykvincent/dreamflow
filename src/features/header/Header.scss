@@ -1,13 +1,14 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/border-mixins.scss';
+@import '../../style/heights-variables.scss';
 
 header{
     display: grid;
     grid-template-columns: 8px*12*2.8 auto 8px*12*3.3;
     position: fixed;
-    top: 8px*3;
+    top: 8px*0;
     width:100vw;
-    height: 8px*8;
+    height: $header-height;
     background-color: $gray6;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     .left{
@@ -78,7 +79,7 @@ header{
     }
     .center{
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: auto 1fr 1fr;
      
       .actions{
         display: grid;

@@ -1,11 +1,12 @@
 @import '../../style/dark-colour-variables.scss';
 @import '../../style/colours.scss';
 @import '../../style/border-mixins.scss';
+@import '../../style/heights-variables.scss';
 
 .sidebar{
   .tools{
     position: fixed;
-    top: 8px*11;
+    top: $header-height;
     height: 100vh;
     width: 8px*6;
 
@@ -73,7 +74,7 @@
   }
   .side-panels{
     position: fixed;
-    top: 8px*14;
+    top: $header-height + ($chatty * 0.5);
     left: 8px*7;
     width: 8px*24;
     z-index: 1;
@@ -93,11 +94,11 @@
       }
       .tabs{
         display: inline-block;
-        height: 8px*3;
         padding: 0px 8px*2;
         margin-left: auto;
+        margin-top: -4px;
 
-        font-size: 1.1em;
+        font-size: 1em;
         font-weight: 500;
         text-align: center;
         line-height: 8px*2.5;
@@ -105,7 +106,7 @@
 
         background-color: $orange;
 
-        border-radius: 4px;
+        border-radius: 8px;
         border: 1px solid rgba(255, 255, 255, 0.5);
         border-right: 1px solid rgb(255, 255, 255);
         border-top: 1px solid rgb(255, 255, 255);
