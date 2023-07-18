@@ -9,7 +9,7 @@ import './style/App.scss'
 function App() {
   return (
     <div className="App">
-      <MenuBar/>
+      {/* <MenuBar/> */}
       <Header/>
       <Sidebar/>
       <Canvas/>

@@ -6,10 +6,9 @@
   background-position: center center;
   background-repeat: no-repeat;
   box-sizing: border-box;
-  transition-duration: 0.05s;
+  user-select: none;
   transition-timing-function: ease-in;
   &:hover{
-    transition-duration: 0.1s;
     transition-timing-function: ease-out;
   }
 }
