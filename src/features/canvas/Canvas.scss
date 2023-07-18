@@ -21,9 +21,8 @@
   transition-delay: 0s;
   z-index: 20;
   &:hover{
-
-  transition-duration: 0s;
-  transition-delay: 0s;
+    transition-duration: 0s;
+    transition-delay: 0s;
   }
   *{
     cursor: pointer;
@@ -40,6 +39,48 @@
     &[data-flow-component]{
       border-radius: 8px*0.5;
       box-shadow: 0 0 0 0px $orange, inset 0 0 0 1px $green;
+    }
+  }
+}
+#responsive-ruler{
+  position: fixed;
+  top: 8px*6;
+  margin-left: 8px;
+  padding-right: 4px;
+  height: 8px*2;
+  display: flex;
+  z-index: 22;
+  transition-delay: 0s;
+  &:hover{
+    transition-delay: 0s;
+  }
+  //text not selectable
+  user-select: none;
+  .responsive-ruler__horizontal{
+    display: flex;
+    .responsive-ruler__horizontal__mark{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      font-size: 0.8em;
+      margin-right: 4px;
+      background-color: $gray3;
+      color: $gray2;
+      background-blend-mode: difference;
+      box-shadow: 1px 1px 1px $gray4;
+      &__label{
+      
+        padding-left: 4px;
+        
+
+      }
+      &:nth-child(5n){
+      height: 8px*3;
+      color: $gray1;
+      background-color: $gray1;
+      }
     }
   }
 }
