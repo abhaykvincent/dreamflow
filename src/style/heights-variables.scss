@@ -1,5 +1,6 @@
-// 1 chatty is equal to '8px * 8'
+$unit : 8px;
+// 1 chatty is equal to '8px * 8', which is 64px
 // which will be the 1 standerd height unit
-$chatty: 8px * 8;
+$chatty: $unit * 10;
 $header-height: $chatty;
 
