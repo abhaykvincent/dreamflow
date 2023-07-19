@@ -10,23 +10,29 @@ const SIDEBAR_TOOLS = [
   'elements',
   'layers',
 ]
+
 interface NodeObj {
+  element: HTMLElement,
   children: []
 }
 
-function gatherNodes(element: HTMLElement): NodeObj[] {
-  let nodes: NodeObj[] = [{
-      children: [],
-  }];
+function gatherNodes(node:HTMLElement){
+  let nodes:NodeObj[] = [];
+  let canvas = document.getElementById('canvas') as HTMLElement;
+  let children = canvas.children;
 
-  for (let i = 0; i < element.children.length; i++) {
-      let child = element.children[i];
-      nodes[i].children.push(gatherNodes(child)[0]);
-      
+  for(let i = 0; i < children.length; i++){
+    let child = children[i] as HTMLElement;
+    let node = {
+      element: child,
+      children: []
+    } as NodeObj;
+    nodes.push(node);
   }
 
-  return nodes;
+  return nodes as NodeObj[];
 }
+
 const RenderNode = ({node, index}:any) => {
   console.log('node', node);
   let dataFlowId = node.dataset.flowId;
@@ -46,11 +52,8 @@ const RenderNode = ({node, index}:any) => {
 
 export function Sidebar() {
   const canvasDOM = useSelector(selectCanvasDOM);
-  let canvas = document.getElementById('canvas') as HTMLElement;
   const [allNodes, setAllNodes] = useState<NodeObj[]>([]);
-  
   useEffect(() => {
-    console.log('yep...');
     let canvas = document.getElementById('canvas') as HTMLElement;
     if(canvas){
       setAllNodes(gatherNodes(canvas))
@@ -87,8 +90,7 @@ export function Sidebar() {
           <div className="tabs">Layers</div>
           <div className="nodes">
           {
-            
-          activeSidebarTool === 'layers' && allNodes[0] &&
+            activeSidebarTool === 'layers' && allNodes[0] &&
             allNodes[0].children.map((node, index) => (
               <RenderNode node={node} index={index + random(0, 10000)} />
             ))

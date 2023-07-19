@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       {/* <MenuBar/> */}
-      <Header/>
+      <Header/>         {/* 🕵🏼‍♀️ ✅ */}
       <Sidebar/>
       <Canvas/>
       <Inspector/>

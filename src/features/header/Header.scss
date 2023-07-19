@@ -5,10 +5,12 @@
 header{
   display: grid;
   grid-template-columns: 8px*12*2.8 auto 8px*12*3.3;
+  
   position: fixed;
   top: 8px*0;
   width:100vw;
   height: $header-height;
+
   background-color: $gray6;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   .left{
@@ -169,7 +171,6 @@ header{
 
 
 }
-
 
 .highlighter{
   position: absolute;

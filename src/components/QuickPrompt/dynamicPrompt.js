@@ -1,6 +1,6 @@
 // Dynamic Prompt prefix for Van Gough
 export const dynamicPrompt = [
-    {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using eval. Check for syntax errors before sending. "},
+    {role: "system", content: "You are a helpful web developer, web designer and copywriter who Respond only with vanilla javascrpt code that can run in browser using. Check for syntax errors before sending. "},
     {role: "user", content: "Provide structure style which is simple design and aesthetic."},
     {role: "assistant", content: `Certainly! I can assist you. What is the task"].`},
     {role: "user", content: "Create a section with three subscription plans in a grid"},
