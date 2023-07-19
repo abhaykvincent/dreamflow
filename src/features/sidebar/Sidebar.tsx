@@ -41,10 +41,7 @@ const RenderNode = ({node, index}:any) => {
     </div>
   );
   }else{
-    return (
-      <div > -
-      </div>
-    );
+    return null
   }
 }
 
