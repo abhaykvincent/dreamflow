@@ -15,29 +15,18 @@ interface NodeObj {
   element: HTMLElement,
   children: []
 }
-
-function gatherNodes(node:HTMLElement){
-  let nodes:NodeObj[] = [];
-  let canvas = document.getElementById('canvas') as HTMLElement;
-  let children = canvas.children;
-
-  for(let i = 0; i < children.length; i++){
-    let child = children[i] as HTMLElement;
-    let node = {
-      element: child,
-      children: []
-    } as NodeObj;
-    nodes.push(node);
-  }
-
-  return nodes as NodeObj[];
+interface SerializedNode {
+  nodeName: string;
+  attributes: { [key: string]: string };
+  children: SerializedNode[];
 }
+
+
 
 const RenderNode = ({node, index}:any) => {
   console.log('node', node);
-  let dataFlowId = node.dataset.flowId;
   return (
-    <div className="node" key={dataFlowId} data-layer-id={dataFlowId}>
+    <div className="node" key={index} /* data-layer-id={dataFlowId} */>
       <div className="node-name">{node.nodeName}</div>
       <div className="node-children">
         {
@@ -51,15 +40,14 @@ const RenderNode = ({node, index}:any) => {
 }
 
 export function Sidebar() {
-  const canvasDOM = useSelector(selectCanvasDOM);
-  const [allNodes, setAllNodes] = useState<NodeObj[]>([]);
+  const [allNodes, setAllNodes] = useState<SerializedNode[]>([]);
+  const canvasDOM = useSelector(selectCanvasDOM) as SerializedNode;
   useEffect(() => {
     let canvas = document.getElementById('canvas') as HTMLElement;
     if(canvas){
-      setAllNodes(gatherNodes(canvas))
+      setAllNodes([canvasDOM])
     }
   }, [canvasDOM]);
-
 
   const [activeSidebarTool, setActiveSidebarTool] = useState('elements');
   return (
