@@ -5,6 +5,7 @@ import { selectCanvasDOM } from '../canvas/canvasSlice';
 import './Sidebar.scss';
 import { random } from 'lodash';
 import { all } from 'axios';
+import { data } from 'jquery';
 
 const SIDEBAR_TOOLS = [
   'elements',
@@ -25,8 +26,10 @@ interface SerializedNode {
 
 const RenderNode = ({node, index}:any) => {
   console.log('node', node);
+  let dataFlowId = node.attributes['data-flow-id'];
+  if(node.nodeName !== '#text'){
   return (
-    <div className="node" key={index} /* data-layer-id={dataFlowId} */>
+    <div className="node" key={index} data-layer-id={dataFlowId}>
       <div className="node-name">{node.nodeName}</div>
       <div className="node-children">
         {
@@ -37,6 +40,12 @@ const RenderNode = ({node, index}:any) => {
       </div>
     </div>
   );
+  }else{
+    return (
+      <div > -
+      </div>
+    );
+  }
 }
 
 export function Sidebar() {
