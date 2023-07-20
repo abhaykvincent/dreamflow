@@ -81,7 +81,9 @@ export function Sidebar() {
           <ElementPalette/>
         </div>
         <div className={`side-panel layers ${activeSidebarTool == 'layers' ? '':'hide'}`}>
-          <div className="tabs">Layers</div>
+          <div className="tabs">
+            <div className="tab highlighted">Layers</div>
+          </div>
           <div className="nodes">
           {
             activeSidebarTool === 'layers' && allNodes[0] &&
