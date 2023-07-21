@@ -87,15 +87,19 @@
         transform: translateX(-150%);
       }
       &.layers{
-        position: fixed;
-        top: 8px*14;
-        left: 8px*7;
-        width: 8px*24;
+        width: 100%;
+        position: absolute;
+        top: 0;
+      }
+      &.elements{
+        width: 100%;
+        position: absolute;
+        top: 0;
       }
       .tabs{
         display: inline-block;
         padding: 0px 8px*2;
-        margin-left: auto;
+        margin-left: 50%;
         margin-top: -4px;
 
         font-size: 1em;
@@ -111,7 +115,7 @@
         border-right: 1px solid rgb(255, 255, 255);
         border-top: 1px solid rgb(255, 255, 255);
 
-        transform: translate(50%,-50%);
+        transform: translate(-50%, -50%);
       }
     }
   }
@@ -119,16 +123,16 @@
 
 .nodes{
   margin-bottom: 8px;
-  
-}
-.node{
-  padding: 8px 8px;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-  border-radius: 4px;
-  margin: 0px 8px;
-  color: $gray1;
-  &:hover{
-    color: white;
-    background-color: $gray4;
+  background-color: $gray7;
+  .node{
+    padding: 8px 8px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+    margin: 0px 8px;
+    color: $gray1;
+    &:hover{
+      color: white;
+      background-color: $gray4;
+    }
   }
 }
