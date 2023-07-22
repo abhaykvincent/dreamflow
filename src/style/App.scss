@@ -1,5 +1,5 @@
 @import './dark-colour-variables.scss';
-
+@import './heights-variables.scss';
 .App{
   width: 100vw;
   height: 100vh;
@@ -11,8 +11,10 @@
   position: fixed;
   bottom: 0px;
   right: 0px;
-  height: 8px*4;
+  height: $chatty*0.5;
   width: 100vw;
-  background-color: #111;
+  background-color: $gray6;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
+
+  z-index: 2;
 }

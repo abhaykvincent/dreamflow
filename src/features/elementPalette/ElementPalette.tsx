@@ -78,13 +78,21 @@ function handleElementHover(newElement: HTMLElement) {
 }
 function handleTooltipHover() {
   const tooltip = document.querySelector('.target-tooltip-active') as HTMLElement;
-  tooltip.addEventListener('mouseover', (e: any) => {
-    tooltip.classList.add('slide-down');
-  });
-  tooltip.addEventListener('mouseout', (e: any) => {
+
+    tooltip.addEventListener('mouseenter', (e: any) => {
+
+      setTimeout(() => {
+      console.log('enter')
+      tooltip.classList.add('slide-down');
+      }, 10);
+    });
+
+  tooltip.addEventListener('mouseleave', (e: any) => {
+    console.log('leave')
     tooltip.classList.remove('slide-down');
   }
   );
+  
 }
 export function ElementPalette() {
   const dispatch = useAppDispatch();
@@ -129,4 +137,4 @@ export function ElementPalette() {
     </>
   );
 }
-//  210 -> 164 ->130
+//  210 -> 164 ->130 -> 142
