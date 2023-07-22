@@ -1,21 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ElementPalette } from '../elementPalette/ElementPalette';
-import { selectCanvasDOM } from '../canvas/canvasSlice';
+import { selectCanvasDOM, selectTarget } from '../canvas/canvasSlice';
 import './Sidebar.scss';
 import { random } from 'lodash';
-import { all } from 'axios';
-import { data } from 'jquery';
 
 const SIDEBAR_TOOLS = [
   'elements',
   'layers',
 ]
 
-interface NodeObj {
-  element: HTMLElement,
-  children: []
-}
 interface SerializedNode {
   nodeName: string;
   attributes: { [key: string]: string };
@@ -48,12 +42,22 @@ const RenderNode = ({node, index}:any) => {
 export function Sidebar() {
   const [allNodes, setAllNodes] = useState<SerializedNode[]>([]);
   const canvasDOM = useSelector(selectCanvasDOM) as SerializedNode;
+  const targetID=useSelector(selectTarget)
   useEffect(() => {
     let canvas = document.getElementById('canvas') as HTMLElement;
     if(canvas){
       setAllNodes([canvasDOM])
     }
   }, [canvasDOM]);
+  useEffect(() => {
+    // when target changes, update the highlighted node
+    
+    // get cooresponding node, wuth data-layer-id
+    let node = document.querySelector(`[data-layer-id="${targetID}"]`) as HTMLElement;
+    if(node){
+      node.classList.add('selected');
+    }
+  }, [targetID]);
 
   const [activeSidebarTool, setActiveSidebarTool] = useState('elements');
   return (
@@ -81,7 +85,9 @@ export function Sidebar() {
           <ElementPalette/>
         </div>
         <div className={`side-panel layers ${activeSidebarTool == 'layers' ? '':'hide'}`}>
-          <div className="tabs">Layers</div>
+          <div className="tabs">
+            <div className="tab highlighted">Layers</div>
+          </div>
           <div className="nodes">
           {
             activeSidebarTool === 'layers' && allNodes[0] &&
