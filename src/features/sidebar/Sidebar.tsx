@@ -34,7 +34,6 @@ export function Sidebar() {
         }
 
         <div className="quick-tool pages disabled"></div> {/* Disabled */}
-        <div className="quick-tool assets disabled"></div> {/* Disabled */}
         
       </div>
       <div className="side-panels">
