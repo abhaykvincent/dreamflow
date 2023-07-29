@@ -13,7 +13,6 @@ export function Sidebar() {
   const targetID=useSelector(selectTarget);
   const [activeSidebarTool, setActiveSidebarTool] = useState('elements');
   useEffect(() => {
-    // when target changes, update the highlighted node
     
     // get cooresponding node, wuth data-layer-id
     let node = document.querySelector(`[data-layer-id="${targetID}"]`) as HTMLElement;
