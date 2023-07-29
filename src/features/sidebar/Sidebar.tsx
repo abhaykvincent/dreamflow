@@ -47,3 +47,5 @@ export function Sidebar() {
     </div>
   );
 }
+// Line Complexity: 105  -> 58 -> 50
+// Xode Complexity: 28  -> 18 -> 16
