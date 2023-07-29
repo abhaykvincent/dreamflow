@@ -13,8 +13,7 @@ export function Sidebar() {
   const targetID=useSelector(selectTarget);
   const [activeSidebarTool, setActiveSidebarTool] = useState('elements');
   useEffect(() => {
-    
-    // get cooresponding node, wuth data-layer-id
+
     let node = document.querySelector(`[data-layer-id="${targetID}"]`) as HTMLElement;
     if(node){
       node.classList.add('selected');
