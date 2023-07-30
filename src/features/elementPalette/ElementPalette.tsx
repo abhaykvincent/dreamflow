@@ -137,4 +137,3 @@ export default function ElementPalette( {activeSidebarTool}:{activeSidebarTool:s
     </div>
   );
 }
-//  210 -> 164 ->130 -> 142

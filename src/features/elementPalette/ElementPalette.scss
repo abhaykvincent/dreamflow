@@ -19,7 +19,10 @@
       &:hover{
         @include shiny-top-right-border-gray2;
         box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.25);
-        transform: scale(1.06);
+        background-color: $gray7;
+        .element_label{
+          color: white;
+        }
       }
       &:active{
         cursor: grabbing;

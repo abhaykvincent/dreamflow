@@ -121,37 +121,3 @@
   }
 }
 
-.nodes{
-  margin-bottom: 8px;
-  .node{
-    border-radius: 4px;
-    .node-name{
-      padding: 8px 8px;
-      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-      border-radius: 4px;
-      color: $gray1;
-      &:hover{
-        color: white;
-        background-color: $gray4;
-      }
-    }
-    .node-children{
-      padding-left: 8px*2;
-    }
-    
-    &.selected{
-      border: 1px solid $orange-light;
-      > .node-name{
-        padding: 8px 8px;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-        border-radius: 4px;
-        color: white;
-        background-color: $orange;
-        &:hover{
-          color: white;
-          background-color: $orange;
-        }
-      }
-    }
-  }
-}
