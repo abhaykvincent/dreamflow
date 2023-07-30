@@ -1,6 +1,6 @@
-import ResponsiveControl from '../../components/ResponsiveControl/ResponsiveControl';
-import RolesControl from '../../components/RolesControl/RolesControl';
-import VersionControl from '../versionControl/VersionControl';
+import ResponsiveControl from '../ResponsiveControl/ResponsiveControl';
+import RolesControl from '../RolesControl/RolesControl';
+import VersionControl from '../../features/versionControl/VersionControl';
 import './Header.scss';
 export function Header() {
   return (

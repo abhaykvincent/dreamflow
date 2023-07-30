@@ -1,0 +1,38 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/colours.scss';
+@import '../../style/border-mixins.scss';
+.nodes{
+  margin-bottom: 8px;
+  margin-left: 4px;
+  .node{
+    width: calc(100% - 8px);
+    border-radius: 4px;
+    .node-name{
+      padding: 4px 8px;
+      font-size: 0.9em;
+      font-weight: 600;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+      border-radius: 4px;
+      color: $gray1;
+      &:hover{
+        color: white;
+        background-color: $gray7;
+      }
+    }
+    .node-children{
+      padding-left: 8px*2;
+    }
+    
+    &.selected{
+      border: 1px solid $orange-light;
+      > .node-name{
+        color: white;
+        background-color: $orange;
+        &:hover{
+          color: white;
+          background-color: $orange;
+        }
+      }
+    }
+  }
+}

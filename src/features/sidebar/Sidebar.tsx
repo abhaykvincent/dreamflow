@@ -1,54 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ElementPalette } from '../elementPalette/ElementPalette';
-import { selectCanvasDOM, selectTarget } from '../canvas/canvasSlice';
+import { selectTarget } from '../canvas/canvasSlice';
+import ElementPalette from '../elementPalette/ElementPalette';
+import LayersDOM from '../layersDOM/LayersDOM';
 import './Sidebar.scss';
-import { random } from 'lodash';
 
 const SIDEBAR_TOOLS = [
   'elements',
   'layers',
 ]
-
-interface SerializedNode {
-  nodeName: string;
-  attributes: { [key: string]: string };
-  children: SerializedNode[];
-}
-
-
-
-const RenderNode = ({node, index}:any) => {
-  console.log('node', node);
-  let dataFlowId = node.attributes['data-flow-id'];
-  if(node.nodeName !== '#text'){
-  return (
-    <div className="node" key={index} data-layer-id={dataFlowId}>
-      <div className="node-name">{node.nodeName}</div>
-      <div className="node-children">
-        {
-          node.children.map((child:any,childIndex:any) => (
-            <RenderNode node={child} index={childIndex+ random(0, 10000)} />
-          ))
-        }
-      </div>
-    </div>
-  );
-  }else{
-    return null
-  }
-}
-
 export function Sidebar() {
-  const [allNodes, setAllNodes] = useState<SerializedNode[]>([]);
-  const canvasDOM = useSelector(selectCanvasDOM) as SerializedNode;
-  const targetID=useSelector(selectTarget)
-  useEffect(() => {
-    let canvas = document.getElementById('canvas') as HTMLElement;
-    if(canvas){
-      setAllNodes([canvasDOM])
-    }
-  }, [canvasDOM]);
+  const targetID=useSelector(selectTarget);
+  const [activeSidebarTool, setActiveSidebarTool] = useState('elements');
   useEffect(() => {
     // when target changes, update the highlighted node
     
@@ -58,8 +21,6 @@ export function Sidebar() {
       node.classList.add('selected');
     }
   }, [targetID]);
-
-  const [activeSidebarTool, setActiveSidebarTool] = useState('elements');
   return (
     <div className="sidebar">
       <div className="tools">
@@ -80,25 +41,11 @@ export function Sidebar() {
         
       </div>
       <div className="side-panels">
-
-        <div className={`side-panel elements ${activeSidebarTool == 'elements' ? '':'hide'}`}>
-          <ElementPalette/>
-        </div>
-        <div className={`side-panel layers ${activeSidebarTool == 'layers' ? '':'hide'}`}>
-          <div className="tabs">
-            <div className="tab highlighted">Layers</div>
-          </div>
-          <div className="nodes">
-          {
-            activeSidebarTool === 'layers' && allNodes[0] &&
-            allNodes[0].children.map((node, index) => (
-              <RenderNode node={node} index={index + random(0, 10000)} />
-            ))
-          }
-          </div>
-        </div>
-
+        <ElementPalette activeSidebarTool={activeSidebarTool}/>
+        <LayersDOM activeSidebarTool={activeSidebarTool}/>
       </div>
     </div>
   );
 }
+// Line Complexity: 105  -> 58 -> 50
+// Xode Complexity: 28  -> 18 -> 16

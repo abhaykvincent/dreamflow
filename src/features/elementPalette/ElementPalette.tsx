@@ -75,6 +75,7 @@ function handleElementHover(newElement: HTMLElement) {
     }
   }
   );
+  handleTooltipHover();
 }
 function handleTooltipHover() {
   const tooltip = document.querySelector('.target-tooltip-active') as HTMLElement;
@@ -94,10 +95,10 @@ function handleTooltipHover() {
   );
   
 }
-export function ElementPalette() {
+export default function ElementPalette( {activeSidebarTool}:{activeSidebarTool:string}) {
   const dispatch = useAppDispatch();
   const targetID = useAppSelector(selectTarget);
-  function createElementWithTooltip(target:string,tag:string){
+  function handleElementCreate(target:string,tag:string){
     const newElement = createHTMLElement(tag, target);
     newElement.addEventListener('click', (e: any) => {
       e.stopPropagation();
@@ -109,32 +110,30 @@ export function ElementPalette() {
     });
     // Hover on element to show tooltip
     handleElementHover(newElement);
-    handleTooltipHover();
 
    dispatch(updateCanvasHTML());
   } 
   return (
-    <>
-    <div className="tabs">
-      <div className="tab highlighted">Elements</div>
+    <div className={`side-panel elements ${activeSidebarTool == 'elements' ? '':'hide'}`}>
+      <div className="tabs">
+        <div className="tab highlighted">Elements</div>
+      </div>
+      <div className="elements-dragabbles">
+      {
+        AVAILABLE_ELEMENTS.map(element=>(
+          <div key={element.tag} 
+            className={`element  html-${element.tag}` }
+            data-testid={`  html-${element.tag}` }
+            onClick={()=>handleElementCreate(targetID,element.tag)}
+          >
+            <div className="element_icon"
+              style={element.icon?{backgroundImage:`url(${element.icon})`,  color:'red'}:{}}
+            ></div>
+            <div className="element_label">{element.tagName}</div>
+          </div>
+        ))
+      }
+      </div>
     </div>
-    <div className="elements-dragabbles">
-    {
-      AVAILABLE_ELEMENTS.map(element=>(
-        <div key={element.tag} 
-          className={`element  html-${element.tag}` }
-          data-testid={`  html-${element.tag}` }
-          onClick={()=>createElementWithTooltip(targetID,element.tag)}
-        >
-          <div className="element_icon"
-            style={element.icon?{backgroundImage:`url(${element.icon})`,  color:'red'}:{}}
-          ></div>
-          <div className="element_label">{element.tagName}</div>
-        </div>
-      ))
-    }
-    </div>
-    </>
   );
 }
-//  210 -> 164 ->130 -> 142

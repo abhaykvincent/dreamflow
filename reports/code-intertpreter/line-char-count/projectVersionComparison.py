@@ -1,4 +1,19 @@
-{
+""" 
+
+Each key is a file path.
+Each value is a list of character counts at three different times.
+I will visualize this data in the same graph, where:
+
+The previously shown data will be the frontmost bars.
+The character counts from the three different times will be shown behind the frontmost bars.
+If a file is new (compared to the original data), it will be shown in green.
+If a file is missing (compared to the original data), it will be shown in red.
+For unchanged files or changed character counts, we'll use different shades of blue.
+
+
+ """
+ 
+ {
   "/src/App.test.tsx": [590, null, null],
   "/src/features/elementPalette/ElementPalette.test.tsx": [738, null, null],
   "/src/components/menu-bar/MenuBar.tsx": [319, 319, 319],
@@ -28,3 +43,6 @@
   "/src/components/QuickPrompt/QuickPrompt.tsx": [5846, 5846, 4204],
   "/src/features/elementPalette/ElementPalette.tsx": [4961, 4679, 4684]
 }
+
+
+
