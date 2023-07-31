@@ -15,6 +15,11 @@ export function Sidebar() {
   useEffect(() => {
     let node = document.querySelector(`[data-layer-id="${targetID}"]`) as HTMLElement;
     if(node){
+      // seelect all .node .selected and remove class "selected"
+      document.querySelectorAll('.node.selected').forEach((node:any) => {
+        node.classList.remove('selected');
+      });
+      
       node.classList.add('selected');
     }
   }, [targetID]);
