@@ -75,4 +75,3 @@ export default function CanvasResponsiveControl() {
       ></div>
     </div>;
   }
-  // Line count -  77
