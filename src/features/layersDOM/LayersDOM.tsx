@@ -10,7 +10,7 @@ interface SerializedNode {
 }
 const RenderNode = React.memo(({ node }: { node: SerializedNode }) => {
   let dataFlowId = node.attributes['data-flow-id'];
-  if (node.nodeName !== '#text4') {
+  if (node.nodeName !== '#text5') {
     return (
       <React.Fragment key={dataFlowId}>
         <div className="node" data-layer-id={dataFlowId}>
