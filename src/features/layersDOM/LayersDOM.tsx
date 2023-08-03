@@ -8,26 +8,25 @@ interface SerializedNode {
   attributes: { [key: string]: string };
   children: SerializedNode[];
 }
-const RenderNode = ({node, index}:any) => {
-  console.log('node', node);
+const RenderNode = React.memo(({ node }: { node: SerializedNode }) => {
   let dataFlowId = node.attributes['data-flow-id'];
-  if(node.nodeName !== '#text'){
-  return (
-    <div className="node" key={index} data-layer-id={dataFlowId}>
-      <div className="node-name">{node.nodeName}</div>
-      <div className="node-children">
-        {
-          node.children.map((child:any,childIndex:any) => (
-            <RenderNode node={child} />
-          ))
-        }
-      </div>
-    </div>
-  );
-  }else{
-    return null
+  if (node.nodeName !== '#text') {
+    return (
+      <React.Fragment key={dataFlowId}>
+        <div className="node" data-layer-id={dataFlowId}>
+          <div className="node-name">{node.nodeName}</div>
+          <div className="node-children">
+            {node.children.map((child: SerializedNode) => (
+              <RenderNode key={child.attributes['data-flow-id']} node={child} />
+            ))}
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  } else {
+    return null;
   }
-}
+});
 export default function LayersDOM( {activeSidebarTool}:{activeSidebarTool:string}) {
   const [allNodes, setAllNodes] = useState<SerializedNode[]>([]);
   const canvasDOM = useSelector(selectCanvasDOM) as SerializedNode;
