@@ -13,7 +13,6 @@ export default function CanvasResponsiveControl() {
       right: 0,
       bottom: 0,
     });
-    // ONLY run once on mount
     // Setting canvas dimensions & dispatching to store
     // IMPORTANT: This will replace the initial state of canvasDimensions in the store which is {width: 0, height: 0, top: 0, left: 0, right: 0, bottom: 0}
     useEffect(() => {
