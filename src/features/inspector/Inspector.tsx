@@ -53,7 +53,7 @@ export function Inspector() {
           <div className="panel__section create_component">
             <div className="panel_button">Create Component </div>
           </div>
-          <SpacingInspector targetID={targetID} /> {/* padding, margin */}
+          <SpacingInspector targetID={targetID} /> 
           <LayoutInspector targetID={targetID} />
           <PositionInspector targetID={targetID} />
           <SizeInspector targetID={targetID} />
