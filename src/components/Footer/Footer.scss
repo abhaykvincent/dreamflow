@@ -1,0 +1,192 @@
+@import '../../style/dark-colour-variables.scss';
+@import '../../style/border-mixins.scss';
+@import '../../style/heights-variables.scss';
+
+header{
+  display: grid;
+  grid-template-columns: 8px*12*2.8 auto 8px*12*3.3;
+  
+  position: fixed;
+  top: 8px*0;
+  width:100vw;
+  height: $header-height;
+
+  background-color: $gray6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  .left{
+    display: grid;
+    grid-template-columns: 8px*6 auto 8px*6;
+    .logo{
+      background-image: url('../../assets/logo/logo-prod.png');
+      background-size: 75%;
+      background-position: 8px*1 center;
+      background-repeat: no-repeat;
+    }
+    .page-name{
+      display: grid;
+      position: relative;
+      height: 8px*3.5;
+      width: calc(100% - 8px*2);
+      margin: 8px 0;
+      margin-left: 8px*1;
+      background-color: $gray7;
+      border: 1px  solid $gray4;
+      border-radius: 8px;
+      font-size: 1.2em;
+      overflow: hidden;
+      &:hover{
+        border: 1px solid $gray3;
+      }
+      &:active{
+        border: 1px solid $gray1;
+      }
+      &:focus-visible{
+        border: 1px solid red;
+      }
+      .name{
+        display: inline-block;
+        margin: auto 0 ;
+        padding: 0 8px;
+        text-align: left;
+        transform: translateY(-8px*0.1);
+        color: $gray1;
+      }
+    }
+    .preview{
+      width: 8px*2.5;
+      height: 8px*2.5;
+      margin: 8px*1.5 8px;
+      background-image: url('../../assets/icons/Icon\ awesome-eye.png');
+      opacity: 0.8;
+      &:hover{
+        opacity: 1;
+      }
+    }
+    .breadcrumbs{
+      position: relative;
+      width: 100%;
+      top: -4px;
+      left: 8px*2;
+      color: $gray3;
+      cursor: pointer;
+      span{
+        color: $gray2;
+        &:hover{
+          color: $gray1;
+          text-decoration: underline;
+
+        }
+      }
+    }
+  }
+  .center{
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    .role{
+      display: inline-block;
+      width: 8px*8;
+      height: 8px*3.5;
+      background-size: 50% 50% ;
+      background-position: center center;
+      opacity: 0.5;
+      text-align: center;
+      line-height: 2em;
+      cursor: pointer;
+      &:hover{
+        opacity: 0.75;
+        transform: scale(1.02);
+      }
+      
+      &.highlighted{
+        opacity: 1;
+        transform: scale(1.05);
+
+      }
+    }
+  }
+  .right{
+    .git{
+      display: grid;
+      grid-template-columns: 1fr  1fr;
+      padding: 8px;
+      margin-left: 8px*1.2;
+      grid-gap: 8px;
+      .dropdown{
+        &.disabled{
+          .input{
+            background-color: $gray6;
+            border: 1px  solid $gray4;
+          }
+        }
+        .input{
+          display: flex;
+          position: relative;
+          height: 8px*3.5;
+          width: 100%;
+          margin: 0px 0;
+          padding-left: 8px;
+          background-color: rgba(0, 0, 0, 0.4);
+          border: 1px  solid $gray5;
+          border-radius: 8px;
+          font-size: 1em;
+          color: $gray1;
+          line-height: 2em;
+          overflow: hidden;
+          span{
+            opacity: 0.5;
+          }
+          &:hover{
+            border: 1px solid $gray3;
+          }
+          &:active{
+            border: 1px solid $gray1;
+          }
+          &:focus-visible{
+            border: 1px solid red;
+          }
+        }
+        .label{
+          margin: 4px 8px;
+          font-size: 0.8em;
+          color:$gray1;
+        }
+      }
+    }
+  }
+}
+.button{
+  display: inline;
+  height: 8px*3.3;
+  padding: 8px*0.5 8px*3;
+  margin: 8px*1;
+  margin-right: 8px*1.5;
+
+  background-color: $gray6;
+  border: 1px solid $gray2;
+  @include shiny-bottom-left-border-gray2;
+  border-radius: 8px;
+
+  font-size: 1em;
+  line-height: 1.2em;
+
+
+}
+
+.highlighter{
+  position: absolute;
+  top:0px;
+  margin:  -2px 0px;
+  height: 8px*4;
+  width: 8px*8;
+  background-color: $gray6;
+  @include shiny-bottom-right-border-gray2;
+  border-radius: 8px;
+  z-index: 1;
+  &.design{
+    left:0;
+
+  }&.code{
+    left:8px*8;
+    
+  }
+}
