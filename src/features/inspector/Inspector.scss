@@ -102,6 +102,7 @@
   .panels{
     position: fixed;
     width: 8px*12*3.1;
+
     height: calc(100vh - 8px*28);
     overflow: scroll;
     right: 8px*2;
@@ -118,10 +119,12 @@
       padding: 8px*2;
       padding-top:8px*4;
       width: 100%;
+      height: calc(100vh - 8px*28);
       gap: 8px;
       transform: translateY(1%);
       transition-duration: 0.1s;
       opacity: 0;
+      overflow-y: scroll;
       .panel__section{
         margin-top: 8px*2;
       }
