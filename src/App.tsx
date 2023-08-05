@@ -14,7 +14,6 @@ function App() {
       <Inspector/>
       <Copilot/>
       <QuickPrompt/>
-      <div className="footer"></div>
     </div>
   );
 }
