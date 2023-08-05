@@ -49,7 +49,6 @@ export function Inspector() {
       <div className="panels">
         <div className={`panel ${inspectorPanels.highlightedTab === 'visualStyle' ? 'active' : ''}`}>
           
-          {/* Style section: Target */}
           <Target targetID={targetID} />
           {/* Create component button */}
           <div className="panel__section create_component">
@@ -61,7 +60,6 @@ export function Inspector() {
           <PositionInspector targetID={targetID} />
           <SizeInspector targetID={targetID} />
           <TypographyInspector targetID={targetID} />
-          
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
           {/* Create component button */}
