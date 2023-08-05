@@ -60,7 +60,6 @@ export function Inspector() {
           <TypographyInspector targetID={targetID} />
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'properties' ? 'active' : ''}`}>
-          {/* Create component button */}
           <div className="panel__section create_component">
             <div className="panel_button">Create Component </div>
           </div>
