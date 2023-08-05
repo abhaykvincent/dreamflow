@@ -1,5 +1,5 @@
 import './Footer.scss';
-export function Header() {
+export function Footer() {
   return (
     <div className="footer"></div>
   );  

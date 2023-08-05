@@ -5,6 +5,7 @@ import { Inspector } from './features/inspector/Inspector';
 import { Copilot } from './features/copilot/Copilot';
 import QuickPrompt from './components/QuickPrompt/QuickPrompt';
 import './style/App.scss'
+import { Footer } from './components/Footer/Footer';
 function App() {
   return (
     <div className="App">
@@ -14,6 +15,7 @@ function App() {
       <Inspector/>
       <Copilot/>
       <QuickPrompt/>
+      <Footer/>
     </div>
   );
 }
