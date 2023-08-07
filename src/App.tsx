@@ -13,8 +13,8 @@ function App() {
       <Sidebar/>        {/* 🕵🏼‍♀️ ✅ */}
       <Canvas/>         {/* 🕵🏼‍♀️ 🤙 */}
       <Inspector/>
-      <Copilot/>
       <QuickPrompt/>
+      <Copilot/>
       <Footer/>
     </div>
   );
