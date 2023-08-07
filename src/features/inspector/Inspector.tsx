@@ -14,9 +14,9 @@ export function Inspector() {
 
   const [inspectorPanels, setInspectorPanels] = useState({
     panels: [
-    {name: 'Style',class:'visualStyle'},
-    {name: 'Settings',class:'properties'},
-    {name: 'States',class:'interactions'}
+      {name: 'Style',class:'visualStyle'},
+      {name: 'Settings',class:'properties'},
+      {name: 'States',class:'interactions'}
     ],
     highlightedTab: 'visualStyle'
   })
