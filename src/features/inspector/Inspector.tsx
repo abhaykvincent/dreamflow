@@ -14,16 +14,15 @@ export function Inspector() {
 
   const [inspectorPanels, setInspectorPanels] = useState({
     panels: [
-    {name: 'Style',class:'visualStyle'},
-    {name: 'Settings',class:'properties'},
-    {name: 'States',class:'interactions'}
+      {name: 'Style',class:'visualStyle'},
+      {name: 'Settings',class:'properties'},
+      {name: 'States',class:'interactions'}
     ],
     highlightedTab: 'visualStyle'
   })
   const toggleInspectorPanels = (panel:string) => {
     setInspectorPanels({...inspectorPanels,highlightedTab:panel})
   };
-  // State: Target Element
   const targetID = useAppSelector(selectTarget)
 
   return (
@@ -48,7 +47,6 @@ export function Inspector() {
       </div>
       <div className="panels">
         <div className={`panel ${inspectorPanels.highlightedTab === 'visualStyle' ? 'active' : ''}`}>
-          
           <Target targetID={targetID} />
           <div className="panel__section create_component">
             <div className="panel_button">Create Component </div>
