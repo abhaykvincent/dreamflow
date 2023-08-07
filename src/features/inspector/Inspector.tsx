@@ -63,7 +63,7 @@ export function Inspector() {
           </div>
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'interactions' ? 'active' : ''}`}>
-          Intractions
+          Interactions
         </div>
       </div>
     </div>
