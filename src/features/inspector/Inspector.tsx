@@ -11,7 +11,6 @@ import Target from '../../components/Target/Target';
 import { TypographyInspector } from '../../components/TypographyInspector/TypographyInspector';
 
 export function Inspector() {
-
   const [inspectorPanels, setInspectorPanels] = useState({
     panels: [
       {name: 'Style',class:'visualStyle'},
@@ -63,7 +62,7 @@ export function Inspector() {
           </div>
         </div>
         <div className={`panel ${inspectorPanels.highlightedTab === 'interactions' ? 'active' : ''}`}>
-          Interactions
+          Interaction
         </div>
       </div>
     </div>
