@@ -47,7 +47,6 @@ export function Inspector() {
       </div>
       <div className="panels">
         <div className={`panel ${inspectorPanels.highlightedTab === 'visualStyle' ? 'active' : ''}`}>
-          
           <Target targetID={targetID} />
           <div className="panel__section create_component">
             <div className="panel_button">Create Component </div>
