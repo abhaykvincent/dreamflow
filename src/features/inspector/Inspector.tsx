@@ -23,7 +23,6 @@ export function Inspector() {
   const toggleInspectorPanels = (panel:string) => {
     setInspectorPanels({...inspectorPanels,highlightedTab:panel})
   };
-  // State: Target Element
   const targetID = useAppSelector(selectTarget)
 
   return (
