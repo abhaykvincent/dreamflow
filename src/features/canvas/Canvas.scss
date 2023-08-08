@@ -124,8 +124,8 @@
   }
 }
 .target-tooltip{
-  background-color: rgba(255, 255, 255, 1);
-  border: 1px solid $orange;
+  background-color: rgba(255, 255, 255, 0);
+  border: 0px solid $orange;
   color: $orange;
   &.hide {
     opacity: 0;
