@@ -3,7 +3,7 @@
 # Getting Started with DreamFlow
 This project is an implementation of a  Visual Website Builder [dreamFlow], front-end built on TypeScript, React, Redux.
 Backend which is built on Node.js, Express, and Firebase, is in a different repository *.
-..................SSS...SSSS
+..................SSS...SSSSS
 * Some of the functionality like Command control, a tool using LLM for code generation, can only be accessed by serving the backend API at endpoint:
 http://localhost:5001/typeflow/us-central1/api/[A-Za-z]+-(?i)openai|penn-teller|angelou|steven-hawking|aristotle|einstein
 
